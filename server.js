@@ -3,8 +3,11 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
+var logger = require('morgan');
 var port = process.env.PORT || 8080;
 var db = require('./config/db');
+
+app.use(logger('dev'));
 
 
 //Configuracion de HTML
