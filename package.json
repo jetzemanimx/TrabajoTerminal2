@@ -1,0 +1,20 @@
+{
+  "name": "tt2_ivoto",
+  "version": "1.0.0",
+  "description": "Protocolo de Automatizacion del Voto Electronico de ESCOM",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ESCOM",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.8.1",
+    "nodemailer": "^3.0.2",
+    "nodemailer-smtp-transport": "^2.7.2",
+    "xoauth2": "^1.2.0"
+  }
+}

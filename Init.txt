@@ -1,0 +1,8 @@
+Inicio de Proyecto:
+
+1.-npm init
+2.-Instalacion de Express
+	npm install express --save
+3.-Instalacion de Mongoose
+	npm install mongose--save
+	
