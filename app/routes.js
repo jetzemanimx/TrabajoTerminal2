@@ -4,7 +4,7 @@ var Votante = require('./models/Votante');
 var nodemailer = require('nodemailer');
 var xoauth2 = require('xoauth2');
 var smtpTransport = require("nodemailer-smtp-transport");
-
+//Hola
 //Configuration NodeMailer SMTP
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
