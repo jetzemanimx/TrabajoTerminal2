@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
 	<meta charset="UTF-8">
 	<title>iVoto 2016-A045</title>
-	<base href="/" >
+	<base href="/">
 
 	<!-- Meta -->
 	<meta charset="UTF-8">
@@ -11,36 +11,72 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
+	<!-- Web Fonts -->
+	<link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
+
 	<!-- CSS -->
 	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="libs/bootstrap-social/bootstrap-social.css">
+	<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.css">
 
 	<!-- JS -->
 	<script src="libs/jquery/dist/jquery.min.js"></script>
 	<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="libs/angular/angular.min.js"></script>
-	<script src="libs/angular-sanitize/angular-sanitize.min.js"></script>
-	<script src="libs/angular-messages/angular-messages.min.js"></script>
 	<script src="libs/angular-route/angular-route.js"></script>
-	<script src="libs/angular-aria/angular-aria.min.js"></script>
-	<script src="libs/angular-material/angular-material.min.js"></script>
-	<script src="libs/angular-animate/angular-animate.min.js"></script>
-	<script src="libs/angular-sanitize/angular-sanitize.min.js"></script>
-	<script src="libs/ngToast/dist/ngToast.min.js"></script>
-	<script src="libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="libs/checklist-model/checklist-model.js"></script>
 
 	<!-- CONTROLLERS -->
-
 	<script src="js/app.js"></script>
 	<script src="js/approutes.js"></script>
 	<script src="js/controllers/MainCtrl.js"></script>
+	<script src="js/controllers/LoginCtrl.js"></script>
 </head>
-<body ng-app="sampleApp">
-	<div>
-	Usuario: <input type="text" name="" id=""><br><br>
-	Contraseña: <input type="password" name="" id="">
-	{{Nombre}}
+<body>
+
+	<div class="header">
+		<div class="container">
+			<!-- Logo -->
+			<a class="logo" href="/">
+				<img src="img/logo.png" alt="Logo" style="height: 100px; margin: 0px;">
+			</a>
+			<!-- End Logo -->
 	</div>
+
+      <!-- Aquí inyectamos las vistas -->
+      <div ng-view autoscroll></div> 
+
+	<!--Footer-->
+	<div class="footer-v3">
+		<!--Copyright-->
+		<div class="copyright" style="background-color: #FFFFFF">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<p>
+							2016 © All Rights Reserved. iVoto. <a href="http://www.escom.ipn.mx/" target="_blank">Powered by MEAN ©</a>
+						</p>
+					</div>
+					<!-- Social Links -->
+					<div class="col-md-6">
+						<ul class="social-icons pull-right">
+							<a class="btn btn-social-icon btn-lg btn-facebook">
+    							<span class="fa fa-facebook"></span>
+ 							</a>
+ 							<a class="btn btn-social-icon btn-lg btn-twitter">
+    							<span class="fa fa-twitter"></span>
+ 							</a>
+ 							<a class="btn btn-social-icon btn-lg btn-dropbox">
+    							<span class="fa fa-dropbox"></span>
+ 							</a>
+						</ul>
+					</div>
+					<!-- End Social Links -->
+				</div>
+			</div>
+		</div>
+		<!--End Copyright-->
+	</div>
+	<!--End Footer-->
 	
 </body>
 </html>

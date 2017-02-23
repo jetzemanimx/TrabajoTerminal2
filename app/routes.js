@@ -50,41 +50,7 @@ module.exports = function(app) {
       });
 
       //Register new user
-      app.route('/api/user/register/:rfc/:sex/:name/:lastname/:email/:address/:tel/:password')
-      .get(function(req, res) {
-         var user = new User();
-          user.personalData.RFC = req.params.rfc;
-          user.personalData.userType = 'Admin';
-          user.personalData.Sex = req.params.sex;
-          user.personalData.Name = req.params.name;
-          user.personalData.lastName = req.params.lastname;
-          user.personalData.Email = req.params.email;
-          user.personalData.Address = req.params.address;
-          user.personalData.Telephone = req.params.tel;
-          user.personalData.Password = req.params.password;
-          user.save(function (error,data,callback) {
-            if (error) {
-              res.status(500).json(error);
-            } else {
-              /*var mailOptions = {
-                    to: user.personalData.Email,
-                    from: 'protocolovoto@gmail.com',
-                    subject: 'Bienvenido a iVoto',
-                    text: 'Hola ' + user.personalData.Name + user.personalData.lastName +',\n\n'+
-                    'Gracias por registrarse en iVoto, ahora puede acceder a su cuenta, \n\n Email:' + user.personalData.Email +
-                    ' \n Password:' + user.personalData.Password};
-
-              transporter.sendMail(mailOptions, function(error, info){
-              if(error){
-                  return console.log('Mail no enviado error: $s',error);
-              }
-              console.log('Mail Enviado a %s con la respuesta %s: ', user.personalData.Email,info.response);
-              });*/
-              res.status(200).json(data);
-            }
-          });
-      })
-      .post(function(req, res) {
+      app.post('/api/user/register',function (req,res) {
         var user = new User();
           user.personalData.RFC = req.body.rfc;
           user.personalData.userType = 'Admin';
@@ -99,7 +65,7 @@ module.exports = function(app) {
             if (error) {
               res.status(500).json(error);
             } else {
-              var mailOptions = {
+              /*var mailOptions = {
                     to: user.personalData.Email,
                     from: 'protocolovoto@gmail.com',
                     subject: 'Bienvenido a iVoto',
@@ -112,7 +78,7 @@ module.exports = function(app) {
                   return console.log('Mail no enviado error: $s',error);
               }
               console.log('Mail Enviado a %s con la respuesta %s: ', user.personalData.Email,info.response);
-              });
+              });*/
               res.status(200).json(data);
             }
           });
@@ -138,9 +104,8 @@ module.exports = function(app) {
           });
       });
       //Login for users
-      app.route('/api/user/login/:rfc/:password')
-      .get(function(req, res) {
-        User.findOne({'personalData.RFC':req.params.rfc,'personalData.Password':req.params.password},function(error,data){
+      app.post('/api/user/login',function (req,res) {
+         User.findOne({'personalData.RFC':req.body.rfc,'personalData.Password':req.body.password},function(error,data){
               if(error){
                   res.status(500).json(error);
               }
@@ -151,32 +116,15 @@ module.exports = function(app) {
                 res.status(200).json(data);
               }
           });
-      })
-      .post(function(req, res) {
-        User.findOne({'personalData.RFC':req.body.rfc,'personalData.Password':req.body.password},function(error,data){
-              if(error){
-                  res.status(500).json(error);
-              }
-              if(!data){
-                res.status(404).json(data);
-              }
-              else{
-                res.status(200).json(data);
-              }
-          });
-      })
-      .put(function(req, res) {
-        res.send('Put Response');
       });
       //Register Votes News 
-      app.route('/api/vote/register/:boleta/:name/:lastname/:sex/:email')
-      .get(function(req, res) {
+      app.post('/api/vote/register',function (argument) {
         var votante = new Votante();
-        votante.personalData.Boleta = req.params.boleta;
-        votante.personalData.Name = req.params.name;
-        votante.personalData.lastName = req.params.lastname;
-        votante.personalData.Sex = req.params.sex;
-        votante.personalData.Email = req.params.email;
+        votante.personalData.Boleta = req.body.boleta;
+        votante.personalData.Name = req.body.name;
+        votante.personalData.lastName = req.body.lastname;
+        votante.personalData.Sex = req.body.sex;
+        votante.personalData.Email = req.body.email;
         votante.save(function (error, data, callback) {
           if(error){
             res.status(500).json(error);
@@ -185,12 +133,6 @@ module.exports = function(app) {
             res.status(200).json(data);
           }
         });
-      })
-      .post(function(req, res) {
-        res.send('Post Response');
-      })
-      .put(function(req, res) {
-        res.send('Put Response');
       });
       //Find Votes by id
       app.get('/api/vote/find/:id',function (req,res) {

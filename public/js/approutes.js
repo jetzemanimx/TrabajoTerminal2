@@ -1,16 +1,16 @@
 angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider) {
 	
 	$routeProvider
-
-	.when('/login',{
+	.when('/',{
 		templateUrl: 'views/home.html',
 		controller: 'MainController'
 	})
-	.when('/register',{
-		templateUrl: 'views/home.html'
+	.when('/login',{
+		templateUrl: 'views/login.html',
+		controller: 'LoginController'
 	})
 	.otherwise({
-		redirectTo: '/login'
+		redirectTo: '/'
 	});
-	$locationProvider.html5Mode(true);
+	//$locationProvider.html5Mode(true);
 }]);

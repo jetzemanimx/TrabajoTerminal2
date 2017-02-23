@@ -44,6 +44,10 @@ var userSchema = new mongoose.Schema({
             type: String,
             required: true
         }},
-        FacebookUrl : String
+        FacebookUrl : String,
+        Date:{
+            type: Date, 
+            default: Date.now()
+        }
 });
 module.exports = mongoose.model('User',userSchema);

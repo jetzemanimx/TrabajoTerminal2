@@ -1,1 +1,9 @@
-angular.module('sampleApp', ['ngRoute','appRoutes','MainCtrl']);
+angular
+    .module('myApp', 
+        ['ngRoute',
+        'appRoutes', 
+        'MainCtrl',
+        'LogCtrl'
+        ]).config(function($logProvider){
+        $logProvider.debugEnabled(false);
+    });
