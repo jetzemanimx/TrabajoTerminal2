@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="jumbotron text-center">  
+<!-- 	<div class="jumbotron text-center">  
   <h1>Acerca De</h1> 
   <p>{{ message }}</p>
 </div>
@@ -12,5 +12,10 @@
 <div class="jumbotron text-center">  
   <h1>Página Principal</h1> 
   <p>{{ message }}</p> 
-</div>  
+</div>   -->
+	<div class="jumbotron text-center">  
+		 Ingresa tu RFC: <input type="text" placeholder="RFC" ng-model="RFC"><br>
+  		 Ingresa tu Password: <input type="password" placeholder="Password" ng-model="PWD"><br>
+  		 <button type="button" ng-click="ValidaLogin()">Ingresar</button>
+	</div> 
 </div>

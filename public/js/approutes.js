@@ -9,6 +9,14 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/login.html',
 		controller: 'LoginController'
 	})
+	.when('/registerUser',{
+		templateUrl: 'views/registerUser.html',
+		controller: 'registerUController'
+	})
+	.when('/registerVote',{
+		templateUrl: 'views/registerVote.html',
+		controller: 'registerVController'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});

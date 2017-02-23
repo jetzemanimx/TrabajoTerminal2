@@ -3,7 +3,9 @@ angular
         ['ngRoute',
         'appRoutes', 
         'MainCtrl',
-        'LogCtrl'
+        'LogCtrl',
+        'regUCtrl',
+        'regVCtrl'
         ]).config(function($logProvider){
         $logProvider.debugEnabled(false);
     });
