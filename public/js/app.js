@@ -5,7 +5,17 @@ angular
         'MainCtrl',
         'LogCtrl',
         'regUCtrl',
-        'regVCtrl'
+        'regVCtrl',
+        'ui.bootstrap',
+        'checklist-model', 
+        'slick', 
+        'ngMap',
+        'ngFileUpload',
+        'ngAria',
+        'ngMaterial',
+        'ngAnimate',
+        'angularUtils.directives.dirPagination',
+        'ngStorage'
         ]).config(function($logProvider){
         $logProvider.debugEnabled(false);
     });

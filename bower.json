@@ -6,16 +6,19 @@
     "angular": "#1.6.2",
     "angular-route": "latest",
     "ngToast": "ngtoast#^2.0.0",
-    "angular-animate": "latest",
+    "angular-animate": "1.5.5",
     "angular-bootstrap": "latest",
     "checklist-model": "latest",
     "angular-slick": "latest",
     "ngmap": "latest",
     "ng-file-upload": "latest",
-    "angular-material": "latest",
-    "angular-aria": "^1.5.8",
+    "angular-material": "1.1.0",
+    "angular-aria": "1.5.5",
     "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
     "ngstorage": "^0.3.11",
     "bootstrap-social": "^5.1.1"
+  },
+  "resolutions": {
+    "angular": "1.5.5"
   }
 }
