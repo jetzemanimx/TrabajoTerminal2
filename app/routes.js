@@ -114,7 +114,8 @@ module.exports = function(app) {
               }
               else{
                 res.status(200).json(data);
-                //res.redirect(200,'/registerUser');
+                //console.log(req.headers.path);
+                //res.redirect('/registerVote');
               }
           });
       });
