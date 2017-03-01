@@ -1,16 +1,37 @@
 <div class="container">
-	<div class="jumbotron text-center">  
-  <h1>Acerca De</h1> 
-  <p>{{ message }}</p>
-</div>
-
-<div class="jumbotron text-center">  
-  <h1>Contacto</h1>
-  <p>{{ message }}</p>
-</div>
-
-<div class="jumbotron text-center">  
-  <h1>Página Principal</h1> 
-  <p>{{ message }}</p> 
-</div>  
+<link href="https://file.myfontastic.com/ZbrCVFDZufpJezdUaJHsd6/icons.css" rel="stylesheet">
+<script src="https://file.myfontastic.com/ZbrCVFDZufpJezdUaJHsd6/icons.js"></script>
+	<div>
+	<form>
+			<label>RFC</label>
+			<input type="text" name="RFC" placeholder="RFC"  ng-model="RFC" required>
+			<br>
+			<label>SEXO</label>
+			<select name="sex" ng-model="sex">
+			<option value="Femenino">Femenino</option>
+			<option value="Masculino">Masculino</option></select>
+			<br> 
+      		 <input type="text" name="Nombre" placeholder="Nombre" ng-model="name" required>
+      		 <br>
+      		 <label>Apellido</label>
+      		 <input type="text" name="apellido" placeholder="Apellido" ng-model="lastname" required>
+      		 <br>
+      		 <a href="" data-icon="g"> 
+      		 <input type="email" name="email" placeholder="adrian@hotmail.com" ng-model="email" required>
+      		 <br>
+      		 <a href="" data-icon="h"> 
+      		 <input type="text" name="Dirección" placeholder="Dirección" ng-model="address" required>
+      		 <br>
+      		 <a href="" data-icon="i">
+      		 <input type="text" name="Telefono" placeholder="34-56-56-56" ng-model="tel" required>
+			 <br>
+			 <a href="" data-icon="k">
+      		 <input type="password" name="PSD" placeholder="password" ng-model="password" required>
+      		 <br>
+			 <label>Confirmar Contraseña</label>
+      		 <input type="password" name="PSD2" placeholder="password" ng-model="password2" required>
+                   <br>
+                   <button type="button">Registrar</button>
+	</form>
+	</div>
 </div>
