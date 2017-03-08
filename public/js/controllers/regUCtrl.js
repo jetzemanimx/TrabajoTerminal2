@@ -20,11 +20,8 @@ angular.module('regUCtrl', []).controller('registerUController', function($scope
 	        .clickOutsideToClose(true)
 	        .title('Registro Exitoso')
 	        .ok('Aceptar')
-
     			);
-				$route.reload();
-
-
+    			$route.reload();
 			})
 			.error(function(){
 				$mdDialog.show(

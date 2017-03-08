@@ -94,7 +94,7 @@ module.exports = function(app) {
         });
       });
       //Find one user by email
-      app.get('/api/user/find/:email',function(req,res){
+      app.get('/api/user/findEmail/:email',function(req,res){
           User.findOne({'personalData.Email':req.params.email},function(error,data){
               if(error){
                   res.status(500).json(error);
@@ -120,7 +120,7 @@ module.exports = function(app) {
           });
       });
       //Register Votes News 
-      app.post('/api/vote/register',function (argument) {
+      app.post('/api/vote/register',function (req,res) {
         var votante = new Votante();
         votante.personalData.Boleta = req.body.boleta;
         votante.personalData.Name = req.body.name;
@@ -147,9 +147,9 @@ module.exports = function(app) {
         });
       });
       //Find Votes by No. Boleta
-      app.route('/api/vote/find/:boleta')
+      app.route('/api/vote/findBoleta/:boleta')
       .get(function(req, res) {
-        Votante.findOne({'personalData.Boleta':req.params.boleta},function(error,data){
+        Votante.findOne({'personalData.Boleta': req.params.boleta},function(error,data){
               if(error){
                   res.status(500).json(error);
               }else{

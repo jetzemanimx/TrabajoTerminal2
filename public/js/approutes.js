@@ -9,6 +9,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/login.html',
 		controller: 'LoginController'
 	})
+	.when('/admin', {
+			templateUrl: 'views/admin.html',
+			controller: 'AdminController'
+		})
 	.when('/registerUser',{
 		templateUrl: 'views/registerUser.html',
 		controller: 'registerUController'
@@ -17,8 +21,15 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/registerVote.html',
 		controller: 'registerVController'
 	})
+	.when('/IdenUser',{
+		templateUrl: 'views/IdenUser.html',
+		controller: 'IdentificarUser'
+	})
+
 	.otherwise({
 		redirectTo: '/'
 	});
-	//$locationProvider.html5Mode(true);
+
+	$locationProvider.html5Mode(false);
+	
 }]);
