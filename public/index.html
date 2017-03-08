@@ -22,6 +22,10 @@
 	<link rel="stylesheet" href="libs/ngToast/dist/ngToast.min.css">
 	<link rel="stylesheet" href="libs/ngToast/dist/ngToast-animations.min.css">
 
+	<link href="https://file.myfontastic.com/ZbrCVFDZufpJezdUaJHsd6/icons.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto|Sansita" rel="stylesheet">
+	<link rel="stylesheet" href="css/estilos.css">
+
 	<!-- JS -->
 	<script src="libs/jquery/dist/jquery.min.js"></script>
 	<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -67,14 +71,12 @@
 </head>
 <body>
 
-	<div class="header">
-		<div class="container">
-			<!-- Logo -->
-			<a class="logo" href="/">
-				<img src="img/logo.png" alt="Logo" style="height: 100px; margin: 0px;">
-			</a>
-			<!-- End Logo -->
-	</div>
+  <header class="header">
+    <div class="wrapper header__flex">
+      <figure class="header__logo"><img src="img/logo.png" alt=""/></figure>
+      <div class="header__social"><a class="icon-facebook" href="">Facebook</a><a class="icon-twitter" href="">Twitter</a><a class="icon-instagram" href="">Instagram</a><a class="icon-google" href="">Google +</a></div>
+    </div>
+  </header>
 
       <!-- Aquí inyectamos las vistas -->
       <div ng-view autoscroll></div> 
