@@ -15,7 +15,9 @@ angular
         'ngMaterial',
         'ngAnimate',
         'angularUtils.directives.dirPagination',
-        'ngStorage'
+        'ngStorage', 
+        'ngMessages',
+        'IdenU'
         ]).config(function($logProvider){
         $logProvider.debugEnabled(false);
     });
