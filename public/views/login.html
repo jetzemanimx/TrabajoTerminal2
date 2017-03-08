@@ -1,21 +1,63 @@
 <div class="container">
-<!-- 	<div class="jumbotron text-center">  
-  <h1>Acerca De</h1> 
-  <p>{{ message }}</p>
-</div>
+  <style type="text/css">
+  #div1{
+    margin-right: 400px;
+    margin-left: 400px;
+    border-radius: 12px;
+    background-color: rgba(236, 240, 241, 0.4);
+  }
+  #imgdiv{
+    width: 100px; 
+    height: 100px; 
+    margin-top: -220px;
+    margin-right: -150px;
+    margin-bottom: : 200px;
+    border-radius: 20px;
 
-<div class="jumbotron text-center">  
-  <h1>Contacto</h1>
-  <p>{{ message }}</p>
-</div>
+  }
+  #chec1{
+    margin-top: 200px;
+    margin-left: -100px;
+  }
+  #chec2{
+    margin-top: 200px;
+    margin-left: 150px;
+  }
+  #forum{
+    margin-left: 50px;
 
-<div class="jumbotron text-center">  
-  <h1>Página Principal</h1> 
-  <p>{{ message }}</p> 
-</div>   -->
-	<div class="jumbotron text-center">  
-		   Ingresa tu RFC: <input type="text" placeholder="RFC" ng-model="RFC"><br>
-  		 Ingresa tu Password: <input type="password" placeholder="Password" ng-model="PWD"><br>
-  		 <button type="button" ng-click="ValidaLogin($event)">Ingresar</button>
-	</div> 
+  }
+    
+
+
+  </style>
+
+    <div  layout-gt-sm="row" layout-align="center center" id="div1">
+    <img id="imgdiv" src="img/voto.jpg">
+      <form>
+        <md-input-container id="forum"  flex-gt-sm>
+            <label>RFC</label>
+            <input ng-model="RFC">
+        </md-input-container> 
+
+          <md-input-container id="forum" flex-gt-sm>
+            <label>Password</label>
+            <input type="Password" ng-model="PWD">
+          </md-input-container>
+          </form>
+          <div id="chec1">
+          <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+            Recordar 
+          </md-checkbox>
+          </div>
+          <div id="chec2">
+          <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+            registrar  
+          </md-checkbox>
+          </div>
+        </div>
+        <section layout="row" layout-sm="column" layout-align="center center">
+          <md-button class="md-raised" ng-click="ValidaLogin($event)" layout-align="center center" layout-wrap>login</md-button>
+        </div>
+        </section>
 </div>

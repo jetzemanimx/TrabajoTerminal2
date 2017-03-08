@@ -17,7 +17,8 @@ angular
         'ngAnimate',
         'angularUtils.directives.dirPagination',
         'ngStorage',
-        'ngMessages'
+        'ngMessages',
+        'IdenU'
         ])
         /*.config(function($logProvider){
             $logProvider.debugEnabled(false);
@@ -46,4 +47,3 @@ angular
             }
           }
         });
-        

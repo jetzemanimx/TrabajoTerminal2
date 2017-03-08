@@ -1,10 +1,11 @@
-angular.module('LogCtrl', []).controller('LoginController', function($scope, $http, $rootScope, $location, $timeout,$mdDialog){
-	$scope.ValidaLogin = function (ev){
-		$http.post('http://192.168.1.104:8080/api/user/login',{
-			'rfc': $scope.RFC,
-			'password' : $scope.PWD
+angular.module('IdenU', []).controller('IdentificarUser',function($scope, $http, $rootScope, $location, $timeout){
+	 //$scope.message = 'Hola, Mucioooo!';
+	 $scope.ValiAlu = function (){
+		$http.get('http://192.168.1.104:8080/api/vote/find/boleta',{
+			'boleta': $scope.bole
+			//'password' : $scope.PWD
 		})
-			.success(function(data){
+		.success(function(data){
 				$mdDialog.show(
 		      $mdDialog.alert()
 		        .parent(angular.element(document.querySelector('#popupContainer')))
@@ -27,12 +28,8 @@ angular.module('LogCtrl', []).controller('LoginController', function($scope, $ht
 		        .ariaLabel('Alert Dialog Demo')
 		        .ok('Aceptar')
 		        .targetEvent(ev));
-				
-
-
-
 				//alert("Ops algo salio mal");
 			});
 	}
-	
+
 });
