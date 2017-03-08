@@ -21,9 +21,9 @@ angular.module('regUCtrl', []).controller('registerUController', function($scope
 	        .title('Registro Exitoso')
 	        .ok('Aceptar')
 
-	        $route.reload();
-
     			);
+				$route.reload();
+
 
 			})
 			.error(function(){
