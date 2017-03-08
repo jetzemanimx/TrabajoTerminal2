@@ -6,6 +6,7 @@ angular
         'LogCtrl',
         'regUCtrl',
         'regVCtrl',
+        'adminCtrl',
         'ui.bootstrap',
         'checklist-model', 
         'slick', 
@@ -15,7 +16,34 @@ angular
         'ngMaterial',
         'ngAnimate',
         'angularUtils.directives.dirPagination',
-        'ngStorage'
-        ]).config(function($logProvider){
-        $logProvider.debugEnabled(false);
-    });
+        'ngStorage',
+        'ngMessages'
+        ])
+        /*.config(function($logProvider){
+            $logProvider.debugEnabled(false);
+        })*/
+        .factory("Message",function($mdDialog) { 
+          return {
+            Success: function(mensaje) {
+              return $mdDialog.show(
+                    $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(false)
+                    .title("Ok")
+                    .textContent(mensaje)
+                    .ok('Aceptar')
+                );
+            },
+            Error:function(mensaje) {
+              return $mdDialog.show(
+                    $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(false)
+                    .title("Error")
+                    .textContent(mensaje)
+                    .ok('Aceptar')
+                );
+            }
+          }
+        });
+        

@@ -1,16 +1,77 @@
-<div class="container">
-	<div class="jumbotron text-center">  
-  <h1>Acerca De</h1> 
-  <p>{{ message }}</p>
+<div layout="column" ng-cloak class="md-inline-form">
+  <md-content layout-padding>
+  <md-divider></md-divider>
+    <div>
+      <form name="userForm" ng-submit="registerVote()">
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex="50">
+            <label>Boleta</label>
+            <input md-maxlength="10" required name="Boleta" ng-model="Boleta">
+            <div ng-messages="userForm.Boleta.$error">
+            	<div ng-message="required">Este campo es requerido</div>
+              <div ng-message="md-maxlength">Boleta muy larga</div>
+          	</div>
+          </md-input-container>
+
+           <md-input-container class="md-block" flex="50">
+            <label>Nombre(s)</label>
+            <input required name="Nombre" ng-model="Nombre">
+             <div ng-messages="userForm.Nombre.$error">
+            	<div ng-message="required">Este campo es requerido</div>
+          	</div>
+          </md-input-container>
+        </div>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex="50">
+            <label>Apellidos</label>
+            <input required name="Apellidos" ng-model="Apellidos">
+            <div ng-messages="userForm.Apellidos.$error">
+            	<div ng-message="required">Este campo es requerido</div>
+          	</div>
+          </md-input-container>
+
+           <md-input-container class="md-block" flex="50">
+            <label>Sexo</label>
+	           	<md-select required name="Sexo" ng-model="Sexo">
+		            <md-option value="H">Masculino</md-option>
+		            <md-option value="M">Femenino</md-option>
+	          	</md-select>
+	          	<div ng-messages="userForm.Sexo.$error">
+            	<div ng-message="required">Este campo es requerido</div>
+          	</div>
+          </md-input-container>
+        </div>
+        <div layout-gt-sm="row">
+        	<md-input-container class="md-block" flex="50">
+            <label>Email</label>
+            <input required name="Email" ng-model="Email" type="email" placeholder="ipsum@lorem.com">
+            <div ng-messages="userForm.Email.$error">
+            	<div ng-message="required">Este campo es requerido</div>
+          	</div>
+          </md-input-container>
+        </div>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        	<md-button type="submit" class="md-raised md-primary">Registrar</md-button>
+        	<md-button type="reset" class="md-raised md-primary">Reestablecer</md-button>
+        </section>
+      </form>
+    </div>
+  </md-content>
 </div>
 
-<div class="jumbotron text-center">  
-  <h1>Contacto</h1>
-  <p>{{ message }}</p>
-</div>
-
-<div class="jumbotron text-center">  
-  <h1>Página Principal</h1> 
-  <p>{{ message }}</p> 
-</div>  
+<div layout="column" ng-cloak class="md-inline-form" ng-init="init()">
+  <md-content layout-padding>
+    <md-list ng-cloak>
+     <md-divider></md-divider>
+        <md-subheader class="md-no-sticky">Votantes</md-subheader>
+        <md-list-item ng-repeat="vote in Votes" ng-click="goToPerson(vote.personalData.Name)" class="noright">
+          <p>{{ vote.personalData.Name + " " + vote.personalData.lastName}}</p>
+          <md-icon>           
+            <button type="button" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-cog">Editar</span>
+            </button>
+          </md-icon>
+        </md-list-item>
+    </md-list>
+  </md-content>
 </div>
