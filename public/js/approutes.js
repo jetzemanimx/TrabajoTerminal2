@@ -25,6 +25,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/IdenUser.html',
 		controller: 'IdentificarUser'
 	})
+	.when('/AutenticarU',{
+		templateUrl: 'views/AutenticarU.html',
+		controller: 'AutenticarU'
+	})
 
 	.otherwise({
 		redirectTo: '/'
