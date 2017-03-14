@@ -15,7 +15,7 @@ angular.module('LogCtrl', []).controller('LoginController', function($scope, $ht
 		        .ok('Aceptar')
 		        .targetEvent(ev)
 		    );
-				//window.location.href = '/#/registerUser';
+				
 			})
 			.error(function(error){
 				$mdDialog.show(
