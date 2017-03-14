@@ -16,7 +16,8 @@
     "angular-aria": "1.5.5",
     "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
     "ngstorage": "^0.3.11",
-    "bootstrap-social": "^5.1.1"
+    "bootstrap-social": "^5.1.1",
+    "jquery-code-scanner": "^0.0.6"
   },
   "resolutions": {
     "angular": "1.5.5"
