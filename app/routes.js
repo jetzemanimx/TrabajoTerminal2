@@ -83,6 +83,28 @@ module.exports = function(app) {
             }
           });
       });
+      //Update User by id
+      app.patch('/api/user/update/:id',function(req,res) {
+        User.findByIdAndUpdate(req.params.id,{
+                        '$set':{
+                            'personalData.Name':req.body.name,
+                            'personalData.lastName': req.body.lastname,
+                            'personalData.Sex': req.body.sex,
+                            'personalData.Email':req.body.email,
+                            'personalData.Address':req.body.adrress,
+                            'personalData.Telephone':req.body.tel,
+                            'personalData.Password':req.body.pass,
+                            'isActive':req.body.isactive
+                            } 
+                        },function (error,data) {
+                          if(error){
+                                 res.status(500).json(error);
+                            }
+                            else{
+                               res.status(200).json(data);
+                            }
+        });
+      });
       //Find user by id
       app.get('/api/user/find/:id',function (req,res) {
           User.findById(req.params.id,function(error,data){
@@ -127,6 +149,7 @@ module.exports = function(app) {
         votante.personalData.lastName = req.body.lastname;
         votante.personalData.Sex = req.body.sex;
         votante.personalData.Email = req.body.email;
+        votante.isActive = req.body.isactive;
         votante.save(function (error, data, callback) {
           if(error){
             res.status(500).json(error);
@@ -134,6 +157,26 @@ module.exports = function(app) {
           else{
             res.status(200).json(data);
           }
+        });
+      });
+      //Update Vote  by id
+      app.patch('/api/vote/update/:id',function(req,res) {
+        Votante.findByIdAndUpdate(req.params.id,{
+                        '$set':{
+                           'personalData.Boleta':req.body.boleta,
+                            'personalData.Name':req.body.name,
+                            'personalData.lastName': req.body.lastname,
+                            'personalData.Sex': req.body.sex,
+                            'personalData.Email':req.body.email,
+                            'isActive':req.body.isactive
+                            } 
+                        },function (error,data) {
+                          if(error){
+                                 res.status(500).json(error);
+                            }
+                            else{
+                               res.status(200).json(data);
+                            }
         });
       });
       //Find Votes by id
@@ -176,6 +219,94 @@ module.exports = function(app) {
       })
       .post(function (req,res) {
         Votante.find(function (error,data,callback) {
+            if(error){
+                  res.status(500).json(error);
+              }else{
+                  res.status(200).json(data);
+              }
+          });
+      });
+      //Register New Candidate
+      app.post('/api/candidate/register',function (req,res) {
+        var candidate = new Candidate();
+        candidate.personalData.RFC = req.body.RFC;
+        candidate.personalData.userType = "Candidate";
+        candidate.personalData.Name = req.body.name;
+        candidate.personalData.lastName = req.body.lastname;
+        candidate.personalData.Sex = req.body.sex;
+        candidate.personalData.Email = req.body.email;
+        candidate.personalData.Address = req.body.address;
+        candidate.personalData.Telephone = req.body.tel;
+        candidate.save(function (error, data, callback) {
+          if(error){
+            res.status(500).json(error);
+          }
+          else{
+            res.status(200).json(data);
+          }
+        });
+      });
+      //Update Candidate by id
+      app.patch('/api/candidate/update/:id',function(req,res) {
+        Candidate.findByIdAndUpdate(req.params.id,{
+                        '$set':{
+                            'personalData.Name':req.body.name,
+                            'personalData.lastName': req.body.lastname,
+                            'personalData.Sex': req.body.sex,
+                            'personalData.Email': req.body.email,
+                            'personalData.Address': req.body.address,
+                            'personalData.Telephone': req.body.tel,
+                            'isActive': req.body.isactive
+                            } 
+                        },function (error,data) {
+                          if(error){
+                                 res.status(500).json(error);
+                            }
+                            else{
+                               res.status(200).json(data);
+                            }
+        });
+      });
+      //Find Candidate by id
+      app.get('/api/candidate/find/:id',function (req,res) {
+          Candidate.findById(req.params.id,function(error,data){
+            if(error){
+                res.status(500).json(error);
+            }else{
+                res.status(200).json(data);
+            }
+        });
+      });
+      //Find Candidate by Email
+      app.route('/api/candidate/findEmail/:email')
+      .get(function(req, res) {
+        Candidate.findOne({'personalData.Email': req.params.email},function(error,data){
+              if(error){
+                  res.status(500).json(error);
+              }else{
+                  res.status(200).json(data);
+              }
+          });
+      })
+      .post(function(req, res) {
+        res.send('Post Response');
+      })
+      .put(function(req, res) {
+        res.send('Put Response');
+      });
+      //Display all votes
+      app.route('/api/candidates')
+      .get(function (req,res) {
+        Candidate.find(function (error,data,callback) {
+            if(error){
+                  res.status(500).json(error);
+              }else{
+                  res.status(200).json(data);
+              }
+          });
+      })
+      .post(function (req,res) {
+        Candidate.find(function (error,data,callback) {
             if(error){
                   res.status(500).json(error);
               }else{

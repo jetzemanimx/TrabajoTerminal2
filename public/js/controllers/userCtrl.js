@@ -1,4 +1,4 @@
-angular.module('regUCtrl', []).controller('registerUController', function($scope, $http, $rootScope, $location, $timeout, $mdDialog,$window,$route){
+angular.module('userCtrl', []).controller('userController', function($scope, $http, $rootScope, $location, $timeout, $mdDialog,$window,$route){
 	
 	$scope.RegisterUser = function(){
 		if (($scope.Correo==$scope.Correo2)&&($scope.Contrasena==$scope.Contrasena2)) 

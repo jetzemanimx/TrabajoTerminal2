@@ -1,77 +1,139 @@
-<div layout="column" ng-cloak class="md-inline-form">
-  <md-content layout-padding>
-  <md-divider></md-divider>
-    <div>
-      <form name="userForm" ng-submit="registerVote()">
-        <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex="50">
-            <label>Boleta</label>
-            <input md-maxlength="10" required name="Boleta" ng-model="Boleta">
-            <div ng-messages="userForm.Boleta.$error">
-            	<div ng-message="required">Este campo es requerido</div>
-              <div ng-message="md-maxlength">Boleta muy larga</div>
-          	</div>
-          </md-input-container>
+<div ng-cloak ng-init="init()">
+  <md-content class="md-padding">
+    <md-nav-bar nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-click="ViewVote()">
+        Vizualizar
+      </md-nav-item>
+      <md-nav-item md-nav-click="AddVote()">
+        Agregar
+      </md-nav-item>
+      <md-nav-item md-nav-click="EditVote()">
+        Editar
+      </md-nav-item>
+    </md-nav-bar>
+    <div class="ext-content"> 
+      <div layout="column" ng-cloak class="md-inline-form" ng-show="Add">
+        <md-content layout-padding>
+        <md-divider></md-divider>
+          <div>
+            <form name="userForm" ng-submit="registerVote()">
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Boleta</label>
+                  <input md-maxlength="10" required name="Boleta" ng-model="Boleta">
+                  <div ng-messages="userForm.Boleta.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                    <div ng-message="md-maxlength">Boleta muy larga</div>
+                  </div>
+                </md-input-container>
 
-           <md-input-container class="md-block" flex="50">
-            <label>Nombre(s)</label>
-            <input required name="Nombre" ng-model="Nombre">
-             <div ng-messages="userForm.Nombre.$error">
-            	<div ng-message="required">Este campo es requerido</div>
-          	</div>
-          </md-input-container>
-        </div>
-        <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex="50">
-            <label>Apellidos</label>
-            <input required name="Apellidos" ng-model="Apellidos">
-            <div ng-messages="userForm.Apellidos.$error">
-            	<div ng-message="required">Este campo es requerido</div>
-          	</div>
-          </md-input-container>
+                 <md-input-container class="md-block" flex="50">
+                  <label>Nombre(s)</label>
+                  <input required name="Nombre" ng-model="Nombre">
+                   <div ng-messages="userForm.Nombre.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Apellidos</label>
+                  <input required name="Apellidos" ng-model="Apellidos">
+                  <div ng-messages="userForm.Apellidos.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
 
-           <md-input-container class="md-block" flex="50">
-            <label>Sexo</label>
-	           	<md-select required name="Sexo" ng-model="Sexo">
-		            <md-option value="H">Masculino</md-option>
-		            <md-option value="M">Femenino</md-option>
-	          	</md-select>
-	          	<div ng-messages="userForm.Sexo.$error">
-            	<div ng-message="required">Este campo es requerido</div>
-          	</div>
-          </md-input-container>
-        </div>
-        <div layout-gt-sm="row">
-        	<md-input-container class="md-block" flex="50">
-            <label>Email</label>
-            <input required name="Email" ng-model="Email" type="email" placeholder="ipsum@lorem.com">
-            <div ng-messages="userForm.Email.$error">
-            	<div ng-message="required">Este campo es requerido</div>
-          	</div>
-          </md-input-container>
-        </div>
-        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        	<md-button type="submit" class="md-raised md-primary">Registrar</md-button>
-        	<md-button type="reset" class="md-raised md-primary">Reestablecer</md-button>
-        </section>
-      </form>
+                 <md-input-container class="md-block" flex="50">
+                  <label>Sexo</label>
+                    <md-select required name="Sexo" ng-model="Sexo">
+                      <md-option value="H">Masculino</md-option>
+                      <md-option value="M">Femenino</md-option>
+                    </md-select>
+                    <div ng-messages="userForm.Sexo.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Email</label>
+                  <input required name="Email" ng-model="Email" type="email" placeholder="ipsum@lorem.com">
+                  <div ng-messages="userForm.Email.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                <md-switch ng-disabled="false" aria-label="Switch 6" flex="50" ng-model="Active" ng-change="onChange(Active)" >
+                  {{ Message }}
+                </md-switch>
+              </div>
+              <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                <md-button type="submit" class="md-raised md-primary">Registrar</md-button>
+                <md-button type="reset" class="md-raised md-primary">Reestablecer</md-button>
+              </section>
+            </form>
+          </div>
+        </md-content>
+      </div>
+        <h1 ng-show="DisplayReults">{{Results}}</h1>
+      <div layout="column" ng-cloak class="md-inline-form" ng-show="Vote">
+        <md-content layout-padding>
+          <md-list ng-cloak>
+           <md-divider></md-divider>
+              <md-subheader class="md-no-sticky">Votantes</md-subheader>
+              <p>Busqueda<input type="text" ng-model="findVotes"></p>
+              <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="30">Alumno</span>
+                <span flex="30">Correo</span>
+                <span flex="20">Boleta</span>
+                <span flex="10">Status</span>
+              </div>
+              </md-list-item>
+              <md-list-item ng-repeat="vote in Votes | filter : findVotes" class="md-2-line">
+                <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="30">{{ vote.personalData.Name + " " + vote.personalData.lastName }}</span>
+                <span flex="30">{{ vote.personalData.Email }}</span>
+                <span flex="20">{{ vote.personalData.Boleta }}</span>
+                <span flex="10">
+                <md-switch ng-model="vote.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 6">
+                </md-switch>
+                </span>
+                </div>
+              </md-list-item>
+          </md-list>
+        </md-content>
+      </div>
+
+      <div layout="column" ng-cloak class="md-inline-form" ng-show="Edit">
+        <md-content layout-padding>
+          <md-list ng-cloak>
+           <md-divider></md-divider>
+              <md-subheader class="md-no-sticky">Votantes</md-subheader>
+              <p>Busqueda<input type="text" ng-model="findVotes"></p>
+              <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="30">Alumno</span>
+                <span flex="30">Correo</span>
+                <span flex="30">Boleta</span>
+                <span flex="10"></span>
+              </div>
+              </md-list-item>
+              <md-list-item ng-repeat="vote in Votes | filter : findVotes" class="md-2-line">
+                <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="30">{{ vote.personalData.Name + " " + vote.personalData.lastName }}</span>
+                <span flex="30">{{ vote.personalData.Email }}</span>
+                <span flex="30">{{ vote.personalData.Boleta }}</span>
+                <span flex="10">
+                  <button type="button" class="btn btn-default btn-sm" ng-click="goToPerson(vote)">
+                    <span class="glyphicon glyphicon-cog"></span> Editar
+                  </button>
+                </span>
+                </div>
+              </md-list-item>
+          </md-list>
+        </md-content>
+      </div>
     </div>
-  </md-content>
-</div>
-
-<div layout="column" ng-cloak class="md-inline-form" ng-init="init()">
-  <md-content layout-padding>
-    <md-list ng-cloak>
-     <md-divider></md-divider>
-        <md-subheader class="md-no-sticky">Votantes</md-subheader>
-        <md-list-item ng-repeat="vote in Votes" ng-click="goToPerson(vote.personalData.Name)" class="noright">
-          <p>{{ vote.personalData.Name + " " + vote.personalData.lastName}}</p>
-          <md-icon>           
-            <button type="button" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-cog">Editar</span>
-            </button>
-          </md-icon>
-        </md-list-item>
-    </md-list>
   </md-content>
 </div>
