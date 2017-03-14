@@ -70,12 +70,12 @@
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
           <label class="icon-lock"> Contraseña</label>
-          <input ng-model="Contrasena" required>
+          <input ng-model="Contrasena"  type="password"required>
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm>
           <label> Confirmar Contraseña</label>
-          <input ng-model="Contrasena2" required>
+          <input ng-model="Contrasena2" type="password" required>
         </md-input-container>
       </div>
 
@@ -84,9 +84,40 @@
         <md-button md-no-ink class="md-raised md-primary" type="reset">Restablecer</md-button>
       </section>
 
-      
-        
-
   	</form>
+
 	</div>
+</div>
+
+
+
+
+<div layout="column" ng-cloak class="md-inline-form" ng-init="init()">
+  <md-content layout-padding>
+    <md-list ng-cloak>
+     <md-divider></md-divider>
+        <md-subheader class="md-no-sticky">Administradores</md-subheader>
+        <input type="text" ng-model="findUsers"><label class="icon-search"></label>
+        <md-list-item class="md-2-line">
+        <div class="md-list-item-text" layout="row" layout-align="start center">
+          <span flex="30">RFC</span>
+          <span flex="30">Nombre</span>
+          <span flex="30">Correo</span>
+          <span flex="10"></span>
+        </div>
+        </md-list-item>
+        <md-list-item ng-repeat="user in Users | filter : findUsers" class="md-2-line">
+          <div class="md-list-item-text" layout="row" layout-align="start center">
+          <span flex="30">{{ user.personalData.RFC}}</span>
+          <span flex="30">{{ user.personalData.Name + " " + user.personalData.lastName }}</span>
+          <span flex="30">{{ user.personalData.Email }}</span>
+          <span flex="10">
+            <button type="button" class="btn btn-default btn-sm" ng-click="goToPerson(user.personalData.Name)">
+              <span class="icon-edit"></span> Editar
+            </button>
+          </span>
+          </div>
+        </md-list-item>
+    </md-list>
+  </md-content>
 </div>

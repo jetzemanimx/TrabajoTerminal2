@@ -10,7 +10,7 @@ angular.module('regVCtrl', []).controller('registerVController', function(Messag
 		})
 		.success(function (data) {
 			Message.Success("Registro Exitoso");
-			//$route.reload();
+			$route.reload();
 		})
 		.error(function (error) {
 			Message.Error("Ops! Algo salio mal, intenta nuevamente");

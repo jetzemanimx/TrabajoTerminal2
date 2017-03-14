@@ -1,4 +1,4 @@
-angular.module('regUCtrl', []).controller('registerUController', function($scope, $http, $rootScope, $location, $timeout, $mdDialog,$window,$route){
+angular.module('regUCtrl', []).controller('registerUController', function(Message,$scope, $http, $rootScope, $location, $timeout, $mdDialog,$window,$route){
 	
 	$scope.RegisterUser = function(){
 		if (($scope.Correo==$scope.Correo2)&&($scope.Contrasena==$scope.Contrasena2)) 
@@ -14,38 +14,50 @@ angular.module('regUCtrl', []).controller('registerUController', function($scope
 				'password' :$scope.Contrasena
 			})
 			.success(function(data){
-				$mdDialog.show(
-	      $mdDialog.alert()
-	        .parent(angular.element(document.querySelector('#popupContainer')))
-	        .clickOutsideToClose(true)
-	        .title('Registro Exitoso')
-	        .ok('Aceptar')
-    			);
-    			$route.reload();
+				Message.Success("Registro Exitoso");
+    		$route.reload();
 			})
 			.error(function(){
-				$mdDialog.show(
-	      $mdDialog.alert()
-	        .parent(angular.element(document.querySelector('#popupContainer')))
-	        .clickOutsideToClose(true)
-	        .title('Error al registrar intenta nuevamente')
-	        .ok('Aceptar')
-    			);
+				Message.Error("Ops! Algo salio mal, intenta nuevamente");
 
 			})
 		}
 		else
 		{
-			$mdDialog.show(
-	      $mdDialog.alert()
-	        .parent(angular.element(document.querySelector('#popupContainer')))
-	        .clickOutsideToClose(true)
-	        .title('Error')
-	        .textContent('Las contraseñas o el correo no coinciden')
-	        .ariaLabel('Alert Dialog Demo')
-	        .ok('Aceptar')
-    			);
+			Message.Error("Las Contraseñas o el correo no coinciden");
 		}
 
 	}
+
+$scope.init = function(){
+		$http.get('http://192.168.1.104:8080/api/users')
+			.success(function(data){
+				$scope.Users = data;
+			})
+			.error(function(error){
+				console.log(data);
+			});
+	};
+	
+	$scope.goToPerson = function(person) {
+		     $mdDialog.show({
+		      templateUrl: 'views/editUser.tmpl.html',
+		      controller: DialogController,
+		      clickOutsideToClose:false,
+		      fullscreen: true
+		    })
+		    .then(function(answer) {
+		      //$scope.status = 'You said the information was "' + answer + '".';
+		    }, function() {
+		      //$scope.status = 'You cancelled the dialog.';
+		    });
+  	};
+
+  	function DialogController($scope, $mdDialog) {
+
+		$scope.cancel = function() {
+			$mdDialog.cancel();
+		};
+
+  };
 });
