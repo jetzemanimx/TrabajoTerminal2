@@ -1,28 +1,32 @@
-<style type="text/css">
-.prindiv{
-
-}
-
-
-
-
-
-</style>
 
 
 <div id="prindiv" class="container">
 	<div class="jumbotron text-center">  
-  <h1>Identificar Usuario</h1> 
-  <md-input-container>
-        <label>Boleta</label>
-        <input type="text" ng-model="bole">
-  </md-input-container>
- 	<section layout="row" layout-sm="column" layout-align="center center">
-          <md-button class="md-raised" ng-click="ValiAlu()" layout-align="center center" layout-wrap>Validar</md -button>
-        </div>
-        </section>
+  <h1>Por favor escanea tu crédencial</h1> 
+<script type="text/javascript">
+$(document).ready(function() {
+		var barcode = "";
+	$(document).keydown(function(e) {
 
-  
-</div>
+		var code = (e.keyCode ? e.keyCode : e.which);
+		if(code==13)// Enter key hit
+		{
+			//alert("Codigo: " + barcode);
+			console.log(barcode);
+			// console.log(String.fromCharCode(code));
+			//barcode = String.fromCharCode(code);
+			var s= document.getElementById('myField');
+  			s.value = barcode;
 
+		}
+		else
+		{
+			// console.log(String.fromCharCode(code));
+			barcode=barcode+String.fromCharCode(code);
+		}
+	});
+});
+</script>
+<h3>{{boleta.Name}}</h3>
+<input ng-disabled="true" type="text" id="myField" value="" />
 </div>

@@ -23,7 +23,7 @@ angular.module('LogCtrl', []).controller('LoginController', function($scope, $ht
 		        .parent(angular.element(document.querySelector('#popupContainer')))
 		        .clickOutsideToClose(true)
 		        .title('Incorrecto')
-		        .textContent('Su usuario o contraseña son erroneos')
+		        .textContent('La contraseña o usuario son incorrectos')
 		        .ariaLabel('Alert Dialog Demo')
 		        .ok('Aceptar')
 		        .targetEvent(ev));

@@ -1,4 +1,4 @@
-angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope, $http, $rootScope, $location, $timeout, $window, $route){
+angular.module('AutenticarU', []).controller('AutentificarUser',function(Message,$scope, $http, $rootScope, $location, $timeout, $window, $route){
 	 //$scope.message = 'Hola, Mucioooo!';
 	 $scope.ValiAlu = function (){
 		alert("Entro");
