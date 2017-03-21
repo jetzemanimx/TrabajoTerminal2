@@ -34,6 +34,10 @@ var votanteSchema = new mongoose.Schema({
         Date:{
         	type: Date, 
         	default: Date.now()
+        },
+        isActive: {
+            type: Boolean,
+            default: true
         }
 });
 module.exports = mongoose.model('Votante',votanteSchema);

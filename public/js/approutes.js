@@ -5,33 +5,34 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/home.html',
 		controller: 'MainController'
 	})
-	.when('/login',{
+	.when('/Login',{
 		templateUrl: 'views/login.html',
 		controller: 'LoginController'
 	})
-	.when('/admin', {
+	.when('/Admin', {
 			templateUrl: 'views/admin.html',
 			controller: 'AdminController'
 		})
-	.when('/registerUser',{
+	.when('/User',{
 		templateUrl: 'views/registerUser.html',
-		controller: 'registerUController'
+		controller: 'userController'
 	})
-	.when('/registerVote',{
+	.when('/Vote',{
 		templateUrl: 'views/registerVote.html',
-		controller: 'registerVController'
+		controller: 'voteController'
 	})
 	.when('/IdenUser',{
 		templateUrl: 'views/IdenUser.html',
 		controller: 'IdentificarUser'
 	})
+
 	.when('/AutenticarU',{
 		templateUrl: 'views/AutenticarU.html',
 		controller: 'AutenticarU'
 	})
 
-	.otherwise({
-		redirectTo: '/'
+ 	.otherwise({
+ 		redirectTo: '/'
 	});
 
 	$locationProvider.html5Mode(false);
