@@ -7,6 +7,7 @@ angular
         'userCtrl',
         'voteCtrl',
         'adminCtrl',
+        'vBCtrl',
         'ui.bootstrap',
         'checklist-model', 
         'slick', 

@@ -25,6 +25,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/IdenUser.html',
 		controller: 'IdentificarUser'
 	})
+	.when('/VotingBallots',{
+		templateUrl: 'views/votingBallots.html',
+		controller: 'vBController'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});
