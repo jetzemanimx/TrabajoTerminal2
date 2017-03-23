@@ -1,30 +1,37 @@
-angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope, $http, $rootScope, $location, $timeout, $window, $route){
-	 //$scope.message = 'Hola, Mucioooo!';
-	 $scope.nombre = 'mucio';
-
-	 $scope.ValiAlu = function (){
-		alert("Entro");
-		//$http.get('http://192.168.1.104:8080/api/vote/findBoleta/' + $scope.boleta)
-		$http.get('http://192.168.1.103/api/vote/findBoleta/' + '$scope.boleta')
-
-
-
-		
-
-
-
-
-
-		// .success(function (data) {
-		// 	Message.Success("Bienvenido");
-		// 	//$route.reload();
-		// })
-		// .error(function (error) {
-		// 	Message.Error("Alumno no registrado");
-		// }); 071831007995
-		
-
+angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope, $http, $rootScope, $location, $timeout, $window, $route, $interval){
 	
-	
+	$scope.Prueba1 = function(){
+		$scope.Prueba = true;
+		$scope.AU = false;
 
-}});
+	};
+	$scope.recarga=function(){
+            $http.get('http://192.168.1.102:8080/api/vote/findBoleta/' + $scope.boleta)
+			.success(function(data){
+				$timeout(function(){
+					//$window.location.reload();
+					//$location.path('/Autentica');
+					$scope.Prueba = false;
+					$scope.AU = true;
+		            $scope.nombre = 'mucio';
+		            $scope.Data = data;
+				},2000);
+				Message.Success("Hola " + data.personalData.Name);
+					
+			})
+			.error(function(error){
+				$timeout(function(){
+					//$window.location.reload();
+					//$location.path('/Autentica');
+				},2000);
+				Message.Error("Boleta Incorrecta");
+			});
+			
+	};
+
+	$scope.AuVote = function(){
+		$scope.AU = true;
+		$scope.nombre = 'mucio';
+	};
+
+});

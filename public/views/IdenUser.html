@@ -1,35 +1,50 @@
+<style type="text/css">
+#primer{
+
+	background-color: yellow;
+  	padding: 10px;
+  	margin: 10px;
+
+}	
 
 
-<div id="prindiv" class="container">
+
+
+
+</style>
+
+
+<div ng-show="Prueba" id="prindiv" class="container" ng-init="Prueba1()">
 	<div class="jumbotron text-center">  
-  <h1>Por favor escanea tu crédencial</h1> 
-<script type="text/javascript">
-$(document).ready(function() {
-		var barcode = "";
-	$(document).keydown(function(e) {
-
-		var code = (e.keyCode ? e.keyCode : e.which);
-		if(code==13)// Enter key hit
-		{
-			//alert("Codigo: " + barcode);
-			console.log(barcode);
-			// console.log(String.fromCharCode(code));
-			//barcode = String.fromCharCode(code);
-			var s= document.getElementById('myField');
-  			s.value = barcode;
-
-		}
-		else
-		{
-			// console.log(String.fromCharCode(code));
-			barcode=barcode+String.fromCharCode(code);
-		}
-	});
-});
-</script>
-<h1>{{nombre}}</h1>
-
-<input ng-disabled="true" ng-model="boleta" type="text" id="myField" value=""/>
-<h2>hola</h2>
-<h2>{{boleta.personalData.Email}}</h2>
+		<h1>Por favor escanea tu crédencial</h1> 
+			<script type="text/javascript">
+				$(document).ready(function() {
+					var barcode = "";
+					$(document).keydown(function(e) {
+						var code = (e.keyCode ? e.keyCode : e.which);
+						if(code==13){
+						console.log(barcode);
+						var s= document.getElementById('myField');
+						s.value = barcode;
+						}
+						else{
+						barcode=barcode+String.fromCharCode(code);
+						}
+					});
+				});
+			</script>
+		<input ng-enter="recarga()" ng-model="boleta" type="text" id="myField" autofocus/>
+	</div>
 </div>
+
+<div class="container" ng-show="AU" id="primer">
+	<div class="jumbotron text-center" ng-model="Data">
+		<h1>{{nombre}}</h1> <br>
+		<h2>{{Data.personalData.Name}}</h2> <br>
+		<h2>{{Data.personalData.lastName}}</h2> <br>
+		<h2>{{Data.personalData.Sex}}</h2>
+	</div>
+</div>
+
+
+
