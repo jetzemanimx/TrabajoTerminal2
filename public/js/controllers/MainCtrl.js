@@ -1,7 +1,23 @@
-angular.module('MainCtrl', []).controller('MainController',function($scope, $http, $rootScope, $location, $timeout){
-	 $scope.message = 'Hola, Mundo!';
+angular.module('MainCtrl', []).controller('MainController',function($scope, authentication, $window, $http, $rootScope, $location, $timeout){
+
+ 
+ 	$scope.Init = function () {
+ 		$scope.isLoggedIn = authentication.isLoggedIn();
+ 	}
+ 	
+	$scope.Login = function () {
+		$location.path('/Login');
+	};
+
+	$scope.ReLogin = function () {
+		$location.path('/');
+	};
 
 
+	$scope.Logout = function () {
+		authentication.logout();
+		$location.path('/');
+		$window.location.reload();
+	};
 
-	 
 });

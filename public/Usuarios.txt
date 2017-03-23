@@ -1,0 +1,422 @@
+/* 1 createdAt:14/3/2017 19:46:03*/
+{
+	"_id" : ObjectId("58c89cdbe77cec0494a263e9"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T19:40:27.843-06:00"),
+	"personalData" : {
+		"Email" : "idalia.escoim@escom.com",
+		"Sex" : "M",
+		"lastName" : "Maldonado Castilo",
+		"Name" : "Idalia",
+		"Deegre" : "M.",
+		"RFC" : "XAXX0101010003",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "50123",
+		"Telephone" : "57296000",
+		"userType" : "Candidate",
+		"Address" : "Juaaan de dios Bátiz, Nueva Industrial Vallejo, Ciudad de México, D.F."
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 2 createdAt:15/3/2017 14:19:00*/
+{
+	"_id" : ObjectId("58c9a1b4117b4a23505bf4ff"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "blanca.escom@escom.com",
+		"Sex" : "M",
+		"lastName" : "Carvajal Gámez",
+		"Name" : "Blanca Esther",
+		"Deegre" : "Dr.",
+		"RFC" : "AAGA631005CTA",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52028",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 3 createdAt:15/3/2017 14:20:36*/
+{
+	"_id" : ObjectId("58c9a214117b4a23505bf501"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "sescolares_escom@ipn.mx",
+		"Sex" : "M",
+		"lastName" : "Caro García",
+		"Name" : "María Guadalupe",
+		"Deegre" : "Lic.",
+		"RFC" : "AAOC6707165W5",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52007",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 4 createdAt:15/3/2017 14:21:37*/
+{
+	"_id" : ObjectId("58c9a251117b4a23505bf502"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "serviciosestudiantilesescom@hotmail.com",
+		"Sex" : "M",
+		"lastName" : "Sosa Adán",
+		"Name" : "Fanny",
+		"Deegre" : "Lic.",
+		"RFC" : "AOCT760409D30",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52025",
+		"Telephone" : "57296000",
+		"userType" : "Candidate",
+		"Address" : "Juan de dios Bátiz, Nueva Industrial Vallejo, Ciudad de México, D.F."
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 5 createdAt:15/3/2017 14:22:39*/
+{
+	"_id" : ObjectId("58c9a28f117b4a23505bf503"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "ext_ae_escom@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Serrano García",
+		"Name" : "José Francisco",
+		"Deegre" : "Lic.",
+		"RFC" : "AUSN6409083P3",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52056",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 6 createdAt:15/3/2017 14:24:09*/
+{
+	"_id" : ObjectId("58c9a2e9117b4a23505bf504"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "escom_upis@ipn.mx",
+		"Sex" : "M",
+		"lastName" : "Escamilla Miranda",
+		"Name" : "Patricia",
+		"Deegre" : "Lic.",
+		"RFC" : "CAGJ680431787",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52005",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 7 createdAt:15/3/2017 14:27:54*/
+{
+	"_id" : ObjectId("58c9a3ca117b4a23505bf505"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "ffigueroad@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Figueroa Del Prado",
+		"Name" : "Felipe de Jesús",
+		"Deegre" : "Lic.",
+		"RFC" : "CAMC840419KF7",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52002",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 8 createdAt:15/3/2017 14:29:08*/
+{
+	"_id" : ObjectId("58c9a414117b4a23505bf506"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "capital.humano.escom@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Estrada Elizalde",
+		"Name" : "Serafín",
+		"Deegre" : "Lic.",
+		"RFC" : "CUDE700820P27",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52010",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 9 createdAt:15/3/2017 14:30:15*/
+{
+	"_id" : ObjectId("58c9a457117b4a23505bf507"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "fbasica_escom@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Mosso García",
+		"Name" : "Iván Giovanny",
+		"Deegre" : "M.",
+		"RFC" : "DEBG700510MK3",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52041",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 10 createdAt:15/3/2017 14:31:02*/
+{
+	"_id" : ObjectId("58c9a486117b4a23505bf508"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "cic_escom@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Santillán Luna",
+		"Name" : "Raúl",
+		"Deegre" : "M.",
+		"RFC" : "GOMO6005084U9",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52067",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 11 createdAt:15/3/2017 14:32:10*/
+{
+	"_id" : ObjectId("58c9a4ca117b4a23505bf509"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "escom_disc@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Enríquez Zarate",
+		"Name" : "José Asunción",
+		"Deegre" : "M.",
+		"RFC" : "LOLN720902VC3",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52032",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 12 createdAt:15/3/2017 14:32:59*/
+{
+	"_id" : ObjectId("58c9a4fb117b4a23505bf50a"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "fii_escom@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Celis Domínguez",
+		"Name" : "Adriana Berenice",
+		"Deegre" : "M.",
+		"RFC" : "MAGE750817646",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52020",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 13 createdAt:15/3/2017 14:33:36*/
+{
+	"_id" : ObjectId("58c9a520117b4a23505bf50b"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "palvarez@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Álvarez Velázquez",
+		"Name" : "Pablo",
+		"Deegre" : "Lic.",
+		"RFC" : "MAMX780102TN0",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52021",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 14 createdAt:15/3/2017 14:34:24*/
+{
+	"_id" : ObjectId("58c9a550117b4a23505bf50c"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "rdiazs@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Díaz Santiago",
+		"Name" : "Ricardo Felipe",
+		"Deegre" : "M.",
+		"RFC" : "MOBP88120292A",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52044",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 15 createdAt:15/3/2017 14:35:05*/
+{
+	"_id" : ObjectId("58c9a579117b4a23505bf50d"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "jortizr@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Ortiz Ramírez",
+		"Name" : "José Antonio",
+		"Deegre" : "Lic.",
+		"RFC" : "OAVM730208D52",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52011",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 16 createdAt:15/3/2017 14:35:45*/
+{
+	"_id" : ObjectId("58c9a5a1117b4a23505bf50e"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "direccion_escom@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Ortigoza Campos",
+		"Name" : "Andrés",
+		"Deegre" : "Lic.",
+		"RFC" : "PACA631101FA9",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "46188",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 17 createdAt:15/3/2017 14:36:22*/
+{
+	"_id" : ObjectId("58c9a5c6117b4a23505bf50f"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "irios@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Ríos de la Torre",
+		"Name" : "Ignacio",
+		"Deegre" : "M.",
+		"RFC" : "PASJ660308IE9",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52024",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 18 createdAt:15/3/2017 14:37:03*/
+{
+	"_id" : ObjectId("58c9a5ef117b4a23505bf510"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "enlace_escom@ipn.mx",
+		"Sex" : "M",
+		"lastName" : "Hernández García",
+		"Name" : "Rosa Alba",
+		"Deegre" : "M.",
+		"RFC" : "PEGF630518KC6",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52013",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 19 createdAt:15/3/2017 14:37:46*/
+{
+	"_id" : ObjectId("58c9a61a117b4a23505bf511"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-14T20:35:17.394-06:00"),
+	"personalData" : {
+		"Email" : "jjalcarazt@ipn.mx",
+		"Sex" : "H",
+		"lastName" : "Alcaraz Torres",
+		"Name" : "Juan Jesús",
+		"Deegre" : "Lic.",
+		"RFC" : "RATL621008LC1",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "52015",
+		"Telephone" : "57296000",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 20 createdAt:15/3/2017 22:04:21*/
+{
+	"_id" : ObjectId("58ca0ec512dd9923a0326254"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-15T22:04:18.440-06:00"),
+	"personalData" : {
+		"Email" : "analiz@gmail.com",
+		"Sex" : "M",
+		"lastName" : "Santiago Ramirez",
+		"Name" : "Analiz",
+		"Deegre" : "Dr.",
+		"RFC" : "SARA8008247B6",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "1050",
+		"Telephone" : "01 55 5729 6000",
+		"profileImageUrl" : "/profileImages/d14143d1-afff-470a-8f55-07ec0777dc4e.jpg",
+		"userType" : "Candidate"
+	},
+	"__v" : NumberInt("0")
+},
+
+/* 21 createdAt:15/3/2017 22:16:06*/
+{
+	"_id" : ObjectId("58ca11862bfd3707088553f6"),
+	"isActive" : true,
+	"Date" : ISODate("2017-03-15T22:12:56.583-06:00"),
+	"personalData" : {
+		"Email" : "cava@administracion.com",
+		"Sex" : "H",
+		"lastName" : "Vivar Nava",
+		"Name" : "Edith",
+		"Deegre" : "M.",
+		"RFC" : "VINE680628K71",
+		"Escuela" : "Escuela Superior de Cómputo",
+		"Ext" : "",
+		"Telephone" : "01 55 2620 1203",
+		"profileImageUrl" : "/profileImages/b9ae4ee9-7e88-4354-9d2a-d5078e4f4681.jpg",
+		"userType" : "Candidate"
+	},
+	

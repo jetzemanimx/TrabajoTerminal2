@@ -13,6 +13,15 @@ var candidateSchema = new mongoose.Schema({
             required: false,
             default: 'Candidate'
         },
+        profileImageUrl:{
+        type: String,
+        required: false,
+        default: 'profileImages/default.jpg'
+        },
+        Deegre: {
+            type: String,
+            required: false
+        },
         Name: {
             type: String,
             required: true
@@ -39,6 +48,11 @@ var candidateSchema = new mongoose.Schema({
             type: String,
             required: false,
             default: '01 55 5729 6000'
+        },
+        Ext: {
+            type: String,
+            required: false,
+            default: '1020'
         },
         Escuela:{
         	type: String,

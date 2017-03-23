@@ -11,24 +11,17 @@
 	<meta name="author" content="">
 
 	<!-- Web Fonts -->
-	<!-- <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'> -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="libs/bootstrap-social/bootstrap-social.css">
-	<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" href="libs/angular-material/angular-material.min.css">
 
-	<link rel="stylesheet" href="libs/ngToast/dist/ngToast.min.css">
-	<link rel="stylesheet" href="libs/ngToast/dist/ngToast-animations.min.css">
-
-	<link href="https://file.myfontastic.com/ZbrCVFDZufpJezdUaJHsd6/icons.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto|Sansita" rel="stylesheet">
-	<link rel="stylesheet" href="css/estilos.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/style.css">
 
 	<!-- JS -->
 	<script src="libs/jquery/dist/jquery.min.js"></script>
-	<script src="libs/jquery-code-scanner/jquery-code-scanner.js"></script>
 	<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
 
 	<script src="libs/angular/angular.min.js"></script>
@@ -59,56 +52,39 @@
 	<!-- CONTROLLERS -->
 	<script src="js/app.js"></script>
 	<script src="js/approutes.js"></script>
+
+	<!-- ANGULAR CUSTOM -->
 	<script src="js/controllers/MainCtrl.js"></script>
 	<script src="js/controllers/LoginCtrl.js"></script>
 	<script src="js/controllers/userCtrl.js"></script>
 	<script src="js/controllers/voteCtrl.js"></script>
 	<script src="js/controllers/adminCtrl.js"></script>
 	<script src="js/controllers/IdenU.js"></script>
+	<script src="js/controllers/candidateCtrl.js"></script>
+
+	<!-- ANGULAR SERVICES -->
+	<script src="js/services/AuthService.js"></script>
 </head>
-<body>
+<body ng-controller="MainController">
+	<!--Header-->
+  	<!-- Navbar -->
+	<nav class="navbar navbar-default">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="/" ng-click="ReLogin()">Ivoto</a>
+	    </div>
+	  </div>
+	</nav>
+    <!--End Header-->
 
-  <header class="header">
-    <div class="wrapper header__flex">
-      <figure class="header__logo"><img src="img/logo.png" alt=""/></figure>
-      <div class="header__social"><a class="icon-facebook" href="">Facebook</a><a class="icon-twitter" href="">Twitter</a><a class="icon-instagram" href="">Instagram</a><a class="icon-google" href="">Google +</a></div>
-    </div>
-  </header>
-
-      <!-- Aquí inyectamos las vistas -->
-      <div ng-view autoscroll></div> 
+	 <div layout="row" ng-view autoscroll></div> 
+  	<!-- Aquí inyectamos las vistas -->
+  	
 
 	<!--Footer-->
-	<div class="footer-v3">
-		<!--Copyright-->
-		<div class="copyright" style="background-color: #FFFFFF">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<p>
-							2016 © All Rights Reserved. iVoto. <a href="http://www.escom.ipn.mx/" target="_blank">Powered by MEAN ©</a>
-						</p>
-					</div>
-					<!-- Social Links -->
-					<div class="col-md-6">
-						<ul class="social-icons pull-right">
-							<a class="btn btn-social-icon btn-lg btn-facebook">
-    							<span class="fa fa-facebook"></span>
- 							</a>
- 							<a class="btn btn-social-icon btn-lg btn-twitter">
-    							<span class="fa fa-twitter"></span>
- 							</a>
- 							<a class="btn btn-social-icon btn-lg btn-dropbox">
-    							<span class="fa fa-dropbox"></span>
- 							</a>
-						</ul>
-					</div>
-					<!-- End Social Links -->
-				</div>
-			</div>
-		</div>
-		<!--End Copyright-->
-	</div>
+	<footer class="container-fluid bg-1 text-center">
+  	<p>Prototipo de Automatización para el voto electronico de la ESCOM</p> 
+	</footer>
 	<!--End Footer-->
 	
 </body>

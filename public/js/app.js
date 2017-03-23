@@ -7,6 +7,8 @@ angular
         'userCtrl',
         'voteCtrl',
         'adminCtrl',
+        'candidateCtrl',
+        'ngToast',
         'ui.bootstrap',
         'checklist-model', 
         'slick', 
@@ -20,9 +22,9 @@ angular
         'ngMessages',
         'IdenU'
         ])
-        /*.config(function($logProvider){
+        .config(function($logProvider){
             $logProvider.debugEnabled(false);
-        })*/
+        })
         .factory("Message",function($mdDialog) { 
           return {
             Success: function(mensaje) {
