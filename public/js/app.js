@@ -9,6 +9,7 @@ angular
         'adminCtrl',
         'candidateCtrl',
         'ngToast',
+        'vBCtrl',
         'ui.bootstrap',
         'checklist-model', 
         'slick', 

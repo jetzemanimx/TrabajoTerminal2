@@ -34,7 +34,7 @@ angular.module('voteCtrl', []).controller('voteController', function(Message,$md
   	};
 
 	$scope.registerVote = function(){
-		$http.post('http://localhost:8080/api/vote/register',{
+		$http.post('http://192.168.1.103:8080/api/vote/register',{
 			'boleta': $scope.Boleta,
 			'name': $scope.Nombre,
 			'lastname': $scope.Apellidos,
@@ -58,7 +58,7 @@ angular.module('voteCtrl', []).controller('voteController', function(Message,$md
 	};
 
 	$scope.displayVotes = function() {
-		$http.get('http://localhost:8080/api/votes')
+		$http.get('http://192.168.1.103:8080/api/votes')
 			.success(function(data){
 				$scope.Votes = data;
 				if(data.length == 0){
@@ -102,7 +102,7 @@ angular.module('voteCtrl', []).controller('voteController', function(Message,$md
 		};
 
 		$scope.updateVote = function() {
-			$http.patch('http://localhost:8080/api/vote/update/'+ $scope.Id, {
+			$http.patch('http://192.168.1.103:8080/api/vote/update/'+ $scope.Id, {
 			boleta: $scope.Boleta,
 			name: $scope.Nombre,
 			lastname: $scope.Apellidos, 
