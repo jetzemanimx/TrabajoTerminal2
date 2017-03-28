@@ -1,23 +1,26 @@
-<div layout="row" layout-align="center center">
-  <md-card flex-gt-sm="40" flex-gt-md="50"> 
-    <md-card-content>
-      <form name="Form">
-        <md-input-container class="md-block">
-          <label>RFC</label>
-          <input type="text" name="RFC" ng-model="RFC" required/>
-          <div ng-messages="Form.RFC.$error" role="alert" multiple="">
-            <div ng-message="required" class="my-message">RFC Requerido.</div>
-          </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-          <label>Password</label>
-          <input type="password" name="password" ng-model="Password" required/>
-          <div ng-messages="Form.password.$error" role="alert" multiple="">
-            <div ng-message="required" class="my-message">Password Requerido.</div>
-          </div>
-        </md-input-container>
-        <md-button ng-disabled="!Form.$valid" ng-click="validaLogin()" class="md-raised md-primary">&nbsp Ingresar &nbsp</md-button>
-      </form>
-    </md-card-content>
-  </md-card>
+<div>
+<md-progress-linear ng-show="ActiveLine" md-mode="indeterminate"></md-progress-linear>
+</div>
+<div layout="row" layout-align="center center" flex>
+    <md-card flex="50"> 
+      <md-card-content>
+        <form name="Form">
+          <md-input-container class="md-block">
+            <label>RFC</label>
+            <input type="text" name="RFC" ng-model="RFC" required/>
+            <div ng-messages="Form.RFC.$error" role="alert" multiple="">
+              <div ng-message="required" class="my-message">RFC Requerido.</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Password</label>
+            <input type="password" name="password" ng-model="Password" required/>
+            <div ng-messages="Form.password.$error" role="alert" multiple="">
+              <div ng-message="required" class="my-message">Password Requerido.</div>
+            </div>
+          </md-input-container>
+          <md-button ng-disabled="!Form.$valid" ng-click="validaLogin()" class="md-raised md-primary">&nbsp Ingresar &nbsp</md-button>
+        </form>
+      </md-card-content>
+    </md-card>
 </div>

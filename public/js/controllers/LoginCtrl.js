@@ -1,4 +1,4 @@
-angular.module('LogCtrl', []).controller('LoginController', function($scope, $http, authentication, Message, $rootScope, $location, $timeout,$mdDialog,$window){
+angular.module('LogCtrl', []).controller('LoginController', function($scope, $http, $interval, authentication, Message, $rootScope, $location, $timeout,$mdDialog,$window){
 	
 	$scope.validaLogin = function (){
 		var vm=this;
@@ -15,8 +15,11 @@ angular.module('LogCtrl', []).controller('LoginController', function($scope, $ht
                 vm.currentUser = authentication.currentUser();
                 if(authentication.isLoggedIn()){
                     console.log(vm.currentUser);
-                    $location.path('/Admin');
-                    $window.location.reload();
+                    $interval(function() {
+                        $location.path('/Admin');
+                    }, 1400, 0, true);
+                    $scope.ActiveLine = true;
+                    //$window.location.reload();
                 }
             });
 	};

@@ -1,12 +1,28 @@
-angular.module('adminCtrl', []).controller('AdminController', function($scope, $http,$mdSidenav, $rootScope, $location, $timeout){
+angular.module('adminCtrl', []).controller('AdminController', function($scope,$mdToast,$mdMenu, authentication, $http,$mdSidenav, $rootScope, $location, $timeout){
 
-	$scope.toggleLeft = buildToggler('left');
-    $scope.toggleRight = buildToggler('right');
+    $scope.Init = function() {
+    	$scope.User = authentication.currentUser();
+      
+      $mdToast.show(
+      $mdToast.simple()
+        .textContent('Bienvenido ' + $scope.User.name)
+        .position('bottom right')
+        .hideDelay(1000)
+      );
+    };
 
-    function buildToggler(componentId) {
-      return function() {
-        $mdSidenav(componentId).toggle();
-      };
-    }
+    $scope.Menu = [
+      'Usuarios',
+      'Candidatos',
+      'Votantes',
+      'Plantillas',
+      'Resultados Finales',
+      'Resultados Preliminares'
+    ];
 
+    $scope.announceClick = function(item) {
+      console.log(item);
+    };
+
+    
 });
