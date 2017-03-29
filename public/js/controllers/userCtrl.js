@@ -1,6 +1,6 @@
 angular.module('userCtrl', []).controller('userController', function(Message,$mdDialog,$scope, $http, $rootScope, $location, $timeout,$window,$route){
 
-$scope.AddUser = function() {
+  $scope.AddUser = function() {
     $scope.Add = true;
     $scope.Edit = false;
     $scope.User = false;

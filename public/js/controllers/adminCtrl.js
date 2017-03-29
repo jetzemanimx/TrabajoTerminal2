@@ -21,7 +21,20 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope,$m
     ];
 
     $scope.announceClick = function(item) {
-      console.log(item);
+      switch(item) {
+        case 'Usuarios':
+            alert("Usuarios");
+            break;
+        case 'Candidatos':
+            alert("Candidatos");
+            break;
+        case 'Votantes':
+            alert("Votantes");
+            break;
+        case 'Plantillas':
+            alert("Plantillas");
+            break;
+      };
     };
 
     

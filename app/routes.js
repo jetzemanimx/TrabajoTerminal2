@@ -1,6 +1,7 @@
 var Candidate = require('./models/Candidate');
 var Votante = require('./models/Votante');
 var User = require('./models/User');
+var votingBallot = require('./models/votingBallot');
 var nodemailer = require('nodemailer');
 var xoauth2 = require('xoauth2');
 var smtpTransport = require("nodemailer-smtp-transport");
@@ -360,6 +361,73 @@ module.exports = function(app) {
       })
       .post(function (req,res) {
         Candidate.find(function (error,data,callback) {
+            if(error){
+                  res.status(500).json(error);
+              }else{
+                  res.status(200).json(data);
+              }
+          });
+      });
+
+      // Route for create voting ballot
+      app.post('/api/votingBallot/register', function(req,res){
+          //console.log(req.body);
+        var vB = new votingBallot();
+        vB.Name = req.body.name;
+        vB.dateInit = req.body.init;
+        vB.dateEnd = req.body.end;
+        vB.save(function (error, data, callback) {
+          if(error){
+            res.status(500).json(error);
+          }
+          else{
+            res.status(200).json(data);
+          }
+        });
+      });
+
+      // Route for insert candidates to voting ballot
+      app.post('/api/votingBallot/addCandidate', function(req,res){
+          //console.log(req.body);
+        votingBallot.findOne({ _id: req.body.idvb}, function(error, vb) {
+            if(vb){
+                res.status(500).json(error);
+            }
+            if (!vb) {
+                res.status(500).send({msg:"No exist voting ballot whit this id"});
+            }else{
+                Candidate.findOne({_id: req.body.idcandidate}, function(error,candidate){
+                    if(error){
+                        res.status(500).json(error);
+                    }
+                    if(!candidate){
+                        res.status(500).send({msg:"No candidate"});
+                    }else{
+                        console.log(candidate);
+                        votingBallot.candidates.push(candidate);
+                        votingBallot.save();
+                        res.status(200).json(data);
+                    }
+                    //res.status(200).send({msg:"Everything good"});
+                });
+            }
+            //res.status(200).send({msg:"Everything good"});
+        });
+      });
+
+      //Display all VotingBallots
+      app.route('/api/votingBallots')
+      .get(function (req,res) {
+        votingBallot.find(function (error,data,callback) {
+            if(error){
+                  res.status(500).json(error);
+              }else{
+                  res.status(200).json(data);
+              }
+          });
+      })
+      .post(function (req,res) {
+        votingBallot.find(function (error,data,callback) {
             if(error){
                   res.status(500).json(error);
               }else{

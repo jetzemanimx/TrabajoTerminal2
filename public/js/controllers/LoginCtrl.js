@@ -14,7 +14,7 @@ angular.module('LogCtrl', []).controller('LoginController', function($scope, $ht
             .then(function(){
                 vm.currentUser = authentication.currentUser();
                 if(authentication.isLoggedIn()){
-                    console.log(vm.currentUser);
+                    //console.log(vm.currentUser);
                     $interval(function() {
                         $location.path('/Admin');
                     }, 1400, 0, true);
