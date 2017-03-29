@@ -35,6 +35,13 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 	})
 	.otherwise({
 		redirectTo: '/'
+	.when('/AutenticarU',{
+		templateUrl: 'views/AutenticarU.html',
+		controller: 'AutenticarU'
+	})
+
+ 	.otherwise({
+ 		redirectTo: '/'
 	});
 	$locationProvider.html5Mode(false);
 }]).run(run);
