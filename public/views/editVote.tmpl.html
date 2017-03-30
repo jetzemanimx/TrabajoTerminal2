@@ -1,79 +1,77 @@
-  
-<md-dialog aria-label="Edit" layout="row" flex>
-  <div layout="row" flex layout-margin>
-    <div flex >
-        <form name="voteEditForm" ng-submit="updateVote()">
-          <md-toolbar class="md-accent md-hue-1">
-            <h2>Edición de Votantes</h2>
-          </md-toolbar>
-          
-          <md-dialog-content layout-margin>
-            <div layout="row">
-                <md-input-container class="md-block" flex>
-                  <label>Boleta</label>
-                  <input md-maxlength="10" md-minlength="10" ng-model="Boleta" name="Boleta" required>
-                  <div ng-messages="voteEditForm.Boleta.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                    <div ng-message="md-maxlength">Boleta muy largo</div>
-                  </div>
-                </md-input-container>
-            </div>
-
-            <div layout="row">
-                <md-input-container class="md-block" flex="50">
-                  <label class="icon-user">Nombre(s)</label>
-                  <input required name="Nombre" ng-model="Nombre">
-                  <div ng-messages="voteEditForm.Nombre.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-
-                <md-input-container class="md-block" flex="50">
-                <label>Apellidos</label>
-                <input required name="Apellido" ng-model="Apellidos">
-                <div ng-messages="voteEditForm.Apellido.$error">
-                <div ng-message="required">Este campo es requerido</div>
+<md-dialog style="max-width: 100%; max-height: 100%; width: 50%; height: 100%; border-radius: 20px;">
+      <form name="voteEditForm" ng-submit="updateVote()">
+        <md-toolbar>
+          <h2>Edición de Votantes</h2>
+        </md-toolbar>
+        <div layout="row" flex layout-margin>
+            <div flex >
+              <md-dialog-content layout-margin>
+                <div layout="row">
+                    <md-input-container class="md-block" flex>
+                      <label>Boleta</label>
+                      <input md-maxlength="10" md-minlength="10" ng-model="Boleta" name="Boleta" required>
+                      <div ng-messages="voteEditForm.Boleta.$error">
+                        <div ng-message="required">Este campo es requerido</div>
+                        <div ng-message="md-maxlength">Boleta muy largo</div>
+                      </div>
+                    </md-input-container>
                 </div>
-                </md-input-container>
-            </div>
 
-            <div layout="row">
-                <md-input-container class="md-block" flex="50" >
-                  <label>Sexo</label>
-                  <md-select name="Sexo" ng-model="Sexo" required>
-                  <md-option value="M">Femenino</md-option>
-                  <md-option value="H">Masculino</md-option>
-                  </md-select>
-                  <div ng-messages="voteEditForm.Sexo.$error">
+                <div layout="row">
+                    <md-input-container class="md-block" flex="50">
+                      <label class="icon-user">Nombre(s)</label>
+                      <input required name="Nombre" ng-model="Nombre">
+                      <div ng-messages="voteEditForm.Nombre.$error">
+                        <div ng-message="required">Este campo es requerido</div>
+                      </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex="50">
+                    <label>Apellidos</label>
+                    <input required name="Apellido" ng-model="Apellidos">
+                    <div ng-messages="voteEditForm.Apellido.$error">
                     <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-
-              <md-input-container class="md-block" flex="50">
-                <label>Email</label>
-                <input required name="Email" ng-model="Email" type="email">
-                <div ng-messages="voteEditForm.Email.$error">
-                  <div ng-message="required">Este campo es requerido</div>
+                    </div>
+                    </md-input-container>
                 </div>
-            </div>
-           
-            <span>Status</span>
-            <md-switch ng-model="Status" aria-label="Switch 6">
-            {{Status}}
-            </md-switch>
-          </md-dialog-content>
 
-          <md-dialog-actions>
-            <md-button class="md-raised md-warn" ng-click="cancelVote()">
-              Cancelar
-            </md-button>
-            <md-button ng-disabled="!voteEditForm.$valid" class="md-raised md-primary md-hue-1" type="submit">
-              Actualizar
-            </md-button>
-          </md-dialog-actions>
-        </form>
-    </div>
-  </div>
+                <div layout="row">
+                    <md-input-container class="md-block" flex="50" >
+                      <label>Sexo</label>
+                      <md-select name="Sexo" ng-model="Sexo" required>
+                      <md-option value="M">Femenino</md-option>
+                      <md-option value="H">Masculino</md-option>
+                      </md-select>
+                      <div ng-messages="voteEditForm.Sexo.$error">
+                        <div ng-message="required">Este campo es requerido</div>
+                      </div>
+                    </md-input-container>
+
+                  <md-input-container class="md-block" flex="50">
+                    <label>Email</label>
+                    <input required name="Email" ng-model="Email" type="email">
+                    <div ng-messages="voteEditForm.Email.$error">
+                      <div ng-message="required">Este campo es requerido</div>
+                    </div>
+                </div>
+               
+                <span>Status</span>
+                <md-switch ng-model="Status" aria-label="Switch 6">
+                {{Status}}
+                </md-switch>
+              </md-dialog-content>
+
+              <md-dialog-actions>
+                <md-button class="md-raised md-warn" ng-click="cancelVote()">
+                  Cancelar
+                </md-button>
+                <md-button ng-disabled="!voteEditForm.$valid" class="md-raised md-primary md-hue-1" type="submit">
+                  Actualizar
+                </md-button>
+              </md-dialog-actions>
+          </div>
+        </div>
+      </form>
 </md-dialog>
 
 

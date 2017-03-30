@@ -32,10 +32,10 @@
           </md-toolbar>
         </div>
       </div>
-      <div >
+      <div layout-margin>
         <md-nav-bar nav-bar-aria-label="navigation links">
           <md-nav-item md-nav-click="AddUser()" flex="50" align="center">
-            Agregar
+            Agregar Usuario
           </md-nav-item>
           <md-nav-item md-nav-click="ViewUser()" flex="50" align="center">
             Visualizar Usuario
@@ -219,7 +219,7 @@
       </md-toolbar>
     </div>
   </div>
-  <div layout="row" flex layout-align="center center" layout-margin>
+ <!--  <div layout="row" flex layout-align="center center" layout-margin>
     <div flex="50">
       <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
         <md-button class="md-accent" ng-click="AddCandidate()">Agregar</md-button>
@@ -230,6 +230,17 @@
         <md-button class="md-accent" ng-click="ViewCandidate()">Visualizar</md-button>
       </md-toolbar>
     </div>
+  </div> -->
+
+  <div layout-margin>
+    <md-nav-bar nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-click="AddCandidate()" flex="50" align="center">
+        Agregar Candidato
+      </md-nav-item>
+      <md-nav-item md-nav-click="ViewCandidate()" flex="50" align="center">
+        Visualizar Candidato
+      </md-nav-item>
+    </md-nav-bar>
   </div>
 
   <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterCandidate" ng-cloak>
@@ -406,10 +417,10 @@
           </md-toolbar>
         </div>
       </div>
-      <div >
+      <div layout-margin>
         <md-nav-bar nav-bar-aria-label="navigation links">
           <md-nav-item md-nav-click="AddVote()" flex="50" align="center" layout-margin>
-            Agregar
+            Agregar Votante
           </md-nav-item>
           <md-nav-item md-nav-click="ViewVote()" flex="50" align="center" layout-margin>
             Visualizar Votante

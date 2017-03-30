@@ -48,6 +48,21 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectUser = false ;
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
+            Message.Success("En Construcción");
+            break;
+        case 'Resultados Finales':
+            //alert("Plantillas");
+            $scope.SelectUser = false ;
+            $scope.SelectCandidate = false;
+            $scope.SelectVote = false;
+            Message.Success("En Construcción");
+            break;
+        case 'Resultados Preliminares':
+            //alert("Plantillas");
+            $scope.SelectUser = false ;
+            $scope.SelectCandidate = false;
+            $scope.SelectVote = false;
+            Message.Success("En Construcción");
             break;
       };
     };
