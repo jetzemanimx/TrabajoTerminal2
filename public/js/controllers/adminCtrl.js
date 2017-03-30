@@ -225,7 +225,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
           $mdDialog.cancel();
           $route.reload();
         },2000)
-        Message.Success("Registro Exitoso");
+        Message.Toast("Registro Exitoso");
       })
       .error(function (error) {
         Message.Error("Ops! Algo salio mal, intenta nuevamente");
@@ -291,7 +291,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $mdDialog.cancel();
             $route.reload();
           },2000)
-          Message.Success("Actualización Exitosa");
+          Message.Toast("Actualización Exitosa");
         })
         .error(function(error){
           Message.Error("Ops! Algo salio mal, intenta nuevamente");
