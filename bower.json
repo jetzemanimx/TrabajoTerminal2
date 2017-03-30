@@ -18,7 +18,9 @@
     "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
     "ngstorage": "^0.3.11",
     "bootstrap-social": "^5.1.1",
-    "materialize": "^0.98.0"
+    "materialize": "^0.98.0",
+    "fingerprint": "^0.5.4",
+    "fingerprintjs2": "^1.5.0"
   },
   "resolutions": {
     "angular": "1.5.5"

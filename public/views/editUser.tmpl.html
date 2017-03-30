@@ -1,103 +1,103 @@
-  
-<md-dialog aria-label="Edit" layout="row" flex>
-  <div layout="row" flex layout-margin>
-    <div flex>
-        <form name="userEditForm" ng-submit="updateUser()">
-          <md-toolbar class="md-accent md-hue-1">
-            <h2>Edición de Usuario</h2>
-          </md-toolbar>
+<md-dialog ng-cloak style="max-width: 100%; max-height: 100%; width: 50%; height: 100%; border-radius: 20px;" >
+  <form name="userEditForm" ng-submit="updateUser()">
+    <md-toolbar>
+    <h2>Edición de Usuario</h2>
+    </md-toolbar>
 
-          <md-dialog-content layout-margin>
-            <div layout="row">
-                <md-input-container class="md-block" flex>
-                  <label>RFC</label>
-                  <input md-maxlength="13" ng-model="RFC" required>
-                  <div ng-messages="userEditForm.RFC.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                    <div ng-message="md-maxlength">RFC muy largo</div>
-                  </div>
-                </md-input-container>
-            </div>
-
-            <div layout="row">
-                <md-input-container class="md-block" flex="50">
-                  <label class="icon-user">Nombre(s)</label>
-                  <input required name="Nombre" ng-model="Nombre">
-                  <div ng-messages="userEditForm.Nombre.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-
-                <md-input-container class="md-block" flex="50">
-                <label>Apellidos</label>
-                <input required name="Apellido" ng-model="Apellido">
-                <div ng-messages="userEditForm.Apellido.$error">
+    <div layout="row" flex layout-margin>
+      <div flex>
+        <md-dialog-content layout-margin>
+          <div layout="row">
+            <md-input-container class="md-block" flex>
+              <label>RFC</label>
+              <input md-maxlength="13" ng-model="RFC" required>
+              <div ng-messages="userEditForm.RFC.$error">
                 <div ng-message="required">Este campo es requerido</div>
-                </div>
-                </md-input-container>
-            </div>
-            <div layout="row">
-                <md-input-container class="md-block" flex="50">
-                  <label>Sexo</label>
-                  <md-select name="Sexo" ng-model="Sexo" required>
-                  <md-option value="M">Femenino</md-option>
-                  <md-option value="H">Masculino</md-option>
-                  </md-select>
-                  <div ng-messages="userEditForm.Sexo.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-                <md-input-container class="md-block" flex="50">
-                  <label>Teléfono</label>
-                  <input ng-model="Tel" name="Telefono" required>
-                  <div ng-messages="userEditForm.Telefono.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-            </div>
-            <div layout="row">
-                <md-input-container class="md-block" flex>
-                  <label>Dirección Completa</label>
-                  <input ng-model="Address" name="Direccion" required>
-                  <div ng-messages="userEditForm.Direccion.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-            </div>
+                <div ng-message="md-maxlength">RFC muy largo</div>
+              </div>
+            </md-input-container>
+          </div>
 
-            <div layout="row">
-              <md-input-container class="md-block" flex="50">
-                <label>Email</label>
-                <input required name="Email" ng-model="Email" type="email">
-                <div ng-messages="userEditForm.Email.$error">
-                  <div ng-message="required">Este campo es requerido</div>
-                </div>
-              </md-input-container>
-              <md-input-container class="md-block" flex="50">
-                <label>Confirma Email</label>
-                <input required name="Email" ng-model="Email2" type="email">
-                <div ng-messages="userEditForm.Email.$error">
-                  <div ng-message="required">Este campo es requerido</div>
-                </div>
-              </md-input-container>
-            </div>
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label class="icon-user">Nombre(s)</label>
+              <input required name="Nombre" ng-model="Nombre">
+              <div ng-messages="userEditForm.Nombre.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
 
-            <span>Status</span>
-            <md-switch ng-model="Status" aria-label="Switch 6">
+            <md-input-container class="md-block" flex="50">
+              <label>Apellidos</label>
+              <input required name="Apellido" ng-model="Apellido">
+              <div ng-messages="userEditForm.Apellido.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label>Sexo</label>
+              <md-select name="Sexo" ng-model="Sexo" required>
+                <md-option value="M">Femenino</md-option>
+                <md-option value="H">Masculino</md-option>
+              </md-select>
+              <div ng-messages="userEditForm.Sexo.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex="50">
+              <label>Teléfono</label>
+              <input ng-model="Tel" name="Telefono" required>
+              <div ng-messages="userEditForm.Telefono.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container class="md-block" flex>
+              <label>Dirección Completa</label>
+              <input ng-model="Address" name="Direccion" required>
+              <div ng-messages="userEditForm.Direccion.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label>Email</label>
+              <input required name="Email" ng-model="Email" type="email">
+              <div ng-messages="userEditForm.Email.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="50">
+              <label>Confirma Email</label>
+              <input required name="Email" ng-model="Email2" type="email">
+              <div ng-messages="userEditForm.Email.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <span>Status</span>
+          <md-switch ng-model="Status" aria-label="Switch 6">
             {{Status}}
-            </md-switch>
-
-          </md-dialog-content>
-
-          <md-dialog-actions>
-            <md-button class="md-raised md-warn" ng-click="cancelUser()">
-              Cancelar
-            </md-button>
-            <md-button ng-disabled="!userEditForm.$valid" class="md-raised md-primary md-hue-1" type="submit">
-              Actualizar
-            </md-button>
-          </md-dialog-actions>
-        </form>
+          </md-switch>
+        </md-dialog-content>
+        <md-dialog-actions>
+          <md-button class="md-raised md-warn" ng-click="cancelUser()">
+            Cancelar
+          </md-button>
+          <md-button ng-disabled="!userEditForm.$valid" class="md-raised md-primary md-hue-1" type="submit">
+            Actualizar
+          </md-button>
+        </md-dialog-actions>
+      </div>
     </div>
-  </div>
+  </form>
 </md-dialog>

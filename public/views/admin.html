@@ -1,5 +1,5 @@
 
-<div ng-init="Init()">
+<div ng-init="Init()" ng-cloak>
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools" layout-margin>
       <md-menu md-offset="0 -7">
@@ -22,174 +22,360 @@
   </md-toolbar>
 </div>
 
-<div ng-show="SelectUser">
-  <!--Users..........................................................................................................-->
-      <div layout="row" flex layout-align="center center" layout-margin>
-        <div flex>
-          <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
-            <h2>Usuarios</h2>
-          </md-toolbar>
-        </div>
-      </div>
-      <div layout="row" flex layout-align="center center" layout-margin>
-        <div flex="50">
-          <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
-            <md-button class="md-accent" ng-click="AddUser()">Agregar</md-button>
-          </md-toolbar>
-        </div>
-        <div flex="50">
-          <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
-            <md-button class="md-accent" ng-click="ViewUser()">Visualizar</md-button>
-          </md-toolbar>
-        </div>
-      </div>
+<!--Users..........................................................................................................-->
+<div ng-show="SelectUser" ng-cloak>
+  <div layout="row" flex layout-align="center center" layout-margin>
+    <div flex>
+      <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
+        <h2>Usuarios</h2>
+      </md-toolbar>
+    </div>
+  </div>
+  <div layout="row" flex layout-align="center center" layout-margin>
+    <div flex="50">
+      <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
+        <md-button class="md-accent" ng-click="AddUser()">Agregar</md-button>
+      </md-toolbar>
+    </div>
+    <div flex="50">
+      <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
+        <md-button class="md-accent" ng-click="ViewUser()">Visualizar</md-button>
+      </md-toolbar>
+    </div>
+  </div>
 
-      <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterUser">
-        <md-card flex="80"> 
-          <md-card-content>
-            <form name="userForm" ng-submit="RegisterUser()">
-              <div layout="row">
-                <md-input-container class="md-block" flex>
-                  <label>RFC</label>
-                  <input md-maxlength="13" ng-model="RFC" required>
-                  <div ng-messages="userForm.RFC.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                    <div ng-message="md-maxlength">RFC muy largo</div>
-                  </div>
-                </md-input-container>
-              </div>
-
-              <div layout="row">
-                <md-input-container class="md-block" flex="50">
-                  <label class="icon-user">Nombre(s)</label>
-                  <input required name="Nombre" ng-model="Nombre">
-                  <div ng-messages="userForm.Nombre.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-
-                <md-input-container class="md-block" flex="50">
-                <label>Apellidos</label>
-                <input required name="Apellido" ng-model="Apellido">
-                <div ng-messages="userForm.Apellido.$error">
+  <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterUser" ng-cloak>
+    <md-card flex="80"> 
+      <md-card-content>
+        <form name="userForm" ng-submit="RegisterUser()">
+          <div layout="row">
+            <md-input-container class="md-block" flex>
+              <label>RFC</label>
+              <input md-maxlength="13" ng-model="RFC" required>
+              <div ng-messages="userForm.RFC.$error">
                 <div ng-message="required">Este campo es requerido</div>
-                </div>
-                </md-input-container>
+                <div ng-message="md-maxlength">RFC muy largo</div>
               </div>
+            </md-input-container>
+          </div>
 
-              <div layout="row">
-                <md-input-container class="md-block" flex="50">
-                  <label>Sexo</label>
-                  <md-select name="Sexo" ng-model="Sexo" required>
-                  <md-option value="M">Femenino</md-option>
-                  <md-option value="H">Masculino</md-option>
-                  </md-select>
-                  <div ng-messages="userForm.Sexo.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-                <md-input-container class="md-block" flex="50">
-                  <label>Teléfono</label>
-                  <input ng-model="Telefono" name="Telefono" required>
-                  <div ng-messages="userForm.Telefono.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label class="icon-user">Nombre(s)</label>
+              <input required name="Nombre" ng-model="Nombre">
+              <div ng-messages="userForm.Nombre.$error">
+                <div ng-message="required">Este campo es requerido</div>
               </div>
+            </md-input-container>
 
-              <div layout="row">
-                <md-input-container class="md-block" flex>
-                  <label>Dirección Completa</label>
-                  <input ng-model="Direccion" name="Direccion" required>
-                  <div ng-messages="userForm.Direccion.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
+            <md-input-container class="md-block" flex="50">
+            <label>Apellidos</label>
+            <input required name="Apellido" ng-model="Apellido">
+            <div ng-messages="userForm.Apellido.$error">
+            <div ng-message="required">Este campo es requerido</div>
+            </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label>Sexo</label>
+              <md-select name="Sexo" ng-model="Sexo" required>
+              <md-option value="M">Femenino</md-option>
+              <md-option value="H">Masculino</md-option>
+              </md-select>
+              <div ng-messages="userForm.Sexo.$error">
+                <div ng-message="required">Este campo es requerido</div>
               </div>
-
-              <div layout="row">
-                <md-input-container class="md-block" flex="50">
-                  <label>Email</label>
-                  <input required name="Email" ng-model="Correo" type="email">
-                  <div ng-messages="userForm.Email.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-                <md-input-container class="md-block" flex="50">
-                  <label>Confirma Email</label>
-                  <input required name="Email" ng-model="Correo2" type="email">
-                  <div ng-messages="userForm.Email.$error">
-                    <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
+            </md-input-container>
+            <md-input-container class="md-block" flex="50">
+              <label>Teléfono</label>
+              <input ng-model="Telefono" name="Telefono" required>
+              <div ng-messages="userForm.Telefono.$error">
+                <div ng-message="required">Este campo es requerido</div>
               </div>
+            </md-input-container>
+          </div>
 
-              <div layout="row">
-                <md-input-container class="md-block" flex="50">
-                  <label class="icon-lock"> Contraseña</label>
-                  <input ng-model="Contrasena" type="password" required>
-                  <div ng-messages="userForm.Contrasena.$error">
-                  <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-                <md-input-container class="md-block" flex="50">
-                  <label> Confirma Contraseña</label>
-                  <input ng-model="Contrasena2" type="password" required>
-                  <div ng-messages="userForm.Contrasena.$error">
-                  <div ng-message="required">Este campo es requerido</div>
-                  </div>
-                </md-input-container>
-              </div>    
-
-              <section layout="row"  layout-align="space-around center">
-                <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
-                <md-button ng-disabled="!userForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Registrar</md-button>
-              </section>
-
-            </form>
-          </md-card-content>
-        </md-card>
-      </div>
-
-      <div layout="row" flex layout-align="center center" layout-margin ng-show="FormEditUser">
-        <md-card flex="80"> 
-          <md-card-content>
-            <md-list>
-              <div layout="row" layout-align="center center">
-                <md-input-container class="md-block">
-                  <label>Busqueda de Usuarios</label>
-                  <input ng-model="findUser">
-                </md-input-container>
+          <div layout="row">
+            <md-input-container class="md-block" flex>
+              <label>Dirección Completa</label>
+              <input ng-model="Direccion" name="Direccion" required>
+              <div ng-messages="userForm.Direccion.$error">
+                <div ng-message="required">Este campo es requerido</div>
               </div>
+            </md-input-container>
+          </div>
 
-              <md-list-item class="md-2-line" style="font-size: medium;">
-                <span flex="20">RFC</span>
-                <span flex="35">Nombre</span>
-                <span flex="25">Email</span>
-                <span flex="10">Status</span>
-                <span flex="10"></span>
-              </md-list-item>
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label>Email</label>
+              <input required name="Email" ng-model="Correo" type="email">
+              <div ng-messages="userForm.Email.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="50">
+              <label>Confirma Email</label>
+              <input required name="Email" ng-model="Correo2" type="email">
+              <div ng-messages="userForm.Email.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+          </div>
 
-              <md-list-item ng-repeat="user in Users | filter : findUser" class="md-2-line" style="font-size: medium;">
-                <div class="md-list-item-text" layout="row" layout-align="start center">
-                  <span flex="20">{{ user.personalData.RFC }}</span>
-                  <span flex="35">{{ user.personalData.Name + " " + user.personalData.lastName }}</span>
-                  <span flex="25">{{ user.personalData.Email }}</span>
-                  <span flex="10">
-                    <md-switch ng-model="user.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 5" class="md-primary">
-                    </md-switch>
-                  </span>
-                  <span flex="10">
-                  <button type="button" class="btn btn-default btn-sm" ng-click="goToUser(user)">
-                    <span class="icon-edit"></span>Editar
-                  </button>
-                </div>
-              </md-list-item>
-            </md-list>
-          </md-card-content>
-        </md-card>
-      </div>
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label class="icon-lock"> Contraseña</label>
+              <input ng-model="Contrasena" type="password" required>
+              <div ng-messages="userForm.Contrasena.$error">
+              <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="50">
+              <label> Confirma Contraseña</label>
+              <input ng-model="Contrasena2" type="password" required>
+              <div ng-messages="userForm.Contrasena.$error">
+              <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+          </div>    
+
+          <section layout="row"  layout-align="space-around center">
+            <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
+            <md-button ng-disabled="!userForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Registrar</md-button>
+          </section>
+
+        </form>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div layout="row" flex layout-align="center center" layout-margin ng-show="FormEditUser" ng-cloak>
+    <md-card flex="80"> 
+      <md-card-content>
+        <md-list>
+          <div layout="row" layout-align="center center">
+            <md-input-container class="md-block">
+              <label>Busqueda de Usuarios</label>
+              <input ng-model="findUser">
+            </md-input-container>
+          </div>
+
+          <md-list-item class="md-2-line" style="font-size: medium;">
+            <span flex="20">RFC</span>
+            <span flex="35">Nombre</span>
+            <span flex="25">Email</span>
+            <span flex="10">Status</span>
+            <span flex="10"></span>
+          </md-list-item>
+
+          <md-list-item ng-repeat="user in Users | filter : findUser" class="md-2-line" style="font-size: medium;">
+            <div class="md-list-item-text" layout="row" layout-align="start center">
+              <span flex="20">{{ user.personalData.RFC }}</span>
+              <span flex="35">{{ user.personalData.Name + " " + user.personalData.lastName }}</span>
+              <span flex="25">{{ user.personalData.Email }}</span>
+              <span flex="10">
+                <md-switch ng-model="user.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 5" class="md-primary">
+                </md-switch>
+              </span>
+              <span flex="10">
+              <button type="button" class="btn btn-default btn-sm" ng-click="goToUser(user)">
+                <span class="icon-edit"></span>Editar
+              </button>
+            </div>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-card>
+  </div>
 </div>
 
 <!--Candidates........................................................................................................-->
+
+<div ng-show="SelectCandidate" ng-cloak>
+  <div layout="row" flex layout-align="center center" layout-margin>
+    <div flex>
+      <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
+        <h2>Candidatos</h2>
+      </md-toolbar>
+    </div>
+  </div>
+  <div layout="row" flex layout-align="center center" layout-margin>
+    <div flex="50">
+      <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
+        <md-button class="md-accent" ng-click="AddCandidate()">Agregar</md-button>
+      </md-toolbar>
+    </div>
+    <div flex="50">
+      <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
+        <md-button class="md-accent" ng-click="ViewCandidate()">Visualizar</md-button>
+      </md-toolbar>
+    </div>
+  </div>
+
+  <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterCandidate" ng-cloak>
+    <md-card flex="80"> 
+      <md-card-content>
+        <form name="candidateForm" ng-submit="RegisterCandidate()">
+          <!--Div de carga de imagen-->
+            <div layout="row" layout-align="center center">
+              <label for='venue_image' ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"  name="imageProfile" required>
+                <img ng-src="img/profile.png">
+                  <md-tooltip md-direction="bottom">Click para adjuntar archivo</md-tooltip>
+                </img>
+                <span ng-if="file" layout="row" layout-align="center center">{{file.name}}</span>
+                <div ng-messages="candidateForm.imageProfile.$error">
+                  <div ng-message="required">Adjunta una imagen de perfil</div>
+                </div>
+              </label>
+              <div class="progress" data-ng-if="file">
+                <div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="{{progess}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%">
+                {{progress}}% Completado
+                </div>
+              </div>
+            </div>
+          <!--Cierro div de carga de imagen-->
+          <div layout="row">
+            <md-input-container class="md-block" flex>
+              <label>RFC</label>
+              <input md-maxlength="13" ng-model="RFC" required>
+              <div ng-messages="candidateForm.RFC.$error">
+                <div ng-message="required">Este campo es requerido</div>
+                <div ng-message="md-maxlength">RFC muy largo</div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container class="md-block" flex="30">
+                    <label>Grado</label>
+                      <md-select required name="Grado" ng-model="Grado">
+                        <md-option value="Lic.">Licenciatura</md-option>
+                        <md-option value="M.">Maestría</md-option>
+                        <md-option value="Dr.">Doctorado</md-option>
+                      </md-select>
+                      <div ng-messages="candidateForm.Grado.$error">
+                      <div ng-message="required">Este campo es requerido</div>
+                    </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex="35">
+              <label class="icon-user">Nombre(s)</label>
+              <input required name="Nombre" ng-model="Nombre">
+              <div ng-messages="candidateForm.Nombre.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex="35">
+            <label>Apellidos</label>
+            <input required name="Apellido" ng-model="Apellidos">
+            <div ng-messages="candidateForm.Apellido.$error">
+            <div ng-message="required">Este campo es requerido</div>
+            </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label>Sexo</label>
+              <md-select name="Sexo" ng-model="Sexo" required>
+              <md-option value="M">Femenino</md-option>
+              <md-option value="H">Masculino</md-option>
+              </md-select>
+              <div ng-messages="candidateForm.Sexo.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="25">
+              <label>Teléfono</label>
+              <input ng-model="Telefono" name="Telefono" required>
+              <div ng-messages="candidateForm.Telefono.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="25">
+              <label>Extensión</label>
+              <input name="Extension" ng-model="Extension" placeholder="1050">
+              <div ng-messages="candidateForm.Extension.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container class="md-block" flex="50">
+              <label>Dirección Completa</label>
+              <input ng-model="Direccion" name="Direccion" required>
+              <div ng-messages="candidateForm.Direccion.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="50">
+              <label>Email</label>
+              <input required name="Email" ng-model="Email" type="email">
+              <div ng-messages="candidateForm.Email.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+          </div> 
+
+          <section layout="row"  layout-align="space-around center">
+            <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
+            <md-button ng-disabled="!candidateForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Registrar</md-button>
+          </section>
+
+        </form>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div layout="row" flex layout-align="center center" layout-margin ng-show="FormEditCandidate" ng-cloak>
+    <md-card flex="90"> 
+      <md-card-content>
+        <md-list>
+          <div layout="row" layout-align="center center">
+            <md-input-container class="md-block">
+              <label>Busqueda de Candidatos</label>
+              <input ng-model="findCandidate">
+            </md-input-container>
+          </div>
+
+          <md-list-item class="md-2-line" style="font-size: medium;">
+            <span flex="35">Nombre</span>
+            <span flex="25">Correo</span>
+            <span flex="15">RFC</span>
+            <span flex="10">Telefono</span>
+            <span flex="10">Extensión</span>
+            <span flex="10">Status</span>
+            <span flex="10"></span>
+          </md-list-item>
+
+          <md-list-item ng-repeat="candidate in Candidates | filter : findCandidate" class="md-2-line" style="font-size: medium;">
+            <div class="md-list-item-text" layout="row" layout-align="start center">
+              <span flex="35">
+                <img ng-src="{{candidate.personalData.profileImageUrl}}?{{$index}}" class="md-avatar">
+                {{ candidate.personalData.Name + " " + candidate.personalData.lastName }}
+              </span>
+              <span flex="25">{{ candidate.personalData.Email }}</span>
+              <span flex="15">{{ candidate.personalData.RFC }}</span>
+              <span flex="10">{{ candidate.personalData.Telephone }}</span>
+              <span flex="10">{{ candidate.personalData.Ext }}</span>
+              <span flex="10">
+              <md-switch ng-model="candidate.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 6">
+              </md-switch>
+              </span>
+              <span flex="10">
+                <button type="button" class="btn btn-default btn-sm" ng-click="goToCandidate(candidate)">
+                  <span class="glyphicon glyphicon-cog"></span> Editar
+                </button>
+              </span>
+            </div>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
 <!--Votes.............................................................................................................-->

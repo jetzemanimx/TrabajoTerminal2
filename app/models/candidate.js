@@ -66,6 +66,7 @@ var candidateSchema = new mongoose.Schema({
         },
         isActive: {
             type: Boolean,
+            required: false,
             default: true
         }
         
