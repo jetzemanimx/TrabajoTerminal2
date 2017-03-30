@@ -6,17 +6,17 @@
 
     <div layout="row" flex layout-margin>
       <div flex>
-        <md-dialog-content layout-margin>
-          <div layout="row">
-            <md-input-container class="md-block" flex>
-              <label>RFC</label>
-              <input md-maxlength="13" ng-model="RFC" required>
-              <div ng-messages="userEditForm.RFC.$error">
-                <div ng-message="required">Este campo es requerido</div>
-                <div ng-message="md-maxlength">RFC muy largo</div>
-              </div>
-            </md-input-container>
-          </div>
+          <md-dialog-content layout-margin>
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                  <label>RFC</label>
+                  <input md-maxlength="13" md-minlength="13"ng-model="RFC" required>
+                  <div ng-messages="userEditForm.RFC.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                    <div ng-message="md-maxlength">RFC muy largo</div>
+                  </div>
+                </md-input-container>
+            </div>
 
           <div layout="row">
             <md-input-container class="md-block" flex="50">

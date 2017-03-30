@@ -5,6 +5,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       Message.Toast("Bienvenido " + $scope.User.name);
       $scope.SelectUser =  false;
       $scope.SelectCandidate = false;
+      $scope.SelectVote = false;
     };
 
     $scope.LogOut = function() {
@@ -28,21 +29,25 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             //alert("Usuarios");
             $scope.SelectUser = true ;
             $scope.SelectCandidate = false;
+            $scope.SelectVote = false;
             break;
         case 'Candidatos':
             //alert("Candidatos");
             $scope.SelectUser = false ;
             $scope.SelectCandidate = true;
+            $scope.SelectVote = false;
             break;
         case 'Votantes':
             //alert("Votantes");
             $scope.SelectUser = false ;
             $scope.SelectCandidate = false;
+            $scope.SelectVote = true ;
             break;
         case 'Plantillas':
             //alert("Plantillas");
             $scope.SelectUser = false ;
             $scope.SelectCandidate = false;
+            $scope.SelectVote = false;
             break;
       };
     };
@@ -70,7 +75,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
     $scope.displayUser = function() {
-      $http.get('http://localhost:8080/api/users')
+      $http.get('http://192.168.1.105:8080/api/users')
       .success(function(data){
         $scope.Users = data;
         if(data.length == 0){
@@ -85,7 +90,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
 
     $scope.RegisterUser = function(){
       if (($scope.Correo==$scope.Correo2)&&($scope.Contrasena==$scope.Contrasena2)) {
-        $http.post('http://localhost:8080/api/user/register',{
+        $http.post('http://192.168.1.105:8080/api/user/register',{
         'rfc' :$scope.RFC,
         'name' :$scope.Nombre,
         'lastname' :$scope.Apellido,
@@ -142,15 +147,109 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       };
 
       $scope.updateUser = function() {
-        $http.patch('http://localhost:8080/api/user/update/'+ $scope.Id, {
-          rfc: $scope.RFC,
-          name: $scope.Nombre,
-          lastname: $scope.Apellido,
-          adrress:$scope.Address,
-          sex: $scope.Sexo, 
-          tel: $scope.Tel,
-          email: $scope.Email,
-          isactive: $scope.Status})
+        $http.patch('http://192.168.1.105:8080/api/user/update/'+ $scope.Id, {
+        boleta: $scope.Boleta,
+        name: $scope.Nombre,
+        lastname: $scope.Apellidos, 
+        sex: $scope.Sexo, 
+        email: $scope.Email,
+        isactive: $scope.Status})
+        .success(function(data){
+          $timeout(function(){
+            $mdDialog.cancel();
+            $route.reload();
+            },1000);
+          Message.Toast("Actualización Exitosa");
+        })
+        .error(function(error){
+          Message.Error("Ops! Algo salio mal, intenta nuevamente");
+        })
+      };
+    };
+
+                                                          /*Votes*/
+    $scope.AddVote = function() {
+      $scope.FormRegisterVote =  true;
+      $scope.FormEditVote = false;
+    };
+    $scope.ViewVote = function() {
+      $scope.FormRegisterVote =  false;
+      $scope.FormEditVote = true;
+      $scope.displayVote();
+    };
+
+
+    $scope.registerVote = function(){
+      $http.post('http://192.168.1.105:8080/api/vote/register',{
+        'boleta': $scope.Boleta,
+        'name': $scope.Nombre,
+        'lastname': $scope.Apellidos,
+        'sex': $scope.Sexo,
+        'email': $scope.Email,
+      })
+      .success(function (data) {
+        Message.Success("Registro Exitoso");
+        $route.reload();
+      })
+      .error(function (error) {
+        Message.Error("Ops! Algo salio mal, intenta nuevamente");
+      });
+    };    
+
+    $scope.displayVote = function() {
+      $http.get('http://192.168.1.105:8080/api/votes')
+      .success(function(data){
+        $scope.Votes = data;
+        if(data.length == 0){
+        $scope.DisplayResults = true;
+        $scope.Results = "No hay Registros";
+        }
+      })
+      .error(function(error){
+        console.log(error);
+      });
+    };
+
+
+    $scope.goToVote = function(vote) {
+      $mdDialog.show({
+      templateUrl: 'views/editVote.tmpl.html',
+      controller: DialogControllerVote,
+      clickOutsideToClose:false,
+      fullscreen: true,
+      locals : {
+      vote : vote
+      }
+    })
+    .then(function(answer) {
+    //$scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+    //$scope.status = 'You cancelled the dialog.';
+      });
+    };
+
+    function DialogControllerVote($scope,$mdDialog,vote,Message) {
+      
+      $scope.Boleta = vote.personalData.Boleta;
+      $scope.Nombre = vote.personalData.Name;
+      $scope.Apellidos = vote.personalData.lastName;
+      $scope.Sexo = vote.personalData.Sex;
+      $scope.Email = vote.personalData.Email;
+      $scope.Id = vote._id;
+      $scope.Status = vote.isActive;
+
+      $scope.cancelVote = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.updateVote = function() {
+        $http.patch('http://192.168.1.105:8080/api/vote/update/'+ $scope.Id, {
+        boleta: $scope.Boleta,
+        name: $scope.Nombre,
+        lastname: $scope.Apellidos, 
+        sex: $scope.Sexo, 
+        email: $scope.Email,
+        isactive: $scope.Status})
         .success(function(data){
           $timeout(function(){
             $mdDialog.cancel();

@@ -23,36 +23,54 @@
 </div>
 
 <!--Users..........................................................................................................-->
-<div ng-show="SelectUser" ng-cloak>
-  <div layout="row" flex layout-align="center center" layout-margin>
-    <div flex>
-      <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
-        <h2>Usuarios</h2>
-      </md-toolbar>
-    </div>
-  </div>
-  <div layout="row" flex layout-align="center center" layout-margin>
-    <div flex="50">
-      <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
-        <md-button class="md-accent" ng-click="AddUser()">Agregar</md-button>
-      </md-toolbar>
-    </div>
-    <div flex="50">
-      <md-toolbar class="md-accent md-hue-1" style="min-height: 48px">
-        <md-button class="md-accent" ng-click="ViewUser()">Visualizar</md-button>
-      </md-toolbar>
-    </div>
-  </div>
+<div ng-show="SelectUser">
 
-  <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterUser" ng-cloak>
-    <md-card flex="80"> 
-      <md-card-content>
-        <form name="userForm" ng-submit="RegisterUser()">
-          <div layout="row">
-            <md-input-container class="md-block" flex>
-              <label>RFC</label>
-              <input md-maxlength="13" ng-model="RFC" required>
-              <div ng-messages="userForm.RFC.$error">
+      <div layout="row" flex layout-align="center center" layout-margin>
+        <div flex>
+          <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
+            <h2>Usuarios</h2>
+          </md-toolbar>
+        </div>
+      </div>
+      <div >
+        <md-nav-bar nav-bar-aria-label="navigation links">
+          <md-nav-item md-nav-click="AddUser()" flex="50" align="center">
+            Agregar
+          </md-nav-item>
+          <md-nav-item md-nav-click="ViewUser()" flex="50" align="center">
+            Visualizar Usuario
+          </md-nav-item>
+        </md-nav-bar>
+      </div>
+
+      <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterUser">
+        <md-card flex="80"> 
+          <md-card-content>
+            <form name="userForm" ng-submit="RegisterUser()">
+              <div layout="row">
+                <md-input-container class="md-block" flex>
+                  <label>RFC</label>
+                  <input md-maxlength="13" md-minlength="13" ng-model="RFC" required>
+                  <div ng-messages="userForm.RFC.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                    <div ng-message="md-maxlength">RFC muy largo</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label class="icon-user">Nombre(s)</label>
+                  <input required name="Nombre" ng-model="Nombre">
+                  <div ng-messages="userForm.Nombre.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="50">
+                <label>Apellidos</label>
+                <input required name="Apellido" ng-model="Apellido">
+                <div ng-messages="userForm.Apellido.$error">
                 <div ng-message="required">Este campo es requerido</div>
                 <div ng-message="md-maxlength">RFC muy largo</div>
               </div>
@@ -378,4 +396,126 @@
     </md-card>
   </div>
 </div>
+
 <!--Votes.............................................................................................................-->
+<div ng-show="SelectVote">
+      <div layout="row" flex layout-align="center center" layout-margin>
+        <div flex>
+          <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
+            <h2>Votantes</h2>
+          </md-toolbar>
+        </div>
+      </div>
+      <div >
+        <md-nav-bar nav-bar-aria-label="navigation links">
+          <md-nav-item md-nav-click="AddVote()" flex="50" align="center" layout-margin>
+            Agregar
+          </md-nav-item>
+          <md-nav-item md-nav-click="ViewVote()" flex="50" align="center" layout-margin>
+            Visualizar Votante
+          </md-nav-item>
+        </md-nav-bar>
+      </div>
+
+      <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterVote">
+        <md-card flex="80"> 
+          <md-card-content>
+            <form name="userForm" ng-submit="registerVote()">
+              
+                <md-input-container class="md-block">
+                  <label>Boleta</label>
+                  <input md-maxlength="10" md-minlength="10" required name="Boleta" ng-model="Boleta">
+                  <div ng-messages="userForm.Boleta.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                    <div ng-message="md-maxlength">Boleta muy larga</div>
+                  </div>
+                </md-input-container>
+              <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label class="icon-user">Nombre(s)</label>
+                  <input required name="Nombre" ng-model="Nombre">
+                   <div ng-messages="userForm.Nombre.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              
+                <md-input-container class="md-block" flex="50">
+                  <label>Apellidos</label>
+                  <input required name="Apellidos" ng-model="Apellidos">
+                  <div ng-messages="userForm.Apellidos.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div layout-gt-sm="row">
+                 <md-input-container class="md-block" flex="50">
+                  <label class="icon-mf">Sexo</label>
+                    <md-select required name="Sexo" ng-model="Sexo">
+                      <md-option value="H">Masculino</md-option>
+                      <md-option value="M">Femenino</md-option>
+                    </md-select>
+                    <div ng-messages="userForm.Sexo.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              
+                <md-input-container class="md-block" flex="50">
+                  <label class="icon-envelope">Email</label>
+                  <input required name="Email" ng-model="Email" type="email">
+                  <div ng-messages="userForm.Email.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <section layout="row"  layout-align="space-around center">
+                <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
+                <md-button ng-disabled="!userForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Registrar</md-button>
+              </section>
+            </form>
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <div layout="row" flex layout-align="center center" layout-margin ng-show="FormEditVote" ng-cloak>
+    <md-card flex="90"> 
+      <md-card-content>
+        <md-list>
+          <div layout="row" layout-align="center center">
+            <md-input-container class="md-block">
+              <label>Busqueda de Votantes</label>
+              <input ng-model="findCandidate">
+            </md-input-container>
+          </div>
+
+          <md-list-item class="md-2-line" style="font-size: medium;">
+            <span flex="25">Boleta</span>
+            <span flex="25">Nombre</span>
+            <span flex="25">Email</span>
+            <span flex="15">Status</span>
+            <span flex="10"></span>
+          </md-list-item>
+
+          <md-list-item ng-repeat="vote in Votes | filter : findCandidate" class="md-2-line" style="font-size: medium;">
+            <div class="md-list-item-text" layout="row" layout-align="start center">
+              <span flex="25">{{ vote.personalData.Boleta }}</span>
+              <span flex="25">
+                {{ vote.personalData.Name + " " + vote.personalData.lastName }}
+              </span>
+              <span flex="25">{{ vote.personalData.Email }}</span>
+              <span flex="15">
+              <md-switch ng-model="vote.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 6">
+              </md-switch>
+              </span>
+              <span flex="10">
+                <button type="button" class="btn btn-default btn-sm" ng-click="goToVote(vote)">
+                  <span class="glyphicon glyphicon-cog"></span> Editar
+                </button>
+              </span>
+            </div>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

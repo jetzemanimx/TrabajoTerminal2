@@ -62,7 +62,7 @@ angular
         };
 
         login = function(user) {
-            return $http.post('/api/user/login', user).success(function(data) {
+            return $http.post('http://192.168.1.105:8080/api/user/login', user).success(function(data) {
                 saveToken(data.token);
             });
         };
@@ -72,7 +72,7 @@ angular
         };
 
         register = function(user){
-            return $http.post('/api/register',user)
+            return $http.post('http://192.168.1.105:8080/api/register',user)
                 .success(function(data){
                     saveToken(data.token);
                 });
@@ -80,7 +80,7 @@ angular
 
         forgot = function(user){
             //console.log("making post to the api");
-            return $http.post('/api/forgot', user);
+            return $http.post('http://192.168.1.105:8080/api/forgot', user);
         };
 
         reset = function(data){
