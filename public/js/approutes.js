@@ -33,13 +33,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/votingBallots.html',
 		controller: 'vBController'
 	})
-	.otherwise({
-		redirectTo: '/'
 	.when('/AutenticarU',{
 		templateUrl: 'views/AutenticarU.html',
 		controller: 'AutenticarU'
 	})
-
  	.otherwise({
  		redirectTo: '/'
 	});

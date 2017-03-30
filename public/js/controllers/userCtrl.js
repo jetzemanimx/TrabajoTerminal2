@@ -77,7 +77,7 @@ angular.module('userCtrl', []).controller('userController', function(Message,$md
   
   $scope.goToPerson = function(user) {
          $mdDialog.show({
-          templateUrl: 'views/editUsers.tmpl.html',
+          templateUrl: 'views/editUser.tmpl.html',
           controller: DialogController,
           clickOutsideToClose:false,
           fullscreen: true,

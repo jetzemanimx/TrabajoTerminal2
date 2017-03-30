@@ -1,35 +1,103 @@
-<md-dialog aria-label="Mango (Fruit)">
-  <form ng-cloak>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>Editar</h2>
-        <span flex></span>
-      </div>
-    </md-toolbar>
+  
+<md-dialog aria-label="Edit" layout="row" flex>
+  <div layout="row" flex layout-margin>
+    <div flex>
+        <form name="userEditForm" ng-submit="updateUser()">
+          <md-toolbar class="md-accent md-hue-1">
+            <h2>Edición de Usuario</h2>
+          </md-toolbar>
 
-    <md-dialog-content>
-      <div class="md-dialog-content">
-        <h2>Using .md-dialog-content class that sets the padding as the spec</h2>
-        <p>
-          The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.
-        </p>
-        <p>
-          The highest concentration of Mangifera genus is in the western part of Malesia (Sumatra, Java and Borneo) and in Burma and India. While other Mangifera species (e.g. horse mango, M. foetida) are also grown on a more localized basis, Mangifera indica&mdash;the "common mango" or "Indian mango"&mdash;is the only mango tree commonly cultivated in many tropical and subtropical regions.
-        </p>
-        <p>
-          It originated in Indian subcontinent (present day India and Pakistan) and Burma. It is the national fruit of India, Pakistan, and the Philippines, and the national tree of Bangladesh. In several cultures, its fruit and leaves are ritually used as floral decorations at weddings, public celebrations, and religious ceremonies.
-        </p>
-      </div>
-    </md-dialog-content>
+          <md-dialog-content layout-margin>
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                  <label>RFC</label>
+                  <input md-maxlength="13" ng-model="RFC" required>
+                  <div ng-messages="userEditForm.RFC.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                    <div ng-message="md-maxlength">RFC muy largo</div>
+                  </div>
+                </md-input-container>
+            </div>
 
-    <md-dialog-actions layout="row">
-      <span flex></span>
-      <md-button ng-click="cancel()"" md-autofocus>
-        Cancelar
-      </md-button>
-      <md-button ng-click="" md-autofocus>
-        Guardar
-      </md-button>
-    </md-dialog-actions>
-  </form>
+            <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label class="icon-user">Nombre(s)</label>
+                  <input required name="Nombre" ng-model="Nombre">
+                  <div ng-messages="userEditForm.Nombre.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="50">
+                <label>Apellidos</label>
+                <input required name="Apellido" ng-model="Apellido">
+                <div ng-messages="userEditForm.Apellido.$error">
+                <div ng-message="required">Este campo es requerido</div>
+                </div>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Sexo</label>
+                  <md-select name="Sexo" ng-model="Sexo" required>
+                  <md-option value="M">Femenino</md-option>
+                  <md-option value="H">Masculino</md-option>
+                  </md-select>
+                  <div ng-messages="userEditForm.Sexo.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex="50">
+                  <label>Teléfono</label>
+                  <input ng-model="Tel" name="Telefono" required>
+                  <div ng-messages="userEditForm.Telefono.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                  <label>Dirección Completa</label>
+                  <input ng-model="Address" name="Direccion" required>
+                  <div ng-messages="userEditForm.Direccion.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+              <md-input-container class="md-block" flex="50">
+                <label>Email</label>
+                <input required name="Email" ng-model="Email" type="email">
+                <div ng-messages="userEditForm.Email.$error">
+                  <div ng-message="required">Este campo es requerido</div>
+                </div>
+              </md-input-container>
+              <md-input-container class="md-block" flex="50">
+                <label>Confirma Email</label>
+                <input required name="Email" ng-model="Email2" type="email">
+                <div ng-messages="userEditForm.Email.$error">
+                  <div ng-message="required">Este campo es requerido</div>
+                </div>
+              </md-input-container>
+            </div>
+
+            <span>Status</span>
+            <md-switch ng-model="Status" aria-label="Switch 6">
+            {{Status}}
+            </md-switch>
+
+          </md-dialog-content>
+
+          <md-dialog-actions>
+            <md-button class="md-raised md-warn" ng-click="cancelUser()">
+              Cancelar
+            </md-button>
+            <md-button ng-disabled="!userEditForm.$valid" class="md-raised md-primary md-hue-1" type="submit">
+              Actualizar
+            </md-button>
+          </md-dialog-actions>
+        </form>
+    </div>
+  </div>
 </md-dialog>

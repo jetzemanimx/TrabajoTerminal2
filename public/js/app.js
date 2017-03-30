@@ -24,10 +24,29 @@ angular
         'IdenU'
 
         ])
-        .config(function($logProvider){
+        .config(function($logProvider,$mdThemingProvider){
             $logProvider.debugEnabled(false);
+            $mdThemingProvider.theme('default')
+                .primaryPalette('pink', {
+                  'default': '400', // by default use shade 400 from the pink palette for primary intentions
+                  'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
+                  'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
+                  'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+                })
+                .accentPalette('blue',{
+                  'default': '400', // by default use shade 400 from the pink palette for primary intentions
+                  'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
+                  'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
+                  'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+                })
+                .warnPalette('red',{
+                  'default': '400', // by default use shade 400 from the pink palette for primary intentions
+                  'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
+                  'hue-2': '600', // use shade 600 for the <code>md-hue-2</code> class
+                  'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+                });
         })
-        .factory("Message",function($mdDialog) { 
+        .factory("Message",function($mdDialog,$mdToast) { 
           return {
             Success: function(mensaje) {
               return $mdDialog.show(
@@ -48,6 +67,14 @@ angular
                     .textContent(mensaje)
                     .ok('Aceptar')
                 );
+            },
+            Toast:function(mensaje) {
+              return $mdToast.show(
+                    $mdToast.simple()
+                    .textContent(mensaje)
+                    .position('bottom right')
+                    .hideDelay(1000)
+                  );
             }
           }
         })
