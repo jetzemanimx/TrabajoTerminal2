@@ -6,7 +6,7 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 
 	};
 	$scope.recarga=function(){
-            $http.get('http://192.168.1.102:8080/api/vote/findBoleta/' + $scope.boleta)
+            $http.get('http://192.168.1.105:8080/api/vote/findBoleta/' + $scope.boleta)
 			.success(function(data){
 				$timeout(function(){
 					//$window.location.reload();

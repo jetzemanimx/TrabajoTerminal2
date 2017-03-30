@@ -21,6 +21,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/registerVote.html',
 		controller: 'voteController'
 	})
+	.when('/Candidate',{
+		templateUrl: 'views/Candidate.html',
+		controller: 'candidateController'
+	})
 	.when('/IdenUser',{
 		templateUrl: 'views/IdenUser.html',
 		controller: 'IdentificarUser'
@@ -34,7 +38,26 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
  	.otherwise({
  		redirectTo: '/'
 	});
-
 	$locationProvider.html5Mode(false);
-	
-}]);
+}]).run(run);
+function run($rootScope, $location, authentication, ngToast, Message) {
+	$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+		if($location.path() === '/Admin'){
+			if(authentication.isLoggedIn()){
+				$location.path('/Admin');
+			}
+			else{
+				$location.path('/');
+			}
+		}
+
+		/*if($location.path() != '/Admin'){
+			if(authentication.isLoggedIn()){
+				$location.path('/Admin');
+			}
+			else{
+				$location.path('/');
+			}
+		}*/
+	});
+}

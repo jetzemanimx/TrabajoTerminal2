@@ -1,0 +1,209 @@
+<div ng-cloak ng-init="init()">
+  <md-content class="md-padding">
+    <md-nav-bar nav-bar-aria-label="navigation links">
+      <!-- <md-nav-item md-nav-click="ViewCandidate()">
+        Vizualizar
+      </md-nav-item> -->
+      <md-nav-item md-nav-click="AddCandidate()">
+        Agregar
+      </md-nav-item>
+      <md-nav-item md-nav-click="EditCandidate()">
+        Vizualizar
+      </md-nav-item>
+    </md-nav-bar>
+    <div class="ext-content"> 
+      <div layout="column" ng-cloak class="md-inline-form" ng-show="Add">
+        <md-content layout-padding>
+        <md-divider></md-divider>
+          <div>
+            <form name="candidateForm" ng-submit="registerCandidate()">
+              <!--Div de carga de imagen-->
+              <div class="form-group col-md-4">
+                
+                <label for='venue_image' ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"  name="imageProfile" required>
+                  <h2><span class="glyphicon glyphicon-camera" id="photo_span"></span></h2>
+                  <h3 style="display: inline;">
+                    <span ng-if="file">{{file.name}}</span>
+                  </h3>
+                  <h4>Imagen de Perfil</h4>
+                  <div ng-messages="candidateForm.imageProfile.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </label>
+                <div class="progress" data-ng-if="file">
+                <div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="{{progess}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%">
+                {{progress}}% Completado
+                </div>
+                </div>
+              </div>
+              <!--Cierro div de carga de imagen-->
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex="40">
+                  <label>RFC</label>
+                  <input required name="RFC" ng-model="RFC" placeholder="XAXX010101000">
+                  <div ng-messages="candidateForm.RFC.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="50">
+                  <label>Grado</label>
+                    <md-select required name="Grado" ng-model="Grado">
+                      <md-option value="Lic.">Licenciatura</md-option>
+                      <md-option value="M.">Maestría</md-option>
+                      <md-option value="Dr.">Doctorado</md-option>
+                    </md-select>
+                    <div ng-messages="candidateForm.Grado.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="50">
+                  <label>Nombre(s)</label>
+                  <input required name="Nombre" ng-model="Nombre">
+                   <div ng-messages="candidateForm.Nombre.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Apellidos</label>
+                  <input required name="Apellidos" ng-model="Apellidos">
+                  <div ng-messages="candidateForm.Apellidos.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="50">
+                  <label>Sexo</label>
+                    <md-select required name="Sexo" ng-model="Sexo">
+                      <md-option value="H">Masculino</md-option>
+                      <md-option value="M">Femenino</md-option>
+                    </md-select>
+                    <div ng-messages="candidateForm.Sexo.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Dirección</label>
+                  <input required name="Direccion" ng-model="Direccion">
+                  <div ng-messages="candidateForm.Direccion.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="25">
+                  <label>Telefono</label>
+                  <input required name="Telefono" ng-model="Telefono" placeholder="55 5555 5555">
+                  <div ng-messages="candidateForm.Telefono.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="25">
+                  <label>Extensión</label>
+                  <input name="Extension" ng-model="Extension" placeholder="1050">
+                  <div ng-messages="candidateForm.Extension.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Email</label>
+                  <input required name="Email" ng-model="Email" type="email" placeholder="ipsum@lorem.com">
+                  <div ng-messages="candidateForm.Email.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                <md-switch ng-disabled="false" aria-label="Switch 6" flex="50" ng-model="Active" ng-change="onChange(Active)" >
+                  {{ Message }}
+                </md-switch>
+              </div>
+              <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                <md-button type="submit" class="md-raised md-primary">Registrar</md-button>
+                <md-button type="reset" class="md-raised md-primary">Reestablecer</md-button>
+              </section>
+            </form>
+          </div>
+        </md-content>
+      </div>
+        <h1 ng-show="DisplayReults">{{Results}}</h1>
+      <!-- <div layout="column" ng-cloak class="md-inline-form" ng-show="Candidate">
+        <md-content layout-padding>
+          <md-list ng-cloak>
+           <md-divider></md-divider>
+              <md-subheader class="md-no-sticky">Candidatos</md-subheader>
+              <p>Busqueda<input type="text" ng-model="findCandidates"></p>
+              <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="30">Grado</span>
+                <span flex="30">Nombre</span>
+                <span flex="20">RFC</span>
+                <span flex="20">RFC</span>
+                <span flex="10">Status</span>
+              </div>
+              </md-list-item>
+              <md-list-item ng-repeat="candidate in Candidates | filter : findCandidates" class="md-2-line">
+                <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="30">{{ candidate.personalData.Name + " " + candidate.personalData.lastName }}</span>
+                <span flex="30">{{ candidate.personalData.Email }}</span>
+                <span flex="20">{{ candidate.personalData.RFC }}</span>
+                <span flex="10">
+                <md-switch ng-model="candidate.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 6">
+                </md-switch>
+                </span>
+                </div>
+              </md-list-item>
+          </md-list>
+        </md-content>
+      </div> -->
+
+      <div layout="column" ng-cloak class="md-inline-form" ng-show="Edit">
+        <md-content layout-padding>
+          <md-list ng-cloak>
+           <md-divider></md-divider>
+              <md-subheader class="md-no-sticky">Candidatos</md-subheader>
+              <p>Filtrar<input type="text" ng-model="findCandidates"></p>
+              <md-list-item class="md-2-line">
+              <div class="md-list-item-text" layout="row" layout-align="start center">
+                <span flex="30">Nombre</span>
+                <span flex="25">Correo</span>
+                <span flex="15">RFC</span>
+                <span flex="15">Telefono</span>
+                <span flex="10">Extensión</span>
+                <span flex="10">Status</span>
+                <span flex="10"></span>
+              </div>
+              </md-list-item>
+              <md-list-item ng-repeat="candidate in Candidates | filter : findCandidates | orderBy:'personalData.Name'" class="md-2-line">
+                <div class="md-list-item-text" layout="row" layout-align="start center">
+                
+                <span flex="30">
+                <img ng-src="{{candidate.personalData.profileImageUrl}}?{{$index}}" class="md-avatar">
+                {{ candidate.personalData.Name + " " + candidate.personalData.lastName }}
+                </span>
+                <span flex="25">{{ candidate.personalData.Email }}</span>
+                <span flex="15">{{ candidate.personalData.RFC }}</span>
+                <span flex="15">{{ candidate.personalData.Telephone }}</span>
+                <span flex="10">{{ candidate.personalData.Ext }}</span>
+                <span flex="10">
+                <md-switch ng-model="candidate.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 6">
+                </md-switch>
+                </span>
+                <span flex="10">
+                  <button type="button" class="btn btn-default btn-sm" ng-click="goToPerson(candidate)">
+                    <span class="glyphicon glyphicon-cog"></span> Editar
+                  </button>
+                </span>
+                </div>
+              </md-list-item>
+          </md-list>
+        </md-content>
+      </div>
+    </div>
+  </md-content>
+</div>

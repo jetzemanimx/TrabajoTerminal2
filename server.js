@@ -4,9 +4,11 @@ var cors = require('cors');
 var mongoose = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
+var passport       = require('passport');
 var logger = require('morgan');
 var port = process.env.PORT || 8080;
 var db = require('./config/db');
+require('./config/passport');
 
 app.use(logger('dev'));
 app.use(cors());
