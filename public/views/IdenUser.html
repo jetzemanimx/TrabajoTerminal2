@@ -1,11 +1,36 @@
 <style type="text/css">
 #primer{
 
-	background-color: yellow;
   	padding: 10px;
   	margin: 10px;
+  	color: black;
 
 }	
+div.gallery {
+
+
+	position: absolute;
+	left: 35%;
+	top: 30%;
+    margin: 50px;
+    border: 1px solid #ccc;
+    float: center;
+    width: 180px;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
 
 
 
@@ -37,12 +62,23 @@
 	</div>
 </div>
 
+<div class="container" ng-show="AU" id="primer" align="center">
+	<div ng-model="Data">
+		<h3>Bienvenid@</h3>
+		
+		<div class="gallery">
+	    	<img src="img/Usuario.png" alt="Trolltunga Norway" width="300" height="200">
+	  		<div class="desc" color="black">
+	  			{{Data.personalData.Name}} 
+	  			{{Data.personalData.lastName}} <br>
+	  			{{Data.personalData.Sex}} <br>
+	  		</div>
+	  	</div>
+	  
+	 </div>
 
-	<div style="color: black" ng-model="Data">
-		<h2>{{Data.personalData.Name}}</h2> <br>
-		<h2>{{Data.personalData.lastName}}</h2> <br>
-		<h2>{{Data.personalData.Sex}}</h2>
-	</div>
+	
+</div>
 
 
 
