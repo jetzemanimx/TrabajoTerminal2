@@ -30,7 +30,7 @@ $scope.AddUser = function() {
     $scope.RegisterUser = function(){
     if (($scope.Correo==$scope.Correo2)&&($scope.Contrasena==$scope.Contrasena2)) 
     {
-      $http.post('http://localhost:8080/api/user/register',{
+      $http.post('http://192.168.1.105:8080/api/user/register',{
         'rfc' :$scope.RFC,
         'name' :$scope.Nombre,
         'lastname' :$scope.Apellido,
@@ -62,7 +62,7 @@ $scope.AddUser = function() {
   };
 
   $scope.displayUser = function() {
-    $http.get('http://localhost:8080/api/users')
+    $http.get('http://192.168.1.105:8080/api/users')
       .success(function(data){
         $scope.Users = data;
         if(data.length == 0){
