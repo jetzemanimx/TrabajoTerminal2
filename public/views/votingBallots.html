@@ -1,41 +1,13 @@
-<div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="ext-content">
-	<div>
-		<form name="userForm" ng-submit="CrearPlantilla()">
-			<md-input-container class="md-block" flex-gt-sm>
+<div ng-cloak>
+<div layout="row" layout-align="center center" flex>
+    <md-card flex="50"> 
+      <md-card-content>
+		<form name="vbForm" ng-submit="CrearPlantilla()">
+			
+      <md-input-container class="md-block" flex-gt-sm>
         <label >Nombre de la votación</label>
-        <input  ng-model="nombre" required>
-        <div ng-messages="userForm.nombre.$error">
+        <input name="Nombre" ng-model="nombre" required>
+        <div ng-messages="vbForm.Nombre.$error">
           <div ng-message="required">Este campo es requerido</div>
         </div>
       </md-input-container>
@@ -46,7 +18,7 @@
 				  <div layout-gt-xs="row">
 				    <div flex-gt-xs>
 				      <h4>Fecha de Votación</h4>
-				      <md-datepicker required  ng-model="myDate" md-placeholder="Introducir Fecha"
+				      <md-datepicker ng-model="myDate" md-placeholder="Introducir Fecha"
 				        md-min-date="minDate" md-max-date="maxDate"
 				        md-date-filter="onlyWeekendsPredicate"></md-datepicker>
 				    </div>
@@ -55,71 +27,36 @@
 
 				<div layout-gt-sm="row">
 				<md-input-container style="margin-right: 10px;">
-        	<label>Hora de Inicio </label>
-        <md-select ng-model="hour" required>
+        	<label >Hora de Inicio </label>
+        <md-select ng-model="hour" required name="hour">
           <md-option ng-repeat="hour in hours" value="{{hour}}">{{hour}}</md-option>
         </md-select>
+          <div ng-messages="vbForm.hour.$error">
+          <div ng-message="required">Este campo es requerido</div>
+        </div>
       </md-input-container>
 
       <md-input-container style="margin-right: 10px;">
         <label>Hora de termino</label>
-        <md-select ng-model="hourf" required>
+        <md-select ng-model="hourf" required name="hourf">
           <md-option ng-repeat="hourf in hoursf" value="{{hourf}}">{{hourf}}</md-option>
         </md-select>
+          <div ng-messages="vbForm.hourf.$error">
+          <div ng-message="required">Este campo es requerido</div>
+        </div>
       </md-input-container>
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                            
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button type="submit" class="md-raised md-primary">Crear Plantilla</md-button>
+      </section>
 
 	</form>
+    </md-card-content>
+    </md-card>
+
+
+
+
 	</div>
-</div>
+  </div>
