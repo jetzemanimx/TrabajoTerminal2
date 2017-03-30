@@ -40,7 +40,6 @@ angular.module('voteCtrl', []).controller('voteController', function(Message,$md
 			'lastname': $scope.Apellidos,
 			'sex': $scope.Sexo,
 			'email': $scope.Email,
-			'isactive': $scope.Active
 		})
 		.success(function (data) {
 			Message.Success("Registro Exitoso");
