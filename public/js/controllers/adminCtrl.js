@@ -1,11 +1,34 @@
-angular.module('adminCtrl', []).controller('AdminController', function($scope, $window, Message, $route, $mdDialog, Upload, authentication, $http, $rootScope, $location, $timeout){
+angular.module('adminCtrl', []).controller('AdminController', function($scope, $window, Message, Server, $route, $mdDialog, Upload, authentication, $http, $rootScope, $location, $timeout){
 
     $scope.Init = function() {
     	$scope.User = authentication.currentUser();
+
+      if($scope.User.userType == "Master"){
+          $scope.Menu = [
+          'Usuarios',
+          'Candidatos',
+          'Votantes',
+          'Plantillas',
+          'Resultados Finales',
+          'Resultados Preliminares'
+        ];
+      }else{
+          $scope.Menu = [
+            'Perfil',
+            'Candidatos',
+            'Votantes',
+            'Plantillas',
+            'Resultados Finales',
+            'Resultados Preliminares'
+        ]; 
+      }
+
+      //console.log($scope.User);
       Message.Toast("Bienvenido " + $scope.User.name);
-      $scope.SelectUser =  false;
+      $scope.SelectUserMaster =  false;
       $scope.SelectCandidate = false;
       $scope.SelectVote = false;
+      $scope.Profile = false;
     };
 
     $scope.LogOut = function() {
@@ -13,59 +36,104 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       $location.path('/');
       $window.location.reload();
     };
-
-    $scope.Menu = [
-      'Usuarios',
-      'Candidatos',
-      'Votantes',
-      'Plantillas',
-      'Resultados Finales',
-      'Resultados Preliminares'
-    ];
+    
 
     $scope.announceClick = function(item) {
       switch(item) {
-        case 'Usuarios':
+        case 'Perfil':
             //alert("Usuarios");
-            $scope.SelectUser = true ;
+            $scope.Profile = true;
+            $scope.displayProfile();
+            $scope.SelectUserMaster = false ;
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
+            break;
+        case 'Usuarios':
+            //alert("Usuarios");
+            $scope.SelectUserMaster = true ;
+            $scope.SelectCandidate = false;
+            $scope.SelectVote = false;
+            $scope.Profile = false;
             break;
         case 'Candidatos':
             //alert("Candidatos");
-            $scope.SelectUser = false ;
+            $scope.SelectUserMaster = false ;
             $scope.SelectCandidate = true;
             $scope.SelectVote = false;
+            $scope.Profile = false;
             break;
         case 'Votantes':
             //alert("Votantes");
-            $scope.SelectUser = false ;
+            $scope.SelectUserMaster = false ;
             $scope.SelectCandidate = false;
             $scope.SelectVote = true ;
+            $scope.Profile = false;
             break;
         case 'Plantillas':
             //alert("Plantillas");
-            $scope.SelectUser = false ;
+            $scope.SelectUserMaster = false ;
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
+            $scope.Profile = false;
             Message.Success("En Construcción");
             break;
         case 'Resultados Finales':
             //alert("Plantillas");
-            $scope.SelectUser = false ;
+            $scope.SelectUserMaster = false ;
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
+            $scope.Profile = false;
             Message.Success("En Construcción");
             break;
         case 'Resultados Preliminares':
             //alert("Plantillas");
-            $scope.SelectUser = false ;
+            $scope.SelectUserMaster = false ;
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
+            $scope.Profile = false;
             Message.Success("En Construcción");
             break;
       };
     };
+    /*Perfil*/
+    $scope.displayProfile = function() {
+      //console.log($scope.User.id);
+      $http.get('http://'+Server.Ip+'/api/user/find/' +$scope.User.id)
+      .success(function(data){
+        $scope.dataProfile = data;
+      })
+      .error(function(error){
+        console.log(error);
+      });
+    };
+
+    $scope.UpdateProfile = function(){
+      if (($scope.dataProfile.personalData.Email==$scope.Correo2)&&($scope.Contrasena==$scope.Contrasena2)) {
+        $http.post('http://'+Server.Ip+'/api/user/editProfile',{
+        'id' :  $scope.User.id,
+        'rfc' :$scope.dataProfile.personalData.RFC,
+        'name' :$scope.dataProfile.personalData.Name,
+        'lastname' :$scope.dataProfile.personalData.lastName,
+        'sex' :$scope.dataProfile.personalData.Sex,
+        'tel' :$scope.dataProfile.personalData.Telephone.toString(),
+        'address' :$scope.dataProfile.personalData.Address,
+        'email' :$scope.dataProfile.personalData.Email,
+        'password' :$scope.Contrasena
+        })
+        .success(function (data) {
+        Message.Success(data);
+        //console.log(data);
+        $route.reload();
+        })
+        .error(function (error) {
+        Message.Error("Ops! Algo salio mal, intenta nuevamente");
+        });
+      }
+      else{
+      Message.Error('Las contraseñas o el correo no coinciden');
+      }
+    };
+
     /*Usuarios*/
     $scope.AddUser = function() {
       $scope.FormRegisterUser =  true;
@@ -90,7 +158,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
     $scope.displayUser = function() {
-      $http.get('http://192.168.1.105:8080/api/users')
+      $http.get('http://'+Server.Ip+'/api/users')
       .success(function(data){
         $scope.Users = data;
         if(data.length == 0){
@@ -105,7 +173,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
 
     $scope.RegisterUser = function(){
       if (($scope.Correo==$scope.Correo2)&&($scope.Contrasena==$scope.Contrasena2)) {
-        $http.post('http://192.168.1.105:8080/api/user/register',{
+        $http.post('http://'+Server.Ip+'/api/user/register',{
         'rfc' :$scope.RFC,
         'name' :$scope.Nombre,
         'lastname' :$scope.Apellido,
@@ -113,10 +181,12 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         'tel' :$scope.Telefono.toString(),
         'address' :$scope.Direccion,
         'email' :$scope.Correo,
-        'password' :$scope.Contrasena
+        'password' :$scope.Contrasena,
+        'isactive': true,
+        'range' : $scope.Perfil
         })
         .success(function (data) {
-        Message.Toast("Registro Exitoso");
+        Message.Success("Registro Exitoso");
         $route.reload();
         })
         .error(function (error) {
@@ -156,25 +226,29 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       $scope.Tel = user.personalData.Telephone;
       $scope.Id = user._id;
       $scope.Status = user.isActive;
+      $scope.Perfil = user.personalData.userType;
 
       $scope.cancelUser = function() {
         $mdDialog.cancel();
       };
 
       $scope.updateUser = function() {
-        $http.patch('http://192.168.1.105:8080/api/user/update/'+ $scope.Id, {
+        $http.patch('http://'+Server.Ip+'/api/user/update/'+ $scope.Id, {
         boleta: $scope.Boleta,
         name: $scope.Nombre,
-        lastname: $scope.Apellidos, 
+        lastname: $scope.Apellido, 
         sex: $scope.Sexo, 
         email: $scope.Email,
-        isactive: $scope.Status})
+        tel: $scope.Tel,
+        adrress: $scope.Address,
+        isactive: $scope.Status,
+        range: $scope.Perfil})
         .success(function(data){
           $timeout(function(){
             $mdDialog.cancel();
             $route.reload();
             },1000);
-          Message.Toast("Actualización Exitosa");
+          Message.Success("Actualización Exitosa");
         })
         .error(function(error){
           Message.Error("Ops! Algo salio mal, intenta nuevamente");
@@ -195,12 +269,13 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
 
 
     $scope.registerVote = function(){
-      $http.post('http://192.168.1.105:8080/api/vote/register',{
+      $http.post('http://'+Server.Ip+'/api/vote/register',{
         'boleta': $scope.Boleta,
         'name': $scope.Nombre,
         'lastname': $scope.Apellidos,
         'sex': $scope.Sexo,
         'email': $scope.Email,
+        'isactive': true
       })
       .success(function (data) {
         Message.Success("Registro Exitoso");
@@ -212,7 +287,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };    
 
     $scope.displayVote = function() {
-      $http.get('http://192.168.1.105:8080/api/votes')
+      $http.get('http://'+Server.Ip+'/api/votes')
       .success(function(data){
         $scope.Votes = data;
         if(data.length == 0){
@@ -258,7 +333,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       };
 
       $scope.updateVote = function() {
-        $http.patch('http://192.168.1.105:8080/api/vote/update/'+ $scope.Id, {
+        $http.patch('http://'+Server.Ip+'/api/vote/update/'+ $scope.Id, {
         boleta: $scope.Boleta,
         name: $scope.Nombre,
         lastname: $scope.Apellidos, 
@@ -270,7 +345,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $mdDialog.cancel();
             $route.reload();
             },1000);
-          Message.Toast("Actualización Exitosa");
+          Message.Success("Actualización Exitosa");
         })
         .error(function(error){
           Message.Error("Ops! Algo salio mal, intenta nuevamente");
@@ -291,7 +366,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
     $scope.displayCandidate = function() {
-      $http.get('http://localhost:8080/api/candidates')
+      $http.get('http://'+Server.Ip+'/api/candidates')
       .success(function(data){
         $scope.Candidates = data;
         if(data.length == 0){
@@ -321,7 +396,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
           }
       }).then(function (resp) {
         $scope.image_path = resp.data;
-        $http.post('http://localhost:8080/api/candidate/register',{
+        $http.post('http://'+Server.Ip+'/api/candidate/update/' + $scope.Id,{
       'rfc': $scope.RFC,
       'image': $scope.image_path,
       'deegre': $scope.Grado,
@@ -332,14 +407,14 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       'adrress': $scope.Direccion,
       'tel': $scope.Telefono,
       'ext': $scope.Extension,
-      'isactive': true
+      'isactive': $scope.Status
       })
       .success(function (data) {
         $timeout(function(){
           $mdDialog.cancel();
           $route.reload();
         },2000)
-        Message.Toast("Registro Exitoso");
+        Message.Success("Registro Exitoso");
       })
       .error(function (error) {
         Message.Error("Ops! Algo salio mal, intenta nuevamente");
@@ -389,7 +464,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       };
 
       $scope.updateCandidate = function() {
-        $http.patch('http://localhost:8080/api/candidate/update/'+ $scope.Id, {
+        $http.patch('http://'+Server.Ip+'/api/candidate/update/'+ $scope.Id, {
         rfc: $scope.RFC,
         name: $scope.Nombre,
         lastname: $scope.Apellidos, 
@@ -405,7 +480,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $mdDialog.cancel();
             $route.reload();
           },2000)
-          Message.Toast("Actualización Exitosa");
+          Message.Success("Actualización Exitosa");
         })
         .error(function(error){
           Message.Error("Ops! Algo salio mal, intenta nuevamente");

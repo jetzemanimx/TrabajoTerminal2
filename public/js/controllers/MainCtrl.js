@@ -1,10 +1,5 @@
 angular.module('MainCtrl', []).controller('MainController',function($scope, authentication, $window, $http, $rootScope, $location, $timeout){
-
- 
- 	$scope.Init = function () {
- 		$scope.isLoggedIn = authentication.isLoggedIn();
- 	}
- 	
+	
 	$scope.Login = function () {
 		$location.path('/Login');
 	};
@@ -12,7 +7,6 @@ angular.module('MainCtrl', []).controller('MainController',function($scope, auth
 	$scope.ReLogin = function () {
 		$location.path('/');
 	};
-
 
 	$scope.Logout = function () {
 		authentication.logout();

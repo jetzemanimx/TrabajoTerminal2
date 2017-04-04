@@ -60,13 +60,14 @@ module.exports = function(app) {
       app.post('/api/user/register',function (req,res) {
         var user = new User();
           user.personalData.RFC = req.body.rfc;
-          user.personalData.userType = 'Admin';
+          user.personalData.userType = req.body.range;
           user.personalData.Sex = req.body.sex;
           user.personalData.Name = req.body.name;
           user.personalData.lastName = req.body.lastname;
           user.personalData.Email = req.body.email;
           user.personalData.Address = req.body.address;
           user.personalData.Telephone = req.body.tel;
+          user.isActive = req.body.isactive;
           user.setPassword(req.body.password);
           user.save(function (error,data,callback) {
             if (error) {
@@ -90,6 +91,70 @@ module.exports = function(app) {
             }
           });
       });
+      //Update UserProfile by id
+      app.post('/api/user/editProfile',function(req,res) {
+        //console.log(req.body);
+        var modifySomething = false;
+        User.findById({_id: req.body.id}, function(error,user){
+          if(error){
+            res.status(500).json(err);
+          }
+          //console.log("User: " + user);
+          if(req.body.rfc != ""){
+            console.log("New RFC: " +req.body.rfc);
+            user.personalData.RFC = req.body.rfc;
+            modifySomething = true;
+          }
+          if(req.body.name != ""){
+            console.log("New name: "+req.body.name);
+            user.personalData.Name = req.body.name;
+            modifySomething = true;
+          }
+          if(req.body.lastname != ""){
+            console.log("New lastname: "+req.body.lastname);
+            user.personalData.lastName = req.body.lastname;
+            modifySomething = true;
+          }
+           if(req.body.sex != ""){
+            console.log("New sex: " +req.body.sex);
+            user.personalData.Sex = req.body.sex;
+            modifySomething = true;
+          }
+          if(req.body.tel != ""){
+            console.log("New tel: "+req.body.tel);
+            user.personalData.Telephone = req.body.tel;
+            modifySomething = true;
+          }
+          if(req.body.address != ""){
+            console.log("New address: "+req.body.address);
+            user.personalData.Address = req.body.address;
+            modifySomething = true;
+          }
+          if(req.body.email != ""){
+            console.log("New email: "+req.body.email);
+            user.personalData.Email = req.body.email;
+            modifySomething = true;
+          }
+          if(req.body.password != "" && req.body.password){
+            console.log("New password: "+req.body.password);
+            user.setPassword(req.body.password);
+            modifySomething = true;
+          }
+
+          if(modifySomething){
+            //console.log('saving user');
+            user.save(function(error){
+              if(error){
+                res.status(500).json(error);
+              }else{
+                res.send('Actualización Exitosa');
+              }
+            });
+          }else{
+            res.send('No hay nada que modificar');
+          }
+        }); 
+      });
       //Update User by id
       app.patch('/api/user/update/:id',function(req,res) {
         User.findByIdAndUpdate(req.params.id,{
@@ -101,7 +166,8 @@ module.exports = function(app) {
                             'personalData.Address':req.body.adrress,
                             'personalData.Telephone':req.body.tel,
                             /*'personalData.Password':req.bodypass,*/
-                            'isActive':req.body.isactive
+                            'isActive':req.body.isactive,
+                            'personalData.userType': req.body.range
                             }
                         },function (error,data) {
                           if(error){

@@ -78,6 +78,11 @@ angular
             }
           }
         })
+        .factory("Server",function($mdDialog,$mdToast) { 
+          return {
+                Ip : "localhost:8080"
+            }
+        })
         .directive('ngEnter', function () {
         return function (scope, element, attrs) {
             element.bind("keydown keypress", function (event) {

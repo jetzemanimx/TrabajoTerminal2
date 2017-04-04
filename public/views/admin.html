@@ -22,8 +22,130 @@
   </md-toolbar>
 </div>
 
+<!--Profile-->
+<div ng-show="Profile">
+
+      <div layout="row" flex layout-align="center center" layout-margin>
+        <div flex>
+          <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
+            <h2>Perfil</h2>
+          </md-toolbar>
+        </div>
+      </div>
+
+      <div layout="row" flex layout-align="center center" layout-margin>
+        <md-card flex="80"> 
+          <md-card-content>
+            <form name="profileForm" ng-submit="UpdateProfile()">
+
+              <div layout="row">
+                <md-input-container class="md-block" flex>
+                  <label>RFC</label>
+                  <input required name="RFC" md-maxlength="13" ng-model="dataProfile.personalData.RFC">
+                  <div ng-messages="profileForm.RFC.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                    <div ng-message="md-maxlength">RFC muy largo</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Nombre(s)</label>
+                  <input required name="Nombre" ng-model="dataProfile.personalData.Name">
+                  <div ng-messages="profileForm.Nombre.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="50">
+                  <label>Apellidos</label>
+                  <input required name="Apellidos" ng-model="dataProfile.personalData.lastName">
+                  <div ng-messages="profileForm.Apellidos.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div layout="row">
+
+                <md-input-container class="md-block" flex="50">
+                  <label>Sexo</label>
+                  <md-select name="Sexo" ng-model="dataProfile.personalData.Sex" required>
+                  <md-option value="M">Femenino</md-option>
+                  <md-option value="H">Masculino</md-option>
+                  </md-select>
+                  <div ng-messages="profileForm.Sexo.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex="50">
+                  <label>Teléfono</label>
+                  <input required name="Telefono" ng-model="dataProfile.personalData.Telephone">
+                  <div ng-messages="profileForm.Telefono.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+              </div>
+
+              <div layout="row">
+                <md-input-container class="md-block" flex="100">
+                  <label>Dirección Completa</label>
+                  <input required name="Direccion" ng-model="dataProfile.personalData.Address">
+                  <div ng-messages="profileForm.Direccion.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Email</label>
+                  <input required name="Email" ng-model="dataProfile.personalData.Email" type="email">
+                  <div ng-messages="profileForm.Email.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex="50">
+                  <label>Confirma Email</label>
+                  <input required name="Email" ng-model="Correo2" type="email">
+                  <div ng-messages="profileForm.Email.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Contraseña</label>
+                  <input required name="Contrasena" ng-model="Contrasena" type="password">
+                  <div ng-messages="profileForm.Contrasena.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex="50">
+                  <label>Confirma Contraseña</label>
+                  <input required name="Contrasena" ng-model="Contrasena2" type="password">
+                  <div ng-messages="profileForm.Contrasena.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>    
+
+              <section layout="row"  layout-align="space-around center">
+                <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
+                <md-button ng-disabled="!profileForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Actualizar</md-button>
+              </section>
+            </form>
+          </md-card-content>
+        </md-card>
+      </div>
+</div>
+
 <!--Users..........................................................................................................-->
-<div ng-show="SelectUser">
+<div ng-show="SelectUserMaster">
 
       <div layout="row" flex layout-align="center center" layout-margin>
         <div flex>
@@ -47,10 +169,11 @@
         <md-card flex="80"> 
           <md-card-content>
             <form name="userForm" ng-submit="RegisterUser()">
+
               <div layout="row">
                 <md-input-container class="md-block" flex>
                   <label>RFC</label>
-                  <input md-maxlength="13" md-minlength="13" ng-model="RFC" required>
+                  <input required name="RFC" md-maxlength="13" ng-model="RFC">
                   <div ng-messages="userForm.RFC.$error">
                     <div ng-message="required">Este campo es requerido</div>
                     <div ng-message="md-maxlength">RFC muy largo</div>
@@ -60,7 +183,7 @@
 
               <div layout="row">
                 <md-input-container class="md-block" flex="50">
-                  <label class="icon-user">Nombre(s)</label>
+                  <label>Nombre(s)</label>
                   <input required name="Nombre" ng-model="Nombre">
                   <div ng-messages="userForm.Nombre.$error">
                     <div ng-message="required">Este campo es requerido</div>
@@ -68,102 +191,96 @@
                 </md-input-container>
 
                 <md-input-container class="md-block" flex="50">
-                <label>Apellidos</label>
-                <input required name="Apellido" ng-model="Apellido">
-                <div ng-messages="userForm.Apellido.$error">
-                <div ng-message="required">Este campo es requerido</div>
-                <div ng-message="md-maxlength">RFC muy largo</div>
+                  <label>Apellidos</label>
+                  <input required name="Apellidos" ng-model="Apellido">
+                  <div ng-messages="userForm.Apellidos.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
               </div>
-            </md-input-container>
-          </div>
 
-          <div layout="row">
-            <md-input-container class="md-block" flex="50">
-              <label class="icon-user">Nombre(s)</label>
-              <input required name="Nombre" ng-model="Nombre">
-              <div ng-messages="userForm.Nombre.$error">
-                <div ng-message="required">Este campo es requerido</div>
-              </div>
-            </md-input-container>
+              <div layout="row">
 
-            <md-input-container class="md-block" flex="50">
-            <label>Apellidos</label>
-            <input required name="Apellido" ng-model="Apellido">
-            <div ng-messages="userForm.Apellido.$error">
-            <div ng-message="required">Este campo es requerido</div>
-            </div>
-            </md-input-container>
-          </div>
+                <md-input-container class="md-block" flex="50">
+                  <label>Sexo</label>
+                  <md-select name="Sexo" ng-model="Sexo" required>
+                  <md-option value="M">Femenino</md-option>
+                  <md-option value="H">Masculino</md-option>
+                  </md-select>
+                  <div ng-messages="userForm.Sexo.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
 
-          <div layout="row">
-            <md-input-container class="md-block" flex="50">
-              <label>Sexo</label>
-              <md-select name="Sexo" ng-model="Sexo" required>
-              <md-option value="M">Femenino</md-option>
-              <md-option value="H">Masculino</md-option>
-              </md-select>
-              <div ng-messages="userForm.Sexo.$error">
-                <div ng-message="required">Este campo es requerido</div>
+                <md-input-container class="md-block" flex="50">
+                  <label>Perfil</label>
+                  <md-select name="Perfil" ng-model="Perfil" required>
+                  <md-option value="Admin">Administrador</md-option>
+                  <md-option value="Master">Master</md-option>
+                  </md-select>
+                  <div ng-messages="userForm.Perfil.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                
               </div>
-            </md-input-container>
-            <md-input-container class="md-block" flex="50">
-              <label>Teléfono</label>
-              <input ng-model="Telefono" name="Telefono" required>
-              <div ng-messages="userForm.Telefono.$error">
-                <div ng-message="required">Este campo es requerido</div>
-              </div>
-            </md-input-container>
-          </div>
 
-          <div layout="row">
-            <md-input-container class="md-block" flex>
-              <label>Dirección Completa</label>
-              <input ng-model="Direccion" name="Direccion" required>
-              <div ng-messages="userForm.Direccion.$error">
-                <div ng-message="required">Este campo es requerido</div>
-              </div>
-            </md-input-container>
-          </div>
+              <div layout="row">
+                <md-input-container class="md-block" flex="70">
+                  <label>Dirección Completa</label>
+                  <input required name="Direccion" ng-model="Direccion">
+                  <div ng-messages="userForm.Direccion.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
 
-          <div layout="row">
-            <md-input-container class="md-block" flex="50">
-              <label>Email</label>
-              <input required name="Email" ng-model="Correo" type="email">
-              <div ng-messages="userForm.Email.$error">
-                <div ng-message="required">Este campo es requerido</div>
+                <md-input-container class="md-block" flex="30">
+                  <label>Teléfono</label>
+                  <input required name="Telefono" ng-model="Telefono">
+                  <div ng-messages="userForm.Telefono.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
               </div>
-            </md-input-container>
-            <md-input-container class="md-block" flex="50">
-              <label>Confirma Email</label>
-              <input required name="Email" ng-model="Correo2" type="email">
-              <div ng-messages="userForm.Email.$error">
-                <div ng-message="required">Este campo es requerido</div>
-              </div>
-            </md-input-container>
-          </div>
 
-          <div layout="row">
-            <md-input-container class="md-block" flex="50">
-              <label class="icon-lock"> Contraseña</label>
-              <input ng-model="Contrasena" type="password" required>
-              <div ng-messages="userForm.Contrasena.$error">
-              <div ng-message="required">Este campo es requerido</div>
+              <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Email</label>
+                  <input required name="Email" ng-model="Correo" type="email">
+                  <div ng-messages="userForm.Email.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex="50">
+                  <label>Confirma Email</label>
+                  <input required name="Email" ng-model="Correo2" type="email">
+                  <div ng-messages="userForm.Email.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
               </div>
-            </md-input-container>
-            <md-input-container class="md-block" flex="50">
-              <label> Confirma Contraseña</label>
-              <input ng-model="Contrasena2" type="password" required>
-              <div ng-messages="userForm.Contrasena.$error">
-              <div ng-message="required">Este campo es requerido</div>
-              </div>
-            </md-input-container>
-          </div>    
 
-          <section layout="row"  layout-align="space-around center">
-            <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
-            <md-button ng-disabled="!userForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Registrar</md-button>
-          </section>
+              <div layout="row">
+                <md-input-container class="md-block" flex="50">
+                  <label>Contraseña</label>
+                  <input required name="Contrasena" ng-model="Contrasena" type="password">
+                  <div ng-messages="userForm.Contrasena.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex="50">
+                  <label>Confirma Contraseña</label>
+                  <input required name="Contrasena" ng-model="Contrasena2" type="password">
+                  <div ng-messages="userForm.Contrasena.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+              </div>    
 
+              <section layout="row"  layout-align="space-around center">
+                <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
+                <md-button ng-disabled="!userForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Registrar</md-button>
+              </section>
         </form>
       </md-card-content>
     </md-card>
@@ -181,22 +298,24 @@
           </div>
 
           <md-list-item class="md-2-line" style="font-size: medium;">
-            <span flex="20">RFC</span>
+            <span flex="15">RFC</span>
             <span flex="35">Nombre</span>
             <span flex="25">Email</span>
             <span flex="10">Status</span>
+            <span flex="10">Perfil</span>
             <span flex="10"></span>
           </md-list-item>
 
           <md-list-item ng-repeat="user in Users | filter : findUser" class="md-2-line" style="font-size: medium;">
             <div class="md-list-item-text" layout="row" layout-align="start center">
-              <span flex="20">{{ user.personalData.RFC }}</span>
+              <span flex="15">{{ user.personalData.RFC }}</span>
               <span flex="35">{{ user.personalData.Name + " " + user.personalData.lastName }}</span>
               <span flex="25">{{ user.personalData.Email }}</span>
               <span flex="10">
                 <md-switch ng-model="user.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 5" class="md-primary">
                 </md-switch>
               </span>
+              <span flex="10">{{ user.personalData.userType }}</span>
               <span flex="10">
               <button type="button" class="btn btn-default btn-sm" ng-click="goToUser(user)">
                 <span class="icon-edit"></span>Editar
@@ -268,7 +387,7 @@
           <div layout="row">
             <md-input-container class="md-block" flex>
               <label>RFC</label>
-              <input md-maxlength="13" ng-model="RFC" required>
+              <input name="RFC" md-maxlength="13" ng-model="RFC" required>
               <div ng-messages="candidateForm.RFC.$error">
                 <div ng-message="required">Este campo es requerido</div>
                 <div ng-message="md-maxlength">RFC muy largo</div>
@@ -431,12 +550,12 @@
       <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterVote">
         <md-card flex="80"> 
           <md-card-content>
-            <form name="userForm" ng-submit="registerVote()">
+            <form name="voteForm" ng-submit="registerVote()">
               
                 <md-input-container class="md-block">
                   <label>Boleta</label>
                   <input md-maxlength="10" md-minlength="10" required name="Boleta" ng-model="Boleta">
-                  <div ng-messages="userForm.Boleta.$error">
+                  <div ng-messages="voteForm.Boleta.$error">
                     <div ng-message="required">Este campo es requerido</div>
                     <div ng-message="md-maxlength">Boleta muy larga</div>
                   </div>
@@ -445,7 +564,7 @@
                 <md-input-container class="md-block" flex="50">
                   <label class="icon-user">Nombre(s)</label>
                   <input required name="Nombre" ng-model="Nombre">
-                   <div ng-messages="userForm.Nombre.$error">
+                   <div ng-messages="voteForm.Nombre.$error">
                     <div ng-message="required">Este campo es requerido</div>
                   </div>
                 </md-input-container>
@@ -453,7 +572,7 @@
                 <md-input-container class="md-block" flex="50">
                   <label>Apellidos</label>
                   <input required name="Apellidos" ng-model="Apellidos">
-                  <div ng-messages="userForm.Apellidos.$error">
+                  <div ng-messages="voteForm.Apellidos.$error">
                     <div ng-message="required">Este campo es requerido</div>
                   </div>
                 </md-input-container>
@@ -466,7 +585,7 @@
                       <md-option value="H">Masculino</md-option>
                       <md-option value="M">Femenino</md-option>
                     </md-select>
-                    <div ng-messages="userForm.Sexo.$error">
+                    <div ng-messages="voteForm.Sexo.$error">
                     <div ng-message="required">Este campo es requerido</div>
                   </div>
                 </md-input-container>
@@ -474,14 +593,14 @@
                 <md-input-container class="md-block" flex="50">
                   <label class="icon-envelope">Email</label>
                   <input required name="Email" ng-model="Email" type="email">
-                  <div ng-messages="userForm.Email.$error">
+                  <div ng-messages="voteForm.Email.$error">
                     <div ng-message="required">Este campo es requerido</div>
                   </div>
                 </md-input-container>
               </div>
               <section layout="row"  layout-align="space-around center">
                 <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
-                <md-button ng-disabled="!userForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Registrar</md-button>
+                <md-button ng-disabled="!voteForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Registrar</md-button>
               </section>
             </form>
           </md-card-content>

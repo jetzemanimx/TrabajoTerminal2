@@ -62,7 +62,7 @@ angular
         };
 
         login = function(user) {
-            return $http.post('http://192.168.1.105:8080/api/user/login', user).success(function(data) {
+            return $http.post('http://localhost:8080/api/user/login', user).success(function(data) {
                 saveToken(data.token);
             });
         };
@@ -71,8 +71,8 @@ angular
             $window.localStorage.removeItem('mean-token');
         };
 
-        register = function(user){
-            return $http.post('http://192.168.1.105:8080/api/register',user)
+        /*register = function(user){
+            return $http.post('http://localhost:8080/api/register',user)
                 .success(function(data){
                     saveToken(data.token);
                 });
@@ -80,24 +80,24 @@ angular
 
         forgot = function(user){
             //console.log("making post to the api");
-            return $http.post('http://192.168.1.105:8080/api/forgot', user);
+            return $http.post('http://localhost:8080/api/forgot', user);
         };
 
         reset = function(data){
             return $http.post('/reset', data);
-        };
+        };*/
 
         return {
             currentUser : currentUser,
             saveToken : saveToken,
             getToken : getToken,
             isLoggedIn : isLoggedIn,
-            hasConfirmedEmail : hasConfirmedEmail,
-            register : register,
+            //hasConfirmedEmail : hasConfirmedEmail,
+            //register : register,
             login : login,
             logout : logout,
-            reset:reset,
-            forgot: forgot
+            //reset:reset,
+            //forgot: forgot
         };
 
 

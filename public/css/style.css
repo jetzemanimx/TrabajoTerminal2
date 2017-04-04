@@ -47,6 +47,7 @@
       margin-bottom: 0;
       font-size: 12px;
       letter-spacing: 15px;
+      background-color: #24292e;
   }
   .navbar-nav  li a:hover {
       color: #1abc9c !important;
@@ -60,8 +61,7 @@
     height: 65px;
   }
   
-.fondo-imag {
-    background: url('/img/downloads-bg.jpg') 50% 50% no-repeat;
-    width: 99%;
-    height: 400px;
-}
+  .fondo-imag {
+      background: url('/img/elecciones_2.jpg') 50% 35%;
+      height: 450px;
+  }

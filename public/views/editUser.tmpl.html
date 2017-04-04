@@ -51,19 +51,29 @@
             </md-input-container>
 
             <md-input-container class="md-block" flex="50">
-              <label>Teléfono</label>
-              <input ng-model="Tel" name="Telefono" required>
-              <div ng-messages="userEditForm.Telefono.$error">
+              <label>Perfil</label>
+              <md-select name="Perfil" ng-model="Perfil" required>
+              <md-option value="Admin">Administrador</md-option>
+              <md-option value="Master">Master</md-option>
+              </md-select>
+              <div ng-messages="userForm.Perfil.$error">
                 <div ng-message="required">Este campo es requerido</div>
               </div>
             </md-input-container>
           </div>
 
           <div layout="row">
-            <md-input-container class="md-block" flex>
+            <md-input-container class="md-block" flex="70">
               <label>Dirección Completa</label>
               <input ng-model="Address" name="Direccion" required>
               <div ng-messages="userEditForm.Direccion.$error">
+                <div ng-message="required">Este campo es requerido</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="30">
+              <label>Teléfono</label>
+              <input ng-model="Tel" name="Telefono" required>
+              <div ng-messages="userEditForm.Telefono.$error">
                 <div ng-message="required">Este campo es requerido</div>
               </div>
             </md-input-container>

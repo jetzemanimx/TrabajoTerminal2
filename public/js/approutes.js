@@ -13,7 +13,7 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 			templateUrl: 'views/admin.html',
 			controller: 'AdminController'
 		})
-	.when('/User',{
+	/*.when('/User',{
 		templateUrl: 'views/registerUser.html',
 		controller: 'userController'
 	})
@@ -24,7 +24,7 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 	.when('/Candidate',{
 		templateUrl: 'views/Candidate.html',
 		controller: 'candidateController'
-	})
+	})*/
 	.when('/IdenUser',{
 		templateUrl: 'views/IdenUser.html',
 		controller: 'IdentificarUser'
