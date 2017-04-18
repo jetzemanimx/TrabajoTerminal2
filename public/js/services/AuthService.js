@@ -2,9 +2,9 @@ angular
 	.module('myApp')
 	 .service('authentication',authentication);
 
-    authentication.$inject = ['$http', '$window'];
+    authentication.$inject = ['$http', '$window','Server'];
 
-    function authentication($http, $window){
+    function authentication($http, $window, Server){
 
         var saveToken = function (token) {
             $window.localStorage['mean-token'] = token;
@@ -62,7 +62,7 @@ angular
         };
 
         login = function(user) {
-            return $http.post('http://localhost:8080/api/user/login', user).success(function(data) {
+            return $http.post('http://'+Server.Ip+'/api/user/login', user).success(function(data) {
                 saveToken(data.token);
             });
         };

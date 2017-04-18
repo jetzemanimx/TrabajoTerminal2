@@ -1,62 +1,61 @@
-<div ng-cloak>
-<div layout="row" layout-align="center center" flex>
-    <md-card flex="50"> 
-      <md-card-content>
-		<form name="vbForm" ng-submit="CrearPlantilla()">
-			
-      <md-input-container class="md-block" flex-gt-sm>
-        <label >Nombre de la votación</label>
-        <input name="Nombre" ng-model="nombre" required>
-        <div ng-messages="vbForm.Nombre.$error">
-          <div ng-message="required">Este campo es requerido</div>
+<div layout="row" flex layout-align="center center" layout-margin>
+  <md-card flex="80"> 
+    <md-card-content>
+      <form name="vbForm" ng-submit="CrearPlantilla()">
+
+        <md-input-container class="md-block" flex>
+          <label >Nombre de la votación</label>
+          <input name="Nombre" ng-model="nombre" required>
+          <div ng-messages="vbForm.Nombre.$error">
+            <div ng-message="required">Este campo es requerido</div>
+          </div>
+        </md-input-container>
+
+        <div layout="row">
+
+          <div flex="50">
+            <h4>Fecha Inicio de Votación</h4>
+            <md-datepicker ng-model="myDate" md-placeholder="Introducir Fecha" md-min-date="minDate" md-max-date="maxDate"
+            md-date-filter="onlyWeekendsPredicate"></md-datepicker>
+          </div>
+
+          <md-input-container flex="50">
+            <label >Hora de Inicio </label>
+            <md-select ng-model="hour" required name="hour">
+              <md-option ng-repeat="hour in hours" value="{{hour}}">{{hour}}</md-option>
+            </md-select>
+            <div ng-messages="vbForm.hour.$error">
+              <div ng-message="required">Este campo es requerido</div>
+            </div>
+          </md-input-container>
+
         </div>
-      </md-input-container>
 
-    
+        <div layout="row">
 
-				<md-content  layout-padding ng-cloak>
-				  <div layout-gt-xs="row">
-				    <div flex-gt-xs>
-				      <h4>Fecha de Votación</h4>
-				      <md-datepicker ng-model="myDate" md-placeholder="Introducir Fecha"
-				        md-min-date="minDate" md-max-date="maxDate"
-				        md-date-filter="onlyWeekendsPredicate"></md-datepicker>
-				    </div>
-				  </div>
-				</md-content>
+          <div flex="50">
+            <h4>Fecha Final de Votación</h4>
+            <md-datepicker ng-model="myDate1" md-placeholder="Introducir Fecha" md-min-date="minDate" md-max-date="maxDate"
+            md-date-filter="onlyWeekendsPredicate"></md-datepicker>
+          </div>
 
-				<div layout-gt-sm="row">
-				<md-input-container style="margin-right: 10px;">
-        	<label >Hora de Inicio </label>
-        <md-select ng-model="hour" required name="hour">
-          <md-option ng-repeat="hour in hours" value="{{hour}}">{{hour}}</md-option>
-        </md-select>
-          <div ng-messages="vbForm.hour.$error">
-          <div ng-message="required">Este campo es requerido</div>
+          <md-input-container flex="50">
+            <label>Hora de termino</label>
+            <md-select ng-model="hourf" required name="hourf">
+              <md-option ng-repeat="hourf in hoursf" value="{{hourf}}">{{hourf}}</md-option>
+            </md-select>
+            <div ng-messages="vbForm.hourf.$error">
+             <div ng-message="required">Este campo es requerido</div>
+            </div>
+          </md-input-container>
+
         </div>
-      </md-input-container>
 
-      <md-input-container style="margin-right: 10px;">
-        <label>Hora de termino</label>
-        <md-select ng-model="hourf" required name="hourf">
-          <md-option ng-repeat="hourf in hoursf" value="{{hourf}}">{{hourf}}</md-option>
-        </md-select>
-          <div ng-messages="vbForm.hourf.$error">
-          <div ng-message="required">Este campo es requerido</div>
-        </div>
-      </md-input-container>
-      </div>
-
-      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <md-button type="submit" class="md-raised md-primary">Crear Plantilla</md-button>
-      </section>
-
-	</form>
+        <section layout="row"  layout-align="space-around center">
+        <md-button ng-disabled="!vbForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Crear Plantilla</md-button>
+        </section>
+        
+      </form>
     </md-card-content>
-    </md-card>
-
-
-
-
-	</div>
-  </div>
+  </md-card>
+</div>

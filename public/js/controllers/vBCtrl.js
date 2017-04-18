@@ -1,4 +1,4 @@
-angular.module('vBCtrl', []).controller('vBController', function($scope, $http, $rootScope, $location, $timeout, Message, $route){
+angular.module('vBCtrl', []).controller('vBController', function($scope, $http, $rootScope, $location, $timeout, Message,Server, $route){
  	 
  	var myDate = new Date();
 
@@ -86,54 +86,69 @@ angular.module('vBCtrl', []).controller('vBController', function($scope, $http, 
 					"21:30 "
       ];
 
+      $scope.CalculaInicio = function (myDate) {
+
+      			var tmpHourInit='',
+						tmpMinuteInit='',
+						HourInit='';
+
+      			HourInit = $scope.hour;
+      			tmpHourInit = HourInit.substring(0,2);
+      			tmpMinuteInit = HourInit.substring(3,5);
+      			myDate.setHours(tmpHourInit);
+      			myDate.setMinutes(tmpMinuteInit);
+
+      			return myDate;
+      }
+
+      $scope.CalculaFinal = function (myDate1) {
+      		
+      			var tmpHourEnd='',
+						tmpMinuteEnd='',
+						HourEnd='';
+
+      	    HourEnd = $scope.hourf;
+      			tmpHourEnd = HourEnd.substring(0,2);
+      			tmpMinuteEnd = HourEnd.substring(3,5);
+      			myDate1.setHours(tmpHourEnd);
+      			myDate1.setMinutes(tmpMinuteEnd);
+
+      			return myDate1;      }
 
 
       $scope.CrearPlantilla = function(){
-      		if(!$scope.myDate){
+
+      		var tmp1 = $scope.hour.substring(0,2) + $scope.hour.substring(3,5);
+      		var tmp2 = $scope.hourf.substring(0,2) + $scope.hourf.substring(3,5);
+
+      		if(!$scope.myDate || !$scope.myDate1){
       			Message.Error('Ingresa una fecha');
       		}
       		else if($scope.hour == $scope.hourf){
-      			Message.Error('Las fechas deben ser diferentes');
+      			Message.Error('La hora no puede ser igual');
+      		}
+      		else if (tmp1 > tmp2){
+      			Message.Error("La hora de inicio no puede ser mayor a la hora final");
+      		}
+      		else if ($scope.myDate.getDate() != $scope.myDate1.getDate()){
+      			Message.Error('La fecha de votación tiene que ser el mismo día');
       		}
       		else{
-      			var DateCalendar = $scope.myDate;
-      			var HourInit = $scope.hour;
-      			var tmpHourInit = HourInit.substring(0,2);
-      			var tmpMinuteInit = HourInit.substring(3,5);
-      			DateCalendar.setHours(tmpHourInit);
-      			DateCalendar.setMinutes(tmpMinuteInit);
+      			Dateini = $scope.CalculaInicio($scope.myDate);
+      			DateCalendar1 = $scope.CalculaFinal($scope.myDate1);
 
-      			console.log("Inicio" + DateCalendar);
-
-      			var DateCalendar1 = $scope.myDate;
-      			var HourEnd = $scope.hourf;
-      			var tmpHourEnd = HourEnd.substring(0,2);
-      			var tmpMinuteEnd = HourEnd.substring(3,5);
-      			DateCalendar1.setHours(tmpHourEnd);
-      			DateCalendar1.setMinutes(tmpMinuteEnd);
-
-      			console.log("Final " + DateCalendar1);
-
-      			$http.post('http://192.168.1.105:8080/api/votingBallot/register',{
+      			$http.post('http://'+Server.Ip+'/api/votingBallot/register',{
 				        'name' :$scope.nombre,
-				        'init' : DateCalendar.toISOString(),
+				        'init' : Dateini.toISOString(),
 				        'end' : DateCalendar1.toISOString()
 				      })
 				    .success(function (data) {
-				      Message.Success("Plantilla creada Exitosente");
+				      Message.Success("Plantilla creada exitosamente");
 				      $route.reload();
 				    })
 				    .error(function (error) {
-				      Message.Error("Ops! Algo salio mal, intenta nuevente");
+				      Message.Error("Ops! algo salio mal, intenta nuevente");
 				    });
       		}
       }
-
-
-
-
-
-
-
-
 });
