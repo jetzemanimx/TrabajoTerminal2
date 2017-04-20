@@ -20,7 +20,9 @@
     "bootstrap-social": "^5.1.1",
     "materialize": "^0.98.0",
     "fingerprint": "^0.5.4",
-    "fingerprintjs2": "^1.5.0"
+    "fingerprintjs2": "^1.5.0",
+    "moment": "^2.18.1",
+    "angular-chips": "^1.0.11"
   },
   "resolutions": {
     "angular": "1.5.5"

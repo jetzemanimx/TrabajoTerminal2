@@ -1,61 +1,49 @@
-<div layout="row" flex layout-align="center center" layout-margin>
-  <md-card flex="80"> 
-    <md-card-content>
-      <form name="vbForm" ng-submit="CrearPlantilla()">
+<div ng-controller='vBController' layout="column" ng-cloak>
 
-        <md-input-container class="md-block" flex>
-          <label >Nombre de la votación</label>
-          <input name="Nombre" ng-model="nombre" required>
-          <div ng-messages="vbForm.Nombre.$error">
-            <div ng-message="required">Este campo es requerido</div>
-          </div>
-        </md-input-container>
+  <md-content class="md-padding autocomplete" layout="column">
+    <md-contact-chips
+        ng-model="ctrl.contacts"
+        md-contacts="ctrl.querySearch($query)"
+        md-contact-name="name"
+        md-contact-image="image"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="ctrl.filterSelected"
+        placeholder="To">
+    </md-contact-chips>
 
-        <div layout="row">
-
-          <div flex="50">
-            <h4>Fecha Inicio de Votación</h4>
-            <md-datepicker ng-model="myDate" md-placeholder="Introducir Fecha" md-min-date="minDate" md-max-date="maxDate"
-            md-date-filter="onlyWeekendsPredicate"></md-datepicker>
-          </div>
-
-          <md-input-container flex="50">
-            <label >Hora de Inicio </label>
-            <md-select ng-model="hour" required name="hour">
-              <md-option ng-repeat="hour in hours" value="{{hour}}">{{hour}}</md-option>
-            </md-select>
-            <div ng-messages="vbForm.hour.$error">
-              <div ng-message="required">Este campo es requerido</div>
-            </div>
-          </md-input-container>
-
+    <md-list class="fixedRows">
+      <md-subheader class="md-no-sticky">Contacts</md-subheader>
+      <md-list-item class="md-2-line contact-item" ng-repeat="(index, contact) in ctrl.allContacts"
+          ng-if="ctrl.contacts.indexOf(contact) < 0">
+        <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
+        <div class="md-list-item-text compact">
+          <h3>{{contact.name}}</h3>
+          <p>{{contact.email}}</p>
         </div>
-
-        <div layout="row">
-
-          <div flex="50">
-            <h4>Fecha Final de Votación</h4>
-            <md-datepicker ng-model="myDate1" md-placeholder="Introducir Fecha" md-min-date="minDate" md-max-date="maxDate"
-            md-date-filter="onlyWeekendsPredicate"></md-datepicker>
-          </div>
-
-          <md-input-container flex="50">
-            <label>Hora de termino</label>
-            <md-select ng-model="hourf" required name="hourf">
-              <md-option ng-repeat="hourf in hoursf" value="{{hourf}}">{{hourf}}</md-option>
-            </md-select>
-            <div ng-messages="vbForm.hourf.$error">
-             <div ng-message="required">Este campo es requerido</div>
-            </div>
-          </md-input-container>
-
+      </md-list-item>
+      <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in ctrl.contacts">
+        <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
+        <div class="md-list-item-text compact">
+          <h3>{{contact.name}}</h3>
+          <p>{{contact.email}}</p>
         </div>
+      </md-list-item>
+    </md-list>
 
-        <section layout="row"  layout-align="space-around center">
-        <md-button ng-disabled="!vbForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Crear Plantilla</md-button>
-        </section>
-        
-      </form>
-    </md-card-content>
-  </md-card>
+    <br>
+    <h2 class="md-title">Searching asynchronously.</h2>
+    <md-contact-chips
+        ng-model="ctrl.asyncContacts"
+        md-contacts="ctrl.delayedQuerySearch($query)"
+        md-contact-name="name"
+        md-contact-image="image"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="ctrl.filterSelected"
+        placeholder="To">
+    </md-contact-chips>
+  </md-content>
 </div>
