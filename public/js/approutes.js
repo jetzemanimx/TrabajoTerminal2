@@ -9,10 +9,18 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 		templateUrl: 'views/login.html',
 		controller: 'LoginController'
 	})
+	.when('/resetPassword',{
+		templateUrl: 'views/resetPassword.html',
+		controller: 'ForgotController'
+	})
+	.when('/reset/:token',{
+		templateUrl: 'views/resetPasswordForm.html',
+		controller: 'ResetController',
+	})
 	.when('/Admin', {
-			templateUrl: 'views/admin.html',
-			controller: 'AdminController'
-		})
+		templateUrl: 'views/admin.html',
+		controller: 'AdminController'
+	})
 	/*.when('/User',{
 		templateUrl: 'views/registerUser.html',
 		controller: 'userController'
@@ -44,11 +52,14 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 }]).run(run);
 function run($rootScope, $location, authentication, ngToast, Message) {
 	$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-		if($location.path() === '/Admin'){
+		if($location.path() == '/Admin'){
+			//console.log(authentication.isLoggedIn());
 			if(authentication.isLoggedIn()){
 				$location.path('/Admin');
 			}
 			else{
+				Message.Error("La sesión caduco, debes iniciar sesión nuevamente");
+				authentication.logout();
 				$location.path('/');
 			}
 		}

@@ -2,9 +2,12 @@
 <md-progress-linear ng-show="ActiveLine" md-mode="indeterminate"></md-progress-linear>
 </div>
 <div layout="row" layout-align="center center" flex>
-    <md-card flex="50"> 
+    <md-card flex="30"> 
       <md-card-content>
         <form name="Form">
+          <div layout="row" layout-align="center center">
+            <a href="" data-toggle="modal" data-target="#myModal"><img src="profileImages/avatar_2x.png" class="img-responsive img-circle"></a>
+          </div>
           <md-input-container class="md-block">
             <label class="icon-users">RFC</label>
             <input type="text" name="RFC" ng-model="RFC" required/>
@@ -19,7 +22,12 @@
               <div ng-message="required" class="my-message">Password Requerido.</div>
             </div>
           </md-input-container>
-          <md-button ng-disabled="!Form.$valid" ng-click="validaLogin()" class="md-raised md-primary">&nbsp Ingresar &nbsp</md-button>
+          <section layout="row" layout-align="space-around center">
+            <md-button ng-disabled="!Form.$valid" ng-click="validaLogin()" class="md-raised md-primary">&nbsp Ingresar &nbsp</md-button>
+          </section>
+          <section layout="row" layout-align="end center">
+           <a href="/#/resetPassword" style="font-size: small">¿Has olvidado la contraseña?</a>
+          </section>
         </form>
       </md-card-content>
     </md-card>

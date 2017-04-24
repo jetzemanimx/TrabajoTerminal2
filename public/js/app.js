@@ -8,6 +8,8 @@ angular
         'voteCtrl',
         'adminCtrl',
         'candidateCtrl',
+        'ForgotCtrl',
+        'ResetCtrl',
         'ngToast',
         'vBCtrl',
         'ui.bootstrap',

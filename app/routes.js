@@ -6,13 +6,15 @@ var nodemailer = require('nodemailer');
 var xoauth2 = require('xoauth2');
 var smtpTransport = require("nodemailer-smtp-transport");
 var passport = require('passport');
+var async = require('async');
+var crypto = require('crypto');
 //Configuration NodeMailer SMTP
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
         type: 'OAuth2',
         user: 'protocolovoto@gmail.com',
-        accessToken: 'ya29.Glv0A4vWkYDU5U7cagj5kFVwsSwqZ5sDPwgBojKg2gu5E9GLDNPRRsneSQioeFNalNP8hVljNbZAdV5Y0khdrAepdzCIESbu6GodFD7kLfCXpgZTpbRpIIbf_Sbm'
+        accessToken: 'ya29.Gls2BLlNKcFRs4ayaIv1N8Wgf9ODu9Sx-j9Ce-xNy4kKn4dU2vvYjiQp_Ni4Nkt3o-00cyocyhCU54bvVQ3IRwNsvyycBYdTE-659sq9IlKvBoev0vA1S4zs89IO'
     }
 });
 //Date format
@@ -437,9 +439,10 @@ module.exports = function(app) {
 
       // Route for create voting ballot
       app.post('/api/votingBallot/register', function(req,res){
-          //console.log(req.body);
+        console.log(req.body);
         var vB = new votingBallot();
         vB.Name = req.body.name;
+        vB.Description = req.body.desc;
         vB.dateInit = req.body.init;
         vB.dateEnd = req.body.end;
         vB.save(function (error, data, callback) {
@@ -500,6 +503,119 @@ module.exports = function(app) {
                   res.status(200).json(data);
               }
           });
+      });
+
+      //Forgot your password
+      app.post('/api/forgot', function(req,res,next){
+        async.waterfall([
+          function (done) {
+            console.log("Entrando a la primera función");
+            crypto.randomBytes(20, function (error, buf) {
+              var token = buf.toString('hex');
+              console.log("Genere Token: " + token);
+              done(error, token);
+            });
+          },
+          function (token, done) {
+            console.log("Entrando a la segunda función");
+            User.findOne({'personalData.RFC': req.body.RFC}, function (error, user) {
+              if (!user) {
+                return res.status(500).send({msg:"No encontre el usuario con este RFC"});
+              }
+              user.resetPasswordToken = token;
+              user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+              user.save(function (error) {
+                console.log("Usuario Guardado");
+                if (error) {
+                  console.log(error);
+                }
+                done(error, token, user);
+              });
+            });
+          },
+          function (token, user, done) {
+            console.log("Entrando a la tercera funcion");
+            var mailOptions = {
+              to: user.personalData.Email,
+              from: 'protocolovoto@gmail.com',
+              subject: 'Reestablece tu contraseña iVoto',
+              text: 'Hola ' + user.personalData.Name + " " + user.personalData.lastName +',\n\n'+
+              'Está recibiendo esto porque usted (o alguien más) ha solicitado el restablecimiento de la contraseña de su cuenta.\n\n'+
+              'Haga clic en el siguiente enlace o péguelo en su navegador para completar el proceso: \n\n' +
+              'http://' + req.headers.host + '/api/reset/' + token + '\n\n' +
+              'Si no lo solicitó, ignore este correo electrónico y su contraseña permanecerá sin cambios. \n'
+            };
+            console.log("Mail a enviarse: " + mailOptions.to + '\n\n' + mailOptions.text);
+
+            /*transporter.sendMail(mailOptions, function(error, info){
+              if(error){
+                return console.log('Mail no enviado error: $s',error);
+              }
+              console.log('Mail Enviado a %s con la respuesta %s: ', user.personalData.Email,info.response);
+              done(error, 'Exito');
+            });*/
+            done(null,'Exito');
+          }
+        ], function (error, result) {
+          if (error) {
+            return next(error);
+          }
+          res.status(200).send(result);
+        });
+      });
+
+      //Redirect to change form password
+      app.get('/api/reset/:token', function(req, res) {
+          User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+              if (!user) {
+                  return res.redirect('/#/resetPassword');
+              }
+              res.redirect('/#/reset/'+req.params.token);
+          });
+      });
+
+      //Reset Password
+      app.post('/reset', function(req, res) {
+        User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(error, user) {
+            if (!user) {
+                return res.redirect('/#/resetPassword');
+            }else{
+                user.setPassword(req.body.Password);
+                user.save(function(error) {
+                    if (error) {
+                        res.status(500).json(error);
+                        return;
+                    }else{
+                        // setup e-mail data with unicode symbols
+                        var mailOptions = {
+                            to: user.personalData.Email,
+                            from: 'protocolovoto@gmail.com',
+                            subject: 'Confirmación de cambio de contraseña - iVoto',
+                            text: 'Tu contraseña se modifico de manera exitosa. \n\n' +
+                            'Tu nueva contraseña es: \n\n' +
+                            req.body.Password + '\n\n' +
+                            'Guarde esta información en un lugar seguro\n' +
+                            'Pueden ingresar en: http://' + req.headers.host + '/#/Login'
+                        };
+                        console.log("Envie Mail a: " + user.personalData.Email + " Con contraseña: " + req.body.Password);
+                        // send mail with defined transport object
+                        /*transporter.sendMail(mailOptions, function(error, info){
+                            if(error){
+                                return console.log(error);
+                            }
+                            console.log('Message sent: ' + info.response);
+                        });*/
+                    }
+                });
+                res.redirect('/#/Login');
+            }
+
+            if(error){
+                res.status(500).json(error);
+                return;
+            }
+
+        });
       });
 };
 

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var jwt = require('jsonwebtoken');
 var crypto = require('crypto');
+var decipher = crypto.createDecipher('aes192', 'a password');
 
 var userSchema = new mongoose.Schema({
         personalData:{
@@ -49,6 +50,8 @@ var userSchema = new mongoose.Schema({
         FacebookUrl : String,
         hash: String,
         salt: String,
+        resetPasswordToken:String,
+        resetPasswordExpires: Date,
         Date:{
             type: Date, 
             default: Date.now()
@@ -71,9 +74,17 @@ userSchema.methods.validPassword = function(password){
     return this.hash === hash;
 };
 
+userSchema.methods.getPassword = function(){
+    //var hash = crypto.pbkdf2Sync(password,this.salt,1000,64).toString('hex');
+    
+    return decipher.write(this.hash, 'hex');
+};
+
 userSchema.methods.generateJwt = function(){
     var expiry = new Date();
-    expiry.setDate(expiry.getDate() + 7);
+    expiry.setDate(expiry.getDate() + 1);
+    /*var expiry = new Date();
+    expiry.setMinutes(expiry.getMinutes() + 15);*/
     return jwt.sign({
         _id: this._id,
         RFC : this.personalData.RFC,

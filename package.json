@@ -9,6 +9,7 @@
   "author": "ESCOM",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.3.0",
     "body-parser": "^1.16.0",
     "cors": "^2.8.1",
     "crypto": "0.0.3",

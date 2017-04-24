@@ -370,7 +370,7 @@
             <div layout="row" layout-align="center center">
               <label for='venue_image' ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"  name="imageProfile" required>
                 <img ng-src="img/profile.png">
-                  <md-tooltip md-direction="bottom">Click para adjuntar archivo</md-tooltip>
+                  <md-tooltip md-direction="top">Click para adjuntar imagen de perfil</md-tooltip>
                 </img>
                 <span ng-if="file" layout="row" layout-align="center center">{{file.name}}</span>
                 <div ng-messages="candidateForm.imageProfile.$error">

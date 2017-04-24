@@ -6,6 +6,10 @@ var votingBallotSchema = new mongoose.Schema({
             type: String,
             required: true
         },
+        Description: {
+            type: String,
+            required: false
+        },
         dateInit: {
             type: Date,
             required: true
@@ -18,6 +22,6 @@ var votingBallotSchema = new mongoose.Schema({
         	type: Date, 
         	default: Date.now()
         },
-        candidates: [{type: Schema.Types.ObjectId, ref: 'Candidate' }]
+        candidates: [{type: Schema.Types.ObjectId, ref: 'Candidate' },]
 });
 module.exports = mongoose.model('votingBallot',votingBallotSchema);

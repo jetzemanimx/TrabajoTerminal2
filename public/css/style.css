@@ -36,12 +36,12 @@
       color: #fff;
   }
   .container-fluid {
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding-top: 30px;
+      padding-bottom: 50px;
   }
   .navbar {
-      padding-top: 25px;
-      padding-bottom: 25px;
+      padding-top: 10px;
+      padding-bottom: 10px;
       border: 0;
       border-radius: 0;
       margin-bottom: 0;
@@ -58,7 +58,7 @@
     width: 100%;
     bottom: 0;
     position:static;
-    height: 65px;
+    height: 50px;
   }
   
   .fondo-imag {
