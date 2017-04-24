@@ -608,44 +608,177 @@
       </div>
 
       <div layout="row" flex layout-align="center center" layout-margin ng-show="FormEditVote" ng-cloak>
-    <md-card flex="90"> 
-      <md-card-content>
-        <md-list>
-          <div layout="row" layout-align="center center">
-            <md-input-container class="md-block">
-              <label>Busqueda de Votantes</label>
-              <input ng-model="findCandidate">
-            </md-input-container>
-          </div>
+        <md-card flex="90"> 
+          <md-card-content>
+            <md-list>
+              <div layout="row" layout-align="center center">
+                <md-input-container class="md-block">
+                  <label>Busqueda de Votantes</label>
+                  <input ng-model="findCandidate">
+                </md-input-container>
+              </div>
 
-          <md-list-item class="md-2-line" style="font-size: medium;">
-            <span flex="25">Boleta</span>
-            <span flex="25">Nombre</span>
-            <span flex="25">Email</span>
-            <span flex="15">Status</span>
-            <span flex="10"></span>
-          </md-list-item>
+              <md-list-item class="md-2-line" style="font-size: medium;">
+                <span flex="25">Boleta</span>
+                <span flex="25">Nombre</span>
+                <span flex="25">Email</span>
+                <span flex="15">Status</span>
+                <span flex="10"></span>
+              </md-list-item>
 
-          <md-list-item ng-repeat="vote in Votes | filter : findCandidate" class="md-2-line" style="font-size: medium;">
-            <div class="md-list-item-text" layout="row" layout-align="start center">
-              <span flex="25">{{ vote.personalData.Boleta }}</span>
-              <span flex="25">
-                {{ vote.personalData.Name + " " + vote.personalData.lastName }}
-              </span>
-              <span flex="25">{{ vote.personalData.Email }}</span>
-              <span flex="15">
-              <md-switch ng-model="vote.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 6">
-              </md-switch>
-              </span>
-              <span flex="10">
-                <button type="button" class="btn btn-default btn-sm" ng-click="goToVote(vote)">
-                  <span class="glyphicon glyphicon-cog"></span> Editar
-                </button>
-              </span>
-            </div>
-          </md-list-item>
-        </md-list>
-      </md-card-content>
-    </md-card>
-  </div>
+              <md-list-item ng-repeat="vote in Votes | filter : findCandidate" class="md-2-line" style="font-size: medium;">
+                <div class="md-list-item-text" layout="row" layout-align="start center">
+                  <span flex="25">{{ vote.personalData.Boleta }}</span>
+                  <span flex="25">
+                    {{ vote.personalData.Name + " " + vote.personalData.lastName }}
+                  </span>
+                  <span flex="25">{{ vote.personalData.Email }}</span>
+                  <span flex="15">
+                  <md-switch ng-model="vote.isActive" ng-model-options="{ getterSetter: true }" aria-label="Switch 6">
+                  </md-switch>
+                  </span>
+                  <span flex="10">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="goToVote(vote)">
+                      <span class="glyphicon glyphicon-cog"></span> Editar
+                    </button>
+                  </span>
+                </div>
+              </md-list-item>
+            </md-list>
+          </md-card-content>
+        </md-card>
+    </div>
 </div>
+<!--VotingBallots..........................................................................................................-->
+<div ng-show="SelectVotingB">
+      <div layout="row" flex layout-align="center center" layout-margin>
+        <div flex>
+          <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
+            <h2>Plantillas de Votación</h2>
+          </md-toolbar>
+        </div>
+      </div>
+      <div layout-margin>
+        <md-nav-bar nav-bar-aria-label="navigation links">
+          <md-nav-item md-nav-click="AddVotingVB()" flex="50" align="center" layout-margin>
+            Crear Plantilla de Votación
+          </md-nav-item>
+          <md-nav-item md-nav-click="ViewVotingVB()" flex="50" align="center" layout-margin>
+            Visualizar Plantilla de Votación 
+          </md-nav-item>
+        </md-nav-bar>
+      </div>
+
+      <div layout="row" flex layout-align="center center" layout-margin ng-show="FormRegisterVB">
+        <md-card flex="80"> 
+          <md-card-content>
+            <form name="vbForm" ng-submit="CrearPlantilla()">
+
+              <md-input-container class="md-block" flex>
+                <label >Nombre de la votación</label>
+                <input name="Nombre" ng-model="nombre" required>
+                <div ng-messages="vbForm.Nombre.$error">
+                  <div ng-message="required">Este campo es requerido</div>
+                </div>
+              </md-input-container>
+
+              
+              <md-input-container class="md-block">
+              <label>Descripción</label>
+              <textarea ng-model="descrip" md-maxlength="100" rows="2" md-select-on-focus></textarea>
+              </md-input-container>
+
+              <div layout="row">
+
+                <div flex="50">
+                  <h4>Fecha Inicio de Votación</h4>
+                  <md-datepicker ng-model="myDate" md-placeholder="Introducir Fecha" md-min-date="minDate" md-max-date="maxDate"
+                  md-date-filter="onlyWeekendsPredicate"></md-datepicker>
+                </div>
+
+                <md-input-container flex="50">
+                  <label >Hora de Inicio </label>
+                  <md-select ng-model="hour" required name="hour">
+                    <md-option ng-repeat="hour in hours" value="{{hour}}">{{hour}}</md-option>
+                  </md-select>
+                  <div ng-messages="vbForm.hour.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+
+              </div>
+
+              <div layout="row">
+
+                <div flex="50">
+                  <h4>Fecha Final de Votación</h4>
+                  <md-datepicker ng-model="myDate1" md-placeholder="Introducir Fecha" md-min-date="minDate" md-max-date="maxDate"
+                  md-date-filter="onlyWeekendsPredicate"></md-datepicker>
+                </div>
+
+                <md-input-container flex="50">
+                  <label>Hora de termino</label>
+                  <md-select ng-model="hourf" required name="hourf">
+                    <md-option ng-repeat="hourf in hoursf" value="{{hourf}}">{{hourf}}</md-option>
+                  </md-select>
+                  <div ng-messages="vbForm.hourf.$error">
+                   <div ng-message="required">Este campo es requerido</div>
+                  </div>
+                </md-input-container>
+                </div>
+
+
+              <section layout="row"  layout-align="space-around center">
+              <md-button ng-disabled="!vbForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Crear Plantilla</md-button>
+              </section>
+              
+            </form>
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <div layout="row" flex layout-align="center center" layout-margin ng-show="FormEditVB" ng-cloak>
+        <md-card flex="90"> 
+          <md-card-content>
+            <md-list>
+              <div layout="row" layout-align="center center">
+                <md-input-container class="md-block">
+                  <label>Busqueda de Plantillas</label>
+                  <input ng-model="findVB">
+                </md-input-container>
+              </div>
+
+              <md-list-item class="md-2-line" style="font-size: medium;">
+                <span flex="20">Nombre de la Votación</span>
+                <span flex="20">Fecha de Votación</span>
+                <span flex="20">Duración de la Votación</span>
+                <span flex="25">Descripción</span>
+                <span flex="15"></span>
+              </md-list-item>
+
+              <md-list-item ng-repeat="vb in VB | filter : findVB" class="md-2-line" style="font-size: medium;">
+                <div class="md-list-item-text" layout="row" layout-align="start center">
+                  <span flex="20">{{ vb.Name }}</span>
+                  <span flex="20">{{ vb.dateInit | date:'dd-MM-yyyy'}} </span>
+                  <span flex="20">{{ vb.dateInit | date:'HH:mm' }} - {{ vb.dateEnd | date:'HH:mm'}} </span>
+                  <span flex="30">{{ vb.Description }}</span>
+                  <span flex="5">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="goToVote(vote)">
+                      <span class="icon-user-add"></span> 
+                    </button>
+                    </span>
+                  <span flex="5">
+                     <button type="button" class="btn btn-default btn-sm" ng-click="goToVote(vote)">
+                      <span class="icon-trash"></span> 
+                    </button>
+                  </span>
+                </div>
+              </md-list-item>
+            </md-list>
+          </md-card-content>
+        </md-card>
+    </div>
+</div>
+
+
+

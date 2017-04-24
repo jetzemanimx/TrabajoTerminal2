@@ -47,6 +47,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectUserMaster = false ;
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
+            $scope.SelectVotingB=false;
             break;
         case 'Usuarios':
             //alert("Usuarios");
@@ -54,6 +55,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
             $scope.Profile = false;
+
             break;
         case 'Candidatos':
             //alert("Candidatos");
@@ -61,6 +63,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectCandidate = true;
             $scope.SelectVote = false;
             $scope.Profile = false;
+            $scope.SelectVotingB=false;
             break;
         case 'Votantes':
             //alert("Votantes");
@@ -68,6 +71,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectCandidate = false;
             $scope.SelectVote = true ;
             $scope.Profile = false;
+            $scope.SelectVotingB=false;
             break;
         case 'Plantillas':
             //alert("Plantillas");
@@ -75,7 +79,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
             $scope.Profile = false;
-            Message.Success("En Construcción");
+            $scope.SelectVotingB=true;
             break;
         case 'Resultados Finales':
             //alert("Plantillas");
@@ -83,6 +87,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
             $scope.Profile = false;
+            $scope.SelectVotingB=false;
             Message.Success("En Construcción");
             break;
         case 'Resultados Preliminares':
@@ -91,6 +96,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
             $scope.Profile = false;
+            $scope.SelectVotingB=false;
             Message.Success("En Construcción");
             break;
       };
@@ -487,4 +493,236 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         })
       };
     };
+    /*Planilla*/
+
+    $scope.AddVotingVB = function() {
+      $scope.FormRegisterVB =  true;
+      $scope.FormEditVB = false;
+    };
+
+    $scope.ViewVotingVB = function() {
+      $scope.FormRegisterVB =  false;
+      $scope.FormEditVB = true;
+      $scope.displayVB();
+    };
+
+
+var myDate = new Date();
+
+  $scope.minDate = new Date(
+      myDate.getFullYear(),
+      myDate.getMonth(),
+      myDate.getDate() + 1
+    );
+
+  $scope.maxDate = new Date(
+      myDate.getFullYear() + 20,
+      myDate.getMonth(),
+      myDate.getDate() + 1 
+    );
+
+  $scope.onlyWeekendsPredicate = function(date) {
+    var day = date.getDay();
+    return day === 1 || day === 2|| day === 3|| day === 4|| day === 5;
+  };
+
+
+  $scope.hours = [
+          "07:00 ",
+          "07:30 ",
+          "08:00 ",
+          "08:30 ",
+          "09:00 ",
+          "09:30 ",
+          "10:00 ",
+          "10:30 ",
+          "11:00 ",
+          "11:30 ",
+          "12:00 ",
+          "12:30 ",
+          "13:00 ",
+          "13:30 ",
+          "14:00 ",
+          "14:30 ",
+          "15:00 ",
+          "15:30 ",
+          "16:00 ",
+          "16:30 ",
+          "17:00 ",
+          "17:30 ",
+          "18:00 ",
+          "18:30 ",
+          "19:00 ",
+          "19:30 ",
+          "20:00 ",
+          "20:30 ",
+          "21:00 ",
+          "21:30 "
+      ];
+
+      $scope.hoursf = [
+          "07:00 ",
+          "07:30 ",
+          "08:00 ",
+          "08:30 ",
+          "09:00 ",
+          "09:30 ",
+          "10:00 ",
+          "10:30 ",
+          "11:00 ",
+          "11:30 ",
+          "12:00 ",
+          "12:30 ",
+          "13:00 ",
+          "13:30 ",
+          "14:00 ",
+          "14:30 ",
+          "15:00 ",
+          "15:30 ",
+          "16:00 ",
+          "16:30 ",
+          "17:00 ",
+          "17:30 ",
+          "18:00 ",
+          "18:30 ",
+          "19:00 ",
+          "19:30 ",
+          "20:00 ",
+          "20:30 ",
+          "21:00 ",
+          "21:30 "
+      ];
+
+      $scope.CalculaInicio = function (myDate) {
+
+            var tmpHourInit='',
+            tmpMinuteInit='',
+            HourInit='';
+
+            HourInit = $scope.hour;
+            tmpHourInit = HourInit.substring(0,2);
+            tmpMinuteInit = HourInit.substring(3,5);
+            myDate.setHours(tmpHourInit);
+            myDate.setMinutes(tmpMinuteInit);
+
+            return myDate;
+      }
+
+      $scope.CalculaFinal = function (myDate1) {
+          
+            var tmpHourEnd='',
+            tmpMinuteEnd='',
+            HourEnd='';
+
+            HourEnd = $scope.hourf;
+            tmpHourEnd = HourEnd.substring(0,2);
+            tmpMinuteEnd = HourEnd.substring(3,5);
+            myDate1.setHours(tmpHourEnd);
+            myDate1.setMinutes(tmpMinuteEnd);
+
+            return myDate1;      }
+
+
+      $scope.CrearPlantilla = function(){
+
+          var tmp1 = $scope.hour.substring(0,2) + $scope.hour.substring(3,5);
+          var tmp2 = $scope.hourf.substring(0,2) + $scope.hourf.substring(3,5);
+
+          if(!$scope.myDate || !$scope.myDate1){
+            Message.Error('Ingresa una fecha');
+          }
+          else if($scope.hour == $scope.hourf){
+            Message.Error('La hora no puede ser igual');
+          }
+          else if (tmp1 > tmp2){
+            Message.Error("La hora de inicio no puede ser mayor a la hora final");
+          }
+          else if ($scope.myDate.getDate() != $scope.myDate1.getDate()){
+            Message.Error('La fecha de votación tiene que ser el mismo día');
+          }
+          else{
+            Dateini = $scope.CalculaInicio($scope.myDate);
+            DateCalendar1 = $scope.CalculaFinal($scope.myDate1);
+
+
+            $http.post('http://'+Server.Ip+'/api/votingBallot/register',{
+                'name' :$scope.nombre,
+                'init' : Dateini.toISOString(),
+                'end' : DateCalendar1.toISOString(),
+                'desc' :$scope.descrip
+
+              })
+            .success(function (data) {
+              Message.Success("Plantilla creada exitosamente");
+              $route.reload();
+            })
+            .error(function (error) {
+              Message.Error("Ops! algo salio mal, intenta nuevente");
+            });
+          }
+      }
+
+    $scope.displayVB = function() {
+      $http.get('http://'+ Server.Ip +'/api/votingBallots')
+      .success(function(data){
+        $scope.VB = data;
+      })
+      .error(function(error){
+        console.log(error);
+      });
+    };
+
+
+    $scope.goToVB = function(vb) {
+      $mdDialog.show({
+      templateUrl: 'views/editVB.tmpl.html',
+      controller: DialogControllerVote,
+      clickOutsideToClose:false,
+      fullscreen: true,
+      locals : {
+      vb : vb
+      }
+    })
+    .then(function(answer) {
+    //$scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+    //$scope.status = 'You cancelled the dialog.';
+      });
+    };
+
+    function DialogControllerVB($scope,$mdDialog,vb,Message) {
+      
+      $scope.Boleta = vote.personalData.Boleta;
+      $scope.Nombre = vote.personalData.Name;
+      $scope.Apellidos = vote.personalData.lastName;
+      $scope.Sexo = vote.personalData.Sex;
+      $scope.Email = vote.personalData.Email;
+      $scope.Id = vote._id;
+      $scope.Status = vote.isActive;
+
+      $scope.cancelVB = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.updateVB = function() {
+        $http.patch('http://'+Server.Ip+'/api/vote/update/'+ $scope.Id, {
+        boleta: $scope.Boleta,
+        name: $scope.Nombre,
+        lastname: $scope.Apellidos, 
+        sex: $scope.Sexo, 
+        email: $scope.Email,
+        isactive: $scope.Status})
+        .success(function(data){
+          $timeout(function(){
+            $mdDialog.cancel();
+            $route.reload();
+            },1000);
+          Message.Success("Actualización Exitosa");
+        })
+        .error(function(error){
+          Message.Error("Ops! Algo salio mal, intenta nuevamente");
+        })
+      };
+    };
+
 });

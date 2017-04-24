@@ -1,62 +1,49 @@
-<div ng-cloak>
-<div layout="row" layout-align="center center" flex>
-    <md-card flex="50"> 
-      <md-card-content>
-		<form name="vbForm" ng-submit="CrearPlantilla()">
-			
-      <md-input-container class="md-block" flex-gt-sm>
-        <label >Nombre de la votación</label>
-        <input name="Nombre" ng-model="nombre" required>
-        <div ng-messages="vbForm.Nombre.$error">
-          <div ng-message="required">Este campo es requerido</div>
+<div ng-controller='vBController' layout="column" ng-cloak>
+
+  <md-content class="md-padding autocomplete" layout="column">
+    <md-contact-chips
+        ng-model="ctrl.contacts"
+        md-contacts="ctrl.querySearch($query)"
+        md-contact-name="name"
+        md-contact-image="image"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="ctrl.filterSelected"
+        placeholder="To">
+    </md-contact-chips>
+
+    <md-list class="fixedRows">
+      <md-subheader class="md-no-sticky">Contacts</md-subheader>
+      <md-list-item class="md-2-line contact-item" ng-repeat="(index, contact) in ctrl.allContacts"
+          ng-if="ctrl.contacts.indexOf(contact) < 0">
+        <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
+        <div class="md-list-item-text compact">
+          <h3>{{contact.name}}</h3>
+          <p>{{contact.email}}</p>
         </div>
-      </md-input-container>
-
-    
-
-				<md-content  layout-padding ng-cloak>
-				  <div layout-gt-xs="row">
-				    <div flex-gt-xs>
-				      <h4>Fecha de Votación</h4>
-				      <md-datepicker ng-model="myDate" md-placeholder="Introducir Fecha"
-				        md-min-date="minDate" md-max-date="maxDate"
-				        md-date-filter="onlyWeekendsPredicate"></md-datepicker>
-				    </div>
-				  </div>
-				</md-content>
-
-				<div layout-gt-sm="row">
-				<md-input-container style="margin-right: 10px;">
-        	<label >Hora de Inicio </label>
-        <md-select ng-model="hour" required name="hour">
-          <md-option ng-repeat="hour in hours" value="{{hour}}">{{hour}}</md-option>
-        </md-select>
-          <div ng-messages="vbForm.hour.$error">
-          <div ng-message="required">Este campo es requerido</div>
+      </md-list-item>
+      <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in ctrl.contacts">
+        <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
+        <div class="md-list-item-text compact">
+          <h3>{{contact.name}}</h3>
+          <p>{{contact.email}}</p>
         </div>
-      </md-input-container>
+      </md-list-item>
+    </md-list>
 
-      <md-input-container style="margin-right: 10px;">
-        <label>Hora de termino</label>
-        <md-select ng-model="hourf" required name="hourf">
-          <md-option ng-repeat="hourf in hoursf" value="{{hourf}}">{{hourf}}</md-option>
-        </md-select>
-          <div ng-messages="vbForm.hourf.$error">
-          <div ng-message="required">Este campo es requerido</div>
-        </div>
-      </md-input-container>
-      </div>
-
-      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-        <md-button type="submit" class="md-raised md-primary">Crear Plantilla</md-button>
-      </section>
-
-	</form>
-    </md-card-content>
-    </md-card>
-
-
-
-
-	</div>
-  </div>
+    <br>
+    <h2 class="md-title">Searching asynchronously.</h2>
+    <md-contact-chips
+        ng-model="ctrl.asyncContacts"
+        md-contacts="ctrl.delayedQuerySearch($query)"
+        md-contact-name="name"
+        md-contact-image="image"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="ctrl.filterSelected"
+        placeholder="To">
+    </md-contact-chips>
+  </md-content>
+</div>
