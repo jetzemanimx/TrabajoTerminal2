@@ -52,7 +52,8 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 }]).run(run);
 function run($rootScope, $location, authentication, ngToast, Message) {
 	$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-		if($location.path() == '/Admin'){
+		//console.log($location.path());
+		if($location.path() === '/Admin'){
 			//console.log(authentication.isLoggedIn());
 			if(authentication.isLoggedIn()){
 				$location.path('/Admin');
@@ -63,14 +64,5 @@ function run($rootScope, $location, authentication, ngToast, Message) {
 				$location.path('/');
 			}
 		}
-
-		/*if($location.path() != '/Admin'){
-			if(authentication.isLoggedIn()){
-				$location.path('/Admin');
-			}
-			else{
-				$location.path('/');
-			}
-		}*/
 	});
 }

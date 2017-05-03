@@ -137,7 +137,7 @@ module.exports = function(app) {
             user.personalData.Email = req.body.email;
             modifySomething = true;
           }
-          if(req.body.password != "" && req.body.password){
+          if(req.body.password != ""){
             console.log("New password: "+req.body.password);
             user.setPassword(req.body.password);
             modifySomething = true;
@@ -145,7 +145,7 @@ module.exports = function(app) {
 
           if(modifySomething){
             //console.log('saving user');
-            user.save(function(error){
+            user.save(function(error, data){
               if(error){
                 res.status(500).json(error);
               }else{
@@ -439,7 +439,7 @@ module.exports = function(app) {
 
       // Route for create voting ballot
       app.post('/api/votingBallot/register', function(req,res){
-        console.log(req.body);
+        //console.log(req.body);
         var vB = new votingBallot();
         vB.Name = req.body.name;
         vB.Description = req.body.desc;
@@ -455,33 +455,72 @@ module.exports = function(app) {
         });
       });
 
+      //Route for delete voting ballot
+      app.delete('/api/votingBallot/delete/:id',function(req, res) {
+        votingBallot.findByIdAndRemove(req.params.id, function(error, data){
+            if(error){
+              res.status(500).json(error);
+            }
+            else{
+                res.status(200).json(data);
+            }
+        });
+      });
+
       // Route for insert candidates to voting ballot
       app.post('/api/votingBallot/addCandidate', function(req,res){
-          //console.log(req.body);
-        votingBallot.findOne({ _id: req.body.idvb}, function(error, vb) {
-            if(vb){
+        votingBallot.findOne({_id: req.body.idvb}, function(error, vb) {
+            if(error){
                 res.status(500).json(error);
             }
             if (!vb) {
                 res.status(500).send({msg:"No exist voting ballot whit this id"});
             }else{
-                Candidate.findOne({_id: req.body.idcandidate}, function(error,candidate){
-                    if(error){
+                for (var i = 0; i <= req.body.arrCandidates.length; i++)
+                {
+                  if(i == req.body.arrCandidates.length){
+                    vb.Created = false;
+                    //console.log("Plantilla a guardar: " + vb);
+                    vb.save(function (error, data) {
+                      if(error){
                         res.status(500).json(error);
-                    }
-                    if(!candidate){
-                        res.status(500).send({msg:"No candidate"});
-                    }else{
-                        console.log(candidate);
-                        votingBallot.candidates.push(candidate);
-                        votingBallot.save();
-                        res.status(200).json(data);
-                    }
-                    //res.status(200).send({msg:"Everything good"});
-                });
+                      }
+                      else{
+                        res.status(200).send({msg:"Candidate Saved!!!"});
+                      }
+                    });
+                  }
+                  else{
+                     vb.candidates.push(req.body.arrCandidates[i].id);
+                  }
+                }
             }
-            //res.status(200).send({msg:"Everything good"});
         });
+      });
+
+      //Display all VotingBallots populate
+      app.route('/api/votingBallots/Voting')
+      .get(function (req,res) {
+        votingBallot.find(function (error,data,callback) {
+            Candidate.populate(data, {path: "candidates._id"},function(error, data){
+              if(error){
+                  res.status(500).json(error);
+              }else{
+                  res.status(200).json(data);
+              }
+            });    
+          });
+      })
+      .post(function (req,res) {
+        votingBallot.find(function (error,data,callback) {
+            Candidate.populate(data, {path: "candidates._id"},function(error, data){
+              if(error){
+                  res.status(500).json(error);
+              }else{
+                  res.status(200).json(data);
+              }
+            });    
+          });
       });
 
       //Display all VotingBallots
@@ -546,7 +585,7 @@ module.exports = function(app) {
               'Si no lo solicitó, ignore este correo electrónico y su contraseña permanecerá sin cambios. \n'
             };
             console.log("Mail a enviarse: " + mailOptions.to + '\n\n' + mailOptions.text);
-
+            //Send mail with defined transport object
             /*transporter.sendMail(mailOptions, function(error, info){
               if(error){
                 return console.log('Mail no enviado error: $s',error);
@@ -598,7 +637,7 @@ module.exports = function(app) {
                             'Pueden ingresar en: http://' + req.headers.host + '/#/Login'
                         };
                         console.log("Envie Mail a: " + user.personalData.Email + " Con contraseña: " + req.body.Password);
-                        // send mail with defined transport object
+                        //Send mail with defined transport object
                         /*transporter.sendMail(mailOptions, function(error, info){
                             if(error){
                                 return console.log(error);

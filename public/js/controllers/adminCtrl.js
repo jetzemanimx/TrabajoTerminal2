@@ -128,7 +128,6 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         })
         .success(function (data) {
         Message.Success(data);
-        //console.log(data);
         $route.reload();
         })
         .error(function (error) {
@@ -402,18 +401,18 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
           }
       }).then(function (resp) {
         $scope.image_path = resp.data;
-        $http.post('http://'+Server.Ip+'/api/candidate/update/' + $scope.Id,{
-      'rfc': $scope.RFC,
-      'image': $scope.image_path,
-      'deegre': $scope.Grado,
-      'name': $scope.Nombre,
-      'lastname': $scope.Apellidos,
-      'sex': $scope.Sexo,
-      'email': $scope.Email,
-      'adrress': $scope.Direccion,
-      'tel': $scope.Telefono,
-      'ext': $scope.Extension,
-      'isactive': $scope.Status
+        $http.post('http://'+Server.Ip+'/api/candidate/register',{
+          'rfc': $scope.RFC,
+          'image': $scope.image_path,
+          'deegre': $scope.Grado,
+          'name': $scope.Nombre,
+          'lastname': $scope.Apellidos,
+          'sex': $scope.Sexo,
+          'email': $scope.Email,
+          'address': $scope.Direccion,
+          'tel': $scope.Telefono,
+          'ext': $scope.Extension,
+          'isactive': true
       })
       .success(function (data) {
         $timeout(function(){
@@ -507,7 +506,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
 
-var myDate = new Date();
+  var myDate = new Date();
 
   $scope.minDate = new Date(
       myDate.getFullYear(),
@@ -672,57 +671,175 @@ var myDate = new Date();
       });
     };
 
+    $scope.deleteVB = function(vb) {
+      var confirm = $mdDialog.confirm()
+          .title('¿Estas seguro que deseas eliminar?')
+          .textContent('La planilla de votación se removera definitivamente. Cuidado!')
+          .ariaLabel('Lucky day')
+          .targetEvent(vb)
+          .ok('Eliminar!')
+          .cancel('Cancelar');
 
-    $scope.goToVB = function(vb) {
-      $mdDialog.show({
-      templateUrl: 'views/editVB.tmpl.html',
-      controller: DialogControllerVote,
-      clickOutsideToClose:false,
-      fullscreen: true,
-      locals : {
-      vb : vb
-      }
-    })
-    .then(function(answer) {
-    //$scope.status = 'You said the information was "' + answer + '".';
-    }, function() {
-    //$scope.status = 'You cancelled the dialog.';
+      $mdDialog.show(confirm).then(function() {
+        $http.delete('http://'+ Server.Ip + '/api/votingBallot/delete/' + confirm._options.targetEvent._id)
+        .success(function(data){
+          Message.Success("Plantilla de votación eliminada");
+          $route.reload();
+        })
+        .error(function(error){
+          Message.Error("Ops! Algo salio mal, intenta nuevamente");
+        });
+      }, function() {
       });
     };
 
+
+    $scope.goToVB = function(vb) {
+      if(vb.Created){
+        $scope.getCandidates();
+        $mdDialog.show({
+          templateUrl: 'views/editVB.tmpl.html',
+          controller: DialogControllerVB,
+          clickOutsideToClose:false,
+          fullscreen: true,
+          locals : {
+          vb : vb
+          }
+        })
+        .then(function(answer) {
+        //$scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+        //$scope.status = 'You cancelled the dialog.';
+          });
+      }
+      else{
+         Message.Error("La plantilla ya fue creada. Si desea agregar mas candidatos, por favor elimine la plantilla!.");
+      }
+    };
+
+    $scope.getCandidates = function() {
+        $http.post('http://'+Server.Ip+'/api/candidates')
+        .success(function(data){
+          $scope.allow = [];
+          angular.forEach(data, function(value, key) {
+            if(value.isActive === true){
+              $scope.allow.push({
+                name : value.personalData.Name,
+                lastName : value.personalData.lastName,
+                id : value._id,
+                image : value.personalData.profileImageUrl,
+                email : value.personalData.Email
+              });
+            }
+          });
+          //$window.localStorage['Candidates'] = $scope.allow;
+          $window.localStorage['Candidates'] = JSON.stringify($scope.allow);
+        })
+        .error(function(error){
+          console.error("Errors al cargar candidatos: " + error);
+        });
+        
+      };
+
     function DialogControllerVB($scope,$mdDialog,vb,Message) {
-      
-      $scope.Boleta = vote.personalData.Boleta;
-      $scope.Nombre = vote.personalData.Name;
-      $scope.Apellidos = vote.personalData.lastName;
-      $scope.Sexo = vote.personalData.Sex;
-      $scope.Email = vote.personalData.Email;
-      $scope.Id = vote._id;
-      $scope.Status = vote.isActive;
+      $scope.Nombre = vb.Name;
+      //$scope.vegetables = loadVegetables();
+      $scope.Desc = vb.Description;
+      $scope.Id = vb._id;
+      /*$scope.selectedItem = null;
+      $scope.searchText = null;
+      $scope.querySearch = querySearch;
+      $scope.selectedVegetables = [];
+      $scope.transformChip = transformChip;
+      $scope.autocompleteDemoRequireMatch = true;*/
+
+      $scope.allContacts = loadContacts();
+      $scope.contacts = [$scope.allContacts[0]];
+      $scope.filterSelected = true;
+      $scope.querySearch = querySearch;
+
 
       $scope.cancelVB = function() {
         $mdDialog.cancel();
       };
 
       $scope.updateVB = function() {
-        $http.patch('http://'+Server.Ip+'/api/vote/update/'+ $scope.Id, {
-        boleta: $scope.Boleta,
-        name: $scope.Nombre,
-        lastname: $scope.Apellidos, 
-        sex: $scope.Sexo, 
-        email: $scope.Email,
-        isactive: $scope.Status})
-        .success(function(data){
-          $timeout(function(){
-            $mdDialog.cancel();
-            $route.reload();
-            },1000);
-          Message.Success("Actualización Exitosa");
-        })
-        .error(function(error){
-          Message.Error("Ops! Algo salio mal, intenta nuevamente");
-        })
+        var confirm = $mdDialog.confirm()
+          .title('Una vez agregados los candidatos, no podras agregar más. ¿Estas seguro?')
+          .textContent('Ya no se podran agregar mas candidatos. Cuidado!')
+          .ariaLabel('Lucky day')
+          .targetEvent(vb)
+          .ok('Agregar!')
+          .cancel('Cancelar');
+
+        $mdDialog.show(confirm).then(function() {
+          $http.post('http://'+Server.Ip+'/api/votingBallot/addCandidate', {
+            idvb: $scope.Id,
+            arrCandidates : $scope.contacts
+            })
+          .success(function(data){
+              $timeout(function(){
+                $mdDialog.cancel();
+                $route.reload();
+                },1000);
+              Message.Success("Candidatos agregados exitosamente");
+          })
+          .error(function(error){
+              Message.Error("Ops! Algo salio mal, intenta nuevamente");
+          });
+        }, function() {
+        });
       };
+   
+
+    function transformChip(chip) {
+      // If it is an object, it's already a known chip
+      if (angular.isObject(chip)) {
+        return chip;
+      }
+
+      // Otherwise, create a new one
+      return { name: chip, type: 'new' }
+    }
+
+    function querySearch (query) {
+      var results = query ? $scope.allContacts.filter(createFilterFor(query)) : [];
+      return results;
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+
+      return function filterFn(vegetable) {
+        return (vegetable._lowername.indexOf(lowercaseQuery) === 0) ||
+            (vegetable._lowertype.indexOf(lowercaseQuery) === 0);
+      };
+
+    }
+
+    function loadContacts() {
+      var CandidatesData = [];
+      var CandidatesData1 = JSON.parse($window.localStorage['Candidates']);
+      angular.forEach(CandidatesData1, function(value, key) {
+             CandidatesData.push({
+                name : value.name,
+                lastName : value.lastName,
+                id : value.id,
+                image : value.image,
+                email : value.email
+            });
+          });
+      return CandidatesData.map(function (veg) {
+        veg._lowername = veg.name.toLowerCase();
+        veg._lowertype = veg.lastName.toLowerCase();
+        return veg;
+      });
+
+    }
+
     };
 
 });

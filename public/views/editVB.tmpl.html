@@ -1,0 +1,92 @@
+<md-dialog style="max-width: 100%; max-height: 100%; width: 70%; height: 90%; border-radius: 20px;" >
+  <form name="vbEditForm" ng-submit="updateVB()" ng-init="getCandidates()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edición de Planilla de Votación</h2>
+      </div>
+    </md-toolbar>
+  
+    <div layout="row" flex layout-margin>
+      <div flex>
+        <md-dialog-content layout-margin>
+          <md-input-container class="md-block" flex>
+            <label >Nombre de la votación</label>
+            <input name="Nombre" ng-model="Nombre" required ng-disabled="true">
+            <div ng-messages="vbEditForm.Nombre.$error">
+              <div ng-message="required">Este campo es requerido</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+          <label>Descripción</label>
+          <textarea ng-model="Desc" md-maxlength="100" rows="2" md-select-on-focus ng-disabled="true"></textarea>
+          </md-input-container>
+          
+          <h2 class="md-title">Ingresa el nombre del candidato a añadir en la plantilla.</h2>
+          <md-content class="md-padding autocomplete" layout="column">
+          <md-contact-chips
+              ng-model="contacts"
+              md-contacts="querySearch($query)"
+              md-contact-name="name"
+              md-contact-image="image"
+              md-contact-email="email"
+              md-require-match="true"
+              md-highlight-flags="i"
+              filter-selected="filterSelected"
+              placeholder="Candidatos">
+          </md-contact-chips>
+
+          <md-list class="fixedRows">
+            <md-subheader class="md-no-sticky">Candidatos</md-subheader>
+            <md-list-item class="md-2-line contact-item" ng-repeat="(index, contact) in allContacts"
+                ng-if="contacts.indexOf(contact) < 0">
+              <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
+              <div class="md-list-item-text compact">
+                <h3>{{contact.name}}</h3>
+                <p>{{contact.email}}</p>
+              </div>
+            </md-list-item>
+            <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in contacts">
+              <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
+              <div class="md-list-item-text compact">
+                <h3>{{contact.name}}</h3>
+                <p>{{contact.email}}</p>
+              </div>
+            </md-list-item>
+          </md-list>
+          </md-content>
+
+          <!-- <md-chips ng-model="selectedVegetables" md-autocomplete-snap
+                    md-transform-chip="transformChip($chip)"
+                    md-require-match="autocompleteDemoRequireMatch">
+            <md-autocomplete
+                md-selected-item="selectedItem"
+                md-search-text="searchText"
+                md-items="item in querySearch(searchText)"
+                md-item-text="item.name"
+                placeholder="Busqueda de Candidatos">
+              <span md-highlight-text="searchText">{{item.name + " " + item.lastName}}</span>
+            </md-autocomplete>
+            <md-chip-template>
+              <span>
+                <strong>{{$chip.name}}</strong>
+                <em>({{$chip.lastName}})</em>
+              </span>
+            </md-chip-template>
+          </md-chips> -->
+
+
+
+        </md-dialog-content>
+        <md-dialog-actions>
+          <md-button class="md-raised md-warn" ng-click="cancelVB()">
+            Cancelar
+          </md-button>
+          <md-button ng-disabled="!vbEditForm.$valid" class="md-raised md-primary md-hue-1" type="submit">
+            Guardar
+          </md-button>
+        </md-dialog-actions>
+      </div>
+    </div>
+  </form>
+</md-dialog>
