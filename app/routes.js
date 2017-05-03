@@ -501,7 +501,11 @@ module.exports = function(app) {
       //Display all VotingBallots populate
       app.route('/api/votingBallots/Voting')
       .get(function (req,res) {
-        votingBallot.find(function (error,data,callback) {
+        var DateTemp = Date.now();
+        var DateEnd = DateTemp.getHours();
+        console.log("Horas Restantes para que termine  el dia: " + DateEnd); 
+
+        /*votingBallot.find(function (error,data,callback) {
             Candidate.populate(data, {path: "candidates._id"},function(error, data){
               if(error){
                   res.status(500).json(error);
@@ -509,7 +513,7 @@ module.exports = function(app) {
                   res.status(200).json(data);
               }
             });    
-          });
+          });*/
       })
       .post(function (req,res) {
         votingBallot.find(function (error,data,callback) {
