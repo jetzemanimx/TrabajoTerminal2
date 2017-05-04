@@ -3,7 +3,6 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 	$scope.Load = function(){
 		$scope.IdentificarVote = true;
 		$scope.ViewVote = false;
-
 	};
 
 	$scope.IdentifyVote=function(){
@@ -11,10 +10,10 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
         $http.get('http://' + Server.Ip + '/api/vote/findBoleta/' + $scope.Boleta)
 		.success(function(data){
 			$timeout(function(){
-				$scope.Vote = data;
 				$scope.IdentificarVote = false;
+				$scope.Vote = data;
 				$scope.ViewVote = true;
-			},2000);
+			},1000);
 			Message.Success("Bienvenido " + data.Name);
 		})
 		.error(function(error){
@@ -29,20 +28,20 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 	$scope.AuthVote = function(){
 		$http.get('http://' + Server.Ip + '/api/vote/generateSMS/' + $scope.Vote.id)
 		.success(function(data){
-			
 			var confirm = $mdDialog.prompt()
-			.title('Ue envio un SMS al telefono registrado en iVoto.')
+			.title('Se envio un SMS al telefono registrado en iVoto.')
 			.textContent('Ingresalo')
 			.ariaLabel('Lucky day')
 			.initialValue('')
-			.ok('Verificar!');
+			.ok('Verificar!')
+			.cancel('Cancelar');
 
 			$mdDialog.show(confirm).then(function(token) {
 				$http.get('http://'+Server.Ip+'/api/vote/verifySMS/'+ $scope.Vote.id +'/' + token)
 				.success(function(data){
 					$timeout(function(){
 					$mdDialog.cancel();
-					//$route.reload();
+					$route.reload();
 					},1000);
 					Message.Success("Verificación exitosa");
 				})

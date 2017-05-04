@@ -13,7 +13,7 @@ var transporter = nodemailer.createTransport({
     auth: {
         type: 'OAuth2',
         user: 'protocolovoto@gmail.com',
-        accessToken: 'ya29.Gls2BLlNKcFRs4ayaIv1N8Wgf9ODu9Sx-j9Ce-xNy4kKn4dU2vvYjiQp_Ni4Nkt3o-00cyocyhCU54bvVQ3IRwNsvyycBYdTE-659sq9IlKvBoev0vA1S4zs89IO'
+        accessToken: 'ya29.GltABO9zVwcSzVpEJtgY8rO1kA8SFN0N00HUPKY6neVYPH0Cfup3BqKsxow4hdz3vrPX43rj67lJ-wbK7ltgxKklPsB_HjCfF5o-c2sd9HdXE11ukmZ6jUNE7YuZ'
     }
 });
 //Date format
@@ -22,6 +22,9 @@ var dateFormat = require('dateformat');
 var uuid = require('node-uuid');
 var multiparty = require('multiparty');
 var fs = require('fs');
+
+var jwt = require('jsonwebtoken');
+var crypto = require('crypto');
 
 var accountSid = "AC53dd270af7183f590a48c593def2d1eb";
 var authToken = "c98a79263ca3d47092368348c92f9841";
@@ -516,14 +519,14 @@ module.exports = function(app) {
             else{
                 vote.authToken = vote.generateJWT(2);
                 vote.verifiedToken = false;
-                vote.resetTokenExpires = Date.now() + 180000; //3 Minutes
+                vote.resetTokenExpires = Date.now() + 60000; //1 Minutes
                 vote.save(function (error, data, callback) {
                   if(error){
                     res.status(500).json(error);
                   }
                   else{
                     clientSMS.messages.create({
-                        body: 'Tú número de verificación es: ' + data.authToken,
+                        body: 'Tu número de verificación iVoto es: ' + data.authToken,
                         to: '+52' + data.personalData.Telephone,  // Text this number
                         from: '+19172670676 ' // From a valid Twilio number
                     }, function(error, message) {
@@ -673,14 +676,14 @@ module.exports = function(app) {
             };
             console.log("Mail a enviarse: " + mailOptions.to + '\n\n' + mailOptions.text);
             //Send mail with defined transport object
-            /*transporter.sendMail(mailOptions, function(error, info){
+            transporter.sendMail(mailOptions, function(error, info){
               if(error){
                 return console.log('Mail no enviado error: $s',error);
               }
               console.log('Mail Enviado a %s con la respuesta %s: ', user.personalData.Email,info.response);
               done(error, 'Exito');
-            });*/
-            done(null,'Exito');
+            });
+            //done(null,'Exito');
           }
         ], function (error, result) {
           if (error) {
@@ -725,12 +728,12 @@ module.exports = function(app) {
                         };
                         console.log("Envie Mail a: " + user.personalData.Email + " Con contraseña: " + req.body.Password);
                         //Send mail with defined transport object
-                        /*transporter.sendMail(mailOptions, function(error, info){
+                        transporter.sendMail(mailOptions, function(error, info){
                             if(error){
                                 return console.log(error);
                             }
                             console.log('Message sent: ' + info.response);
-                        });*/
+                        });
                     }
                 });
                 res.redirect('/#/Login');
