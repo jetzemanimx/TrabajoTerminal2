@@ -1,33 +1,16 @@
- <div ng-controller="vBController as ctrl" layout="column" ng-cloak>
-         <md-content class="md-padding autocomplete" layout="column">
-            <md-contact-chips
-               ng-model="ctrl.contacts"
-               md-contacts="ctrl.querySearch($query)"
-               md-contact-name="name"
-               md-contact-image="image"
-               md-contact-email="email"
-               md-require-match="true"
-               md-highlight-flags="i"
-               filter-selected="ctrl.filterSelected"
-               placeholder="To">
-            </md-contact-chips>
-            <md-list class="fixedRows">
-               <md-subheader class="md-no-sticky">Contacts</md-subheader>
-               <md-list-item class="md-2-line contact-item" ng-repeat="(index, contact) in ctrl.allContacts"
-                  ng-if="ctrl.contacts.indexOf(contact) < 0">
-                  <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
-                  <div class="md-list-item-text compact">
-                     <h3>{{contact.name}}</h3>
-                     <p>{{contact.email}}</p>
-                  </div>
-               </md-list-item>
-               <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in ctrl.contacts">
-                  <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}" />
-                  <div class="md-list-item-text compact">
-                     <h3>{{contact.name}}</h3>
-                     <p>{{contact.email}}</p>
-                  </div>
-               </md-list-item>
-            </md-list>
-         </md-content>
-  </div>
+ <div ng-controller="vBController as  vm" layout="column" ng-cloak>
+ <md-grid-list
+               md-cols-gt-md="12" md-cols-sm="3" md-cols-md="8"
+               md-row-height-gt-md="1:1" md-row-height="4:3"
+               md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">
+               <md-grid-tile
+                  ng-repeat="tile in ctrl.colorTiles"
+                  ng-style="{
+                     'background': tile.color
+                  }"
+                  md-colspan-gt-sm="{{tile.colspan}}"
+                  md-rowspan-gt-sm="{{tile.rowspan}}">
+               </md-grid-tile>
+            </md-grid-list>
+ 
+</div>

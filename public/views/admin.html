@@ -773,7 +773,7 @@
                   <span flex="20">{{ vb.Name }}</span>
                   <span flex="20">{{ vb.dateInit | date:'dd-MM-yyyy'}} </span>
                   <span flex="20">{{ vb.dateInit | date:'HH:mm' }} - {{ vb.dateEnd | date:'HH:mm'}} </span>
-                  <span flex="30">{{ vb.Description }}</span>
+                  <span flex="25">{{ vb.Description }}</span>
                   <span flex="5">
                     <button type="button" style = "background: #75d572" class="btn btn-default btn-sm" ng-click="goToVB(vb)">
                       <span class="icon-user-add"></span>
@@ -784,6 +784,12 @@
                      <button type="button" style = "background: #FF0040" class="btn btn-default btn-sm" ng-click="deleteVB(vb)">
                       <span class="icon-trash"></span> 
                       <md-tooltip md-direction="top">Eliminar Planilla</md-tooltip>
+                    </button>
+                  </span>
+                  <span flex="5">
+                     <button type="button" style = "background: #4FC3F7" class="btn btn-default btn-sm" ng-click="goToVB2(vb)">
+                      <span class="icon-eye"></span> 
+                      <md-tooltip md-direction="top">Visualizar Planilla</md-tooltip>
                     </button>
                   </span>
                 </div>
