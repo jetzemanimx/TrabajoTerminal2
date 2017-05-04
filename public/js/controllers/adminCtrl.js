@@ -842,4 +842,64 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
 
     };
 
+
+
+
+    $scope.goToVB2 = function(vb2) {
+        $mdDialog.show({
+        templateUrl: 'views/editVB2.tmpl.html',
+        controller: DialogControllerVB2,
+        clickOutsideToClose:false,
+        fullscreen: true,
+        locals : {
+        vb2 : vb2
+        }
+      })
+      .then(function(answer) {
+      //$scope.status = 'You said the information was "' + answer + '".';
+      }, function() {
+      //$scope.status = 'You cancelled the dialog.';
+        });
+    }; 
+
+    function DialogControllerVB2($scope,$mdDialog,vb2,Message) {
+      $scope.Name = vb2.Name;
+      displayVB2(vb2._id);
+
+      $scope.cancelVB1 = function() {
+        $mdDialog.cancel();
+      };
+
+
+      function displayVB2(idvb) {
+        $http.get('http://'+ Server.Ip +'/api/votingBallots/Voting/' + idvb)
+        .success(function(data){
+          var CandidatesData = [];
+          //console.log(data.candidates);
+          angular.forEach(data.candidates, function(value, key) {
+                //console.log(value._id);
+                 CandidatesData.push({
+                    id : value._id._id,
+                    name : value._id.personalData.Name + " " + value._id.personalData.lastName,
+                    image : value._id.personalData.profileImageUrl
+                });
+              });
+          $scope.avatarData = CandidatesData;
+        })
+        .error(function(error){
+          console.log(error);
+        });
+      };
+
+
+    };
+
+
+
+
+
+
+
+
+
 });
