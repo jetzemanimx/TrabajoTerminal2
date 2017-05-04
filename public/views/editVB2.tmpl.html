@@ -11,25 +11,20 @@
             <div flex>
 
               <md-content  layout-margin>
-                <md-card flex="100"> 
-                    <md-card-content>
+                  <md-card flex="100"> 
+                      <md-card-content>
 
-                        <p style="margin-top: 0;" align="center"> <span  align="center" class="radioValue">{{group3 }}</span></p>
+                          <p style="margin-top: 0;" align="center"> <span  align="center" class="radioValue">{{group3 }}</span></p>
 
-                        <md-list>
-                        <md-list-item class="md-3-line" ng-repeat="it in avatarData">   
-                        <md-radio-group ng-model="group3" align="center">
-                            <md-radio-button 
-                            ng-value="it.name"
-                            aria-label="{{it.id}}">
-                            <a href="" data-toggle="modal" data-target="#myModal"><img src="{{it.image}}" class="img-responsive img-square"></a>
-                            </md-radio-button>
-                        </md-radio-group> 
-                            <md-divider ng-if="!$last"></md-divider>
-                            </md-list-item>
-                            </md-list>
-                    <md-card-content>
-                <md-card> 
+                          <md-radio-group ng-model="group3" align="center">
+                              <md-radio-button ng-repeat="it in avatarData"
+                              ng-value="it.name"
+                              aria-label="{{it.id}}">
+                               <a href="" data-toggle="modal" data-target="#myModal"><img src="{{it.image}}" class="img-responsive img-square"></a>
+                              </md-radio-button>
+                          </md-radio-group> 
+                      <md-card-content>
+                  <md-card> 
               </md-content>
 
               <md-dialog-actions layout="row">
