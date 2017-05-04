@@ -1,84 +1,49 @@
-<style type="text/css">
-#primer{
+<script type="text/javascript">
+	$(document).ready(function() {
+		var barcode = "";
+		$(document).keydown(function(e) {
+			var code = (e.keyCode ? e.keyCode : e.which);
+			if(code==13){
+			console.log(barcode);
+			var s= document.getElementById('myField');
+			s.value = barcode;
+			}
+			else{
+			barcode=barcode+String.fromCharCode(code);
+			}
+		});
+	});
+</script>
+<div ng-show="IdentificarVote" ng-init="Load()">
+	<div layout="row" flex layout-align="center center" layout-margin>
+		<div flex>
+		  <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
+		    <h2>Por favor, escanea tu credencial</h2>
+		  </md-toolbar>
+		</div>
+	</div>
+	<div layout="row" flex layout-align="center center" layout-margin>
+        <md-input-container class="md-block" flex="25">
+        	<label></label>
+	        <input ng-enter="IdentifyVote()" ng-model="Boleta" id="myField" autofocus>
+        </md-input-container>
+    </div>
+</div>
 
-  	padding: 10px;
-  	margin: 10px;
-  	color: black;
-
-}	
-div.gallery {
-
-
-	position: absolute;
-	left: 35%;
-	top: 30%;
-    margin: 50px;
-    border: 1px solid #ccc;
-    float: center;
-    width: 180px;
-}
-
-div.gallery:hover {
-    border: 1px solid #777;
-}
-
-div.gallery img {
-    width: 100%;
-    height: auto;
-}
-
-div.desc {
-    padding: 15px;
-    text-align: center;
-}
-
-
-
-
-
-</style>
-
-
-<div ng-show="Prueba" id="prindiv" class="container" ng-init="Prueba1()">
-	<div class="jumbotron text-center">  
-		<h1>Por favor escanea tu crédencial</h1> 
-			<script type="text/javascript">
-				$(document).ready(function() {
-					var barcode = "";
-					$(document).keydown(function(e) {
-						var code = (e.keyCode ? e.keyCode : e.which);
-						if(code==13){
-						console.log(barcode);
-						var s= document.getElementById('myField');
-						s.value = barcode;
-						}
-						else{
-						barcode=barcode+String.fromCharCode(code);
-						}
-					});
-				});
-			</script>
-		<input ng-enter="recarga()" ng-model="boleta" type="text" id="myField" autofocus/>
+<div ng-show="ViewVote">
+	<div layout="row" flex layout-align="center center" layout-margin>
+		<div flex>
+		  <md-toolbar class="md-primarymu md-hue-3" style="min-height: 48px; text-align: center">
+		  	<h3>Bienvenido {{Vote.Name + ' ' + Vote.lastName}} a iVoto ESCOM</h3>
+		  	<h4>Para continuar con tu votación, presiona siguiente</h4>
+		  </md-toolbar>
+		</div>
+	</div>
+	<div layout="row" flex layout-align="end center" layout-margin>
+		<img ng-click="AuthVote()" class="img-responsive img-circle" src="img/Next1.png" style="width: 150px;" />
 	</div>
 </div>
 
-<div class="container" ng-show="AU" id="primer" align="center">
-	<div ng-model="Data">
-		<h3>Bienvenid@</h3>
-		
-		<div class="gallery">
-	    	<img src="img/Usuario.png" alt="Trolltunga Norway" width="300" height="200">
-	  		<div class="desc" color="black">
-	  			{{Data.personalData.Name}} 
-	  			{{Data.personalData.lastName}} <br>
-	  			{{Data.personalData.Sex}} <br>
-	  		</div>
-	  	</div>
-	  
-	 </div>
-
-	
-</div>
 
 
 
