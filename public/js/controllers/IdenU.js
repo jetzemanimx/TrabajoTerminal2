@@ -1,37 +1,65 @@
-angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope, $http, $rootScope, $location, $timeout, $window, $route, $interval){
+angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope, Server, $timeout, $mdDialog, $http, $rootScope, $location, $timeout, $window, $route, $interval){
 	
-	$scope.Prueba1 = function(){
-		$scope.Prueba = true;
-		$scope.AU = false;
+	$scope.Load = function(){
+		$scope.IdentificarVote = true;
+		$scope.ViewVote = false;
 
 	};
-	$scope.recarga=function(){
-            $http.get('http://localhost:8080/api/vote/findBoleta/' + $scope.boleta)
-			.success(function(data){
-				$timeout(function(){
-					//$window.location.reload();
-					//$location.path('/Autentica');
-					$scope.Prueba = false;
-					$scope.AU = true;
-		            $scope.nombre = 'mucio';
-		            $scope.Data = data;
-				},2000);
-				Message.Success("Hola " + data.personalData.Name);
-					
-			})
-			.error(function(error){
-				$timeout(function(){
-					//$window.location.reload();
-					//$location.path('/Autentica');
-				},2000);
-				Message.Error("Boleta Incorrecta");
-			});
+
+	$scope.IdentifyVote=function(){
+		//$scope.Boleta = "2010630457";
+        $http.get('http://' + Server.Ip + '/api/vote/findBoleta/' + $scope.Boleta)
+		.success(function(data){
+			$timeout(function(){
+				$scope.Vote = data;
+				$scope.IdentificarVote = false;
+				$scope.ViewVote = true;
+			},2000);
+			Message.Success("Bienvenido " + data.Name);
+		})
+		.error(function(error){
+			$timeout(function(){
+				//$window.location.reload();
+				//$location.path('/Autentica');
+			},2000);
+			Message.Error("Boleta Incorrecta");
+		});	
+	};
+
+	$scope.AuthVote = function(){
+		$http.get('http://' + Server.Ip + '/api/vote/generateSMS/' + $scope.Vote.id)
+		.success(function(data){
 			
+			var confirm = $mdDialog.prompt()
+			.title('Ue envio un SMS al telefono registrado en iVoto.')
+			.textContent('Ingresalo')
+			.ariaLabel('Lucky day')
+			.initialValue('')
+			.ok('Verificar!');
+
+			$mdDialog.show(confirm).then(function(token) {
+				$http.get('http://'+Server.Ip+'/api/vote/verifySMS/'+ $scope.Vote.id +'/' + token)
+				.success(function(data){
+					$timeout(function(){
+					$mdDialog.cancel();
+					//$route.reload();
+					},1000);
+					Message.Success("Verificación exitosa");
+				})
+				.error(function(error){
+					$timeout(function(){
+					$mdDialog.cancel();
+					$route.reload();
+					},1000);
+					Message.Success("Codigo erroneo. Comience de nuevo!.");
+				});
+				}, function() {
+			});
+		})
+		.error(function(error){
+			Message.Error("Ops! Algo salio mal, intenta nuevamente");
+		});
 	};
 
-	$scope.AuVote = function(){
-		$scope.AU = true;
-		$scope.nombre = 'mucio';
-	};
 
 });
