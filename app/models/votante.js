@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var crypto = require('crypto');
+var format = require('biguint-format');
 
 var votanteSchema = new mongoose.Schema({
 		personalData:{
@@ -25,6 +27,10 @@ var votanteSchema = new mongoose.Schema({
             required: true,
             unique:true
         },
+        Telephone : {
+            type : String,
+            required : false
+        },
         Escuela:{
         	type: String,
         	required: false,
@@ -38,6 +44,17 @@ var votanteSchema = new mongoose.Schema({
         isActive: {
             type: Boolean,
             default: true
-        }
+        },
+        authToken: String,
+        resetTokenExpires: Date,
+        verifiedToken: Boolean
+
 });
+
+votanteSchema.methods.generateJWT = function(bytesRandom) {
+    return format(crypto.randomBytes(bytesRandom),'dec');
+};
+
+
+
 module.exports = mongoose.model('Votante',votanteSchema);

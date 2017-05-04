@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.3.0",
+    "biguint-format": "^1.0.0",
     "body-parser": "^1.16.0",
     "cors": "^2.8.1",
     "crypto": "0.0.3",
@@ -25,6 +26,7 @@
     "nodemailer-smtp-transport": "^2.7.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "twilio": "^2.11.1",
     "util": "latest",
     "xoauth2": "^1.2.0"
   }

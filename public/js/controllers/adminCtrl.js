@@ -276,6 +276,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     $scope.registerVote = function(){
       $http.post('http://'+Server.Ip+'/api/vote/register',{
         'boleta': $scope.Boleta,
+        'telephone' : $scope.Telefono,
         'name': $scope.Nombre,
         'lastname': $scope.Apellidos,
         'sex': $scope.Sexo,
@@ -326,6 +327,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     function DialogControllerVote($scope,$mdDialog,vote,Message) {
       
       $scope.Boleta = vote.personalData.Boleta;
+      $scope.Telefono = vote.personalData.Telephone;
       $scope.Nombre = vote.personalData.Name;
       $scope.Apellidos = vote.personalData.lastName;
       $scope.Sexo = vote.personalData.Sex;
@@ -340,6 +342,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       $scope.updateVote = function() {
         $http.patch('http://'+Server.Ip+'/api/vote/update/'+ $scope.Id, {
         boleta: $scope.Boleta,
+        telephone : $scope. Telefono,
         name: $scope.Nombre,
         lastname: $scope.Apellidos, 
         sex: $scope.Sexo, 
@@ -775,7 +778,8 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         $mdDialog.show(confirm).then(function() {
           $http.post('http://'+Server.Ip+'/api/votingBallot/addCandidate', {
             idvb: $scope.Id,
-            arrCandidates : $scope.contacts
+            arrCandidates : $scope.contacts,
+            Arraylength : $scope.contacts.length - 1
             })
           .success(function(data){
               $timeout(function(){

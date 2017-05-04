@@ -552,7 +552,8 @@
           <md-card-content>
             <form name="voteForm" ng-submit="registerVote()">
               
-                <md-input-container class="md-block">
+              <div layout="row">
+                <md-input-container class="md-block" flex="50">
                   <label>Boleta</label>
                   <input md-maxlength="10" md-minlength="10" required name="Boleta" ng-model="Boleta">
                   <div ng-messages="voteForm.Boleta.$error">
@@ -560,6 +561,17 @@
                     <div ng-message="md-maxlength">Boleta muy larga</div>
                   </div>
                 </md-input-container>
+
+                <md-input-container class="md-block" flex="50">
+                  <label>Teléfono Celular</label>
+                  <input md-maxlength="10" md-minlength="10" required name="Telefono" ng-model="Telefono">
+                  <div ng-messages="voteForm.Telefono.$error">
+                    <div ng-message="required">Este campo es requerido</div>
+                    <div ng-message="md-maxlength">Telefono muy largo</div>
+                  </div>
+                </md-input-container>
+              </div>
+
               <div layout="row">
                 <md-input-container class="md-block" flex="50">
                   <label class="icon-user">Nombre(s)</label>

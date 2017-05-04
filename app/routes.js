@@ -7,7 +7,6 @@ var xoauth2 = require('xoauth2');
 var smtpTransport = require("nodemailer-smtp-transport");
 var passport = require('passport');
 var async = require('async');
-var crypto = require('crypto');
 //Configuration NodeMailer SMTP
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -23,6 +22,11 @@ var dateFormat = require('dateformat');
 var uuid = require('node-uuid');
 var multiparty = require('multiparty');
 var fs = require('fs');
+
+var accountSid = "AC53dd270af7183f590a48c593def2d1eb";
+var authToken = "c98a79263ca3d47092368348c92f9841";
+
+var clientSMS = require('twilio')(accountSid, authToken);
 
 module.exports = function(app) {
 
@@ -226,6 +230,7 @@ module.exports = function(app) {
       app.post('/api/vote/register',function (req,res) {
         var votante = new Votante();
         votante.personalData.Boleta = req.body.boleta;
+        votante.personalData.Telephone = req.body.telephone;
         votante.personalData.Name = req.body.name;
         votante.personalData.lastName = req.body.lastname;
         votante.personalData.Sex = req.body.sex;
@@ -244,7 +249,8 @@ module.exports = function(app) {
       app.patch('/api/vote/update/:id',function(req,res) {
         Votante.findByIdAndUpdate(req.params.id,{
                         '$set':{
-                           'personalData.Boleta':req.body.boleta,
+                            'personalData.Boleta':req.body.boleta,
+                            'personalData.Telephone':req.body.telephone,
                             'personalData.Name':req.body.name,
                             'personalData.lastName': req.body.lastname,
                             'personalData.Sex': req.body.sex,
@@ -277,7 +283,7 @@ module.exports = function(app) {
               if(!data){
                   res.status(500).json(error);
               }else{
-                  res.status(200).json(data);
+                  res.status(200).send({Name : data.personalData.Name , lastName : data.personalData.lastName, id: data._id});
               }
           });
       })
@@ -498,29 +504,106 @@ module.exports = function(app) {
         });
       });
 
-      //Display all VotingBallots populate
-      app.route('/api/votingBallots/Voting')
-      .get(function (req,res) {
-        var DateTemp = Date.now();
-        var DateEnd = DateTemp.getHours();
-        console.log("Horas Restantes para que termine  el dia: " + DateEnd); 
+      //Generate SMS  Vote in App
+      app.get('/api/vote/generateSMS/:id',function(req, res){
+        Votante.findById(req.params.id, function(error, vote) {
+            if(error){
+              res.status(500).json(error);
+            }
+            if(!vote){
+              res.status(500).send({msg:"No encontre el votante con este id"});
+            }
+            else{
+                vote.authToken = vote.generateJWT(2);
+                vote.verifiedToken = false;
+                vote.resetTokenExpires = Date.now() + 180000; //3 Minutes
+                vote.save(function (error, data, callback) {
+                  if(error){
+                    res.status(500).json(error);
+                  }
+                  else{
+                    clientSMS.messages.create({
+                        body: 'Tú número de verificación es: ' + data.authToken,
+                        to: '+52' + data.personalData.Telephone,  // Text this number
+                        from: '+19172670676 ' // From a valid Twilio number
+                    }, function(error, message) {
+                        if(error){
+                          res.status(500).json(error);
+                        }else{
+                          res.status(200).send({msg: "SMS Delivered"});
+                        }
+                    });
+                  }
+                });
+            }
+          });
+      });
 
-        /*votingBallot.find(function (error,data,callback) {
-            Candidate.populate(data, {path: "candidates._id"},function(error, data){
+      //Verify SMS Vote in App
+      app.get('/api/vote/verifySMS/:id/:token',function(req, res) {
+        Votante.findOne({_id: req.params.id, authToken : req.params.token, resetTokenExpires: { $gt: Date.now() }},function (error, vote) {
+          if(error){
+            res.status(500).json(error);
+          }
+          if(!vote){
+            res.status(500).send();
+          }
+          else{
+            vote.verifiedToken = true;
+            vote.save(function (error, data, callback) {
               if(error){
-                  res.status(500).json(error);
-              }else{
-                  res.status(200).json(data);
+                res.status(500).json(error);
               }
-            });    
-          });*/
+              else{
+                res.status(200).send({msg: "Verified"});
+              }
+            });
+          }
+        });
+      });
+
+      //To Emit Vote
+      app.get('/api/vote/toEmit/:idvb',function (req, res) {
+        votingBallot.findById(req.params.idvb, function (error, vb, callback) {
+          if(error){
+            res.status(500).json(error);
+          }
+          if(!data){
+            res.status(500).send({msg: "No VB"});
+          }
+          else{
+            console.log(votingBallot.candidates);
+          }
+        });
+      });
+
+      //Display all VotingBallots populate
+      app.route('/api/votingBallots/Voting/:idvb')
+      .get(function (req,res) {
+        votingBallot.findById(req.params.idvb,function (error,data,callback) {
+          Candidate.populate(data, {path: "candidates._id"},function(error, data){
+            if(error){
+                res.status(500).json(error);
+            }
+            if(!data){
+              res.status(500).send({msg:"No VB"});
+            }
+            else{
+                res.status(200).json(data);
+            }
+          });    
+        });
       })
       .post(function (req,res) {
-        votingBallot.find(function (error,data,callback) {
+        votingBallot.findById(req.body.idvb,function (error,data,callback) {
             Candidate.populate(data, {path: "candidates._id"},function(error, data){
               if(error){
                   res.status(500).json(error);
-              }else{
+              }
+              if(!data){
+                res.status(500).send({msg:"No VB"});
+              }
+              else{
                   res.status(200).json(data);
               }
             });    
