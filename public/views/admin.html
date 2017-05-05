@@ -590,8 +590,9 @@
                 </md-input-container>
               </div>
 
+
               <div layout-gt-sm="row">
-                 <md-input-container class="md-block" flex="50">
+                 <md-input-container class="md-block" flex="35">
                   <label class="icon-mf">Sexo</label>
                     <md-select required name="Sexo" ng-model="Sexo">
                       <md-option value="H">Masculino</md-option>
@@ -601,14 +602,24 @@
                     <div ng-message="required">Este campo es requerido</div>
                   </div>
                 </md-input-container>
-              
-                <md-input-container class="md-block" flex="50">
+
+               <span flex="5"></span>
+
+                <md-input-container class="md-block" flex="35">
                   <label class="icon-envelope">Email</label>
                   <input required name="Email" ng-model="Email" type="email">
                   <div ng-messages="voteForm.Email.$error">
                     <div ng-message="required">Este campo es requerido</div>
                   </div>
                 </md-input-container>
+
+                <span flex="2.5"></span>
+
+                <div flex="25">
+                  <h4>Fecha de Nacimiento</h4>
+                  <md-datepicker ng-model="FNCalendar" md-placeholder="Introducir Fecha" md-current-view="year" md-min-date="minfec" md-max-date="maxfec"></md-datepicker>
+                </div>
+
               </div>
               <section layout="row"  layout-align="space-around center">
                 <md-button type="reset" class="md-raised md-warn">Reestablecer</md-button>
