@@ -233,6 +233,7 @@ module.exports = function(app) {
       app.post('/api/vote/register',function (req,res) {
         var votante = new Votante();
         votante.personalData.Boleta = req.body.boleta;
+        votante.personalData.Birthday = req.body.birth;
         votante.personalData.Telephone = req.body.telephone;
         votante.personalData.Name = req.body.name;
         votante.personalData.lastName = req.body.lastname;
@@ -253,6 +254,7 @@ module.exports = function(app) {
         Votante.findByIdAndUpdate(req.params.id,{
                         '$set':{
                             'personalData.Boleta':req.body.boleta,
+                            'personalData.Birthday':req.body.birth,
                             'personalData.Telephone':req.body.telephone,
                             'personalData.Name':req.body.name,
                             'personalData.lastName': req.body.lastname,
@@ -519,7 +521,7 @@ module.exports = function(app) {
             else{
                 vote.authToken = vote.generateJWT(2);
                 vote.verifiedToken = false;
-                vote.resetTokenExpires = Date.now() + 60000; //1 Minutes
+                vote.resetTokenExpires = Date.now() + 180000; //1 Minutes
                 vote.save(function (error, data, callback) {
                   if(error){
                     res.status(500).json(error);
@@ -561,6 +563,22 @@ module.exports = function(app) {
                 res.status(200).send({msg: "Verified"});
               }
             });
+          }
+        });
+      });
+
+      //Verify Birthday
+      app.get('/api/vote/verifyBirthday/:id/:birth',function(req, res) {
+        Votante.findOne({_id: req.params.id, 'personalData.Birthday' : req.params.birth , verifiedToken : true},function (error, vote) {
+          if(error){
+            res.status(500).json(error);
+          }
+          if(!vote){
+            res.status(500).send({msg: "No Vote"});
+          }
+          else{
+            console.log(vote);
+            res.status(200).send({msg: "Verified"});
           }
         });
       });

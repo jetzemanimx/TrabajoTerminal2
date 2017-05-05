@@ -10,6 +10,10 @@ var votanteSchema = new mongoose.Schema({
             unique: true,
             required: true
         },
+        Birthday :{
+            type: String,
+            required: false
+        },
         Name: {
             type: String,
             required: true
