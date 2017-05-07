@@ -273,23 +273,46 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
 
+
+    var FN = new Date();
+
+    $scope.minfec = new Date(
+        FN.getFullYear()-50,
+        FN.getMonth(),
+        FN.getDate()+1
+      );
+
+    $scope.maxfec = new Date(
+        FN.getFullYear() - 5,
+        FN.getMonth(),
+        FN.getDate()+1 
+      );
+
+
     $scope.registerVote = function(){
-      $http.post('http://'+Server.Ip+'/api/vote/register',{
-        'boleta': $scope.Boleta,
-        'telephone' : $scope.Telefono,
-        'name': $scope.Nombre,
-        'lastname': $scope.Apellidos,
-        'sex': $scope.Sexo,
-        'email': $scope.Email,
-        'isactive': true
-      })
-      .success(function (data) {
-        Message.Success("Registro Exitoso");
-        $route.reload();
-      })
-      .error(function (error) {
-        Message.Error("Ops! Algo salio mal, intenta nuevamente");
-      });
+      
+      if($scope.FNCalendar){
+        $http.post('http://'+Server.Ip+'/api/vote/register',{
+          'boleta': $scope.Boleta,
+          'birth' : $scope.FNCalendar,
+          'telephone' : $scope.Telefono,
+          'name': $scope.Nombre,
+          'lastname': $scope.Apellidos,
+          'sex': $scope.Sexo,
+          'email': $scope.Email,
+          'isactive': true
+        })
+        .success(function (data) {
+          Message.Success("Registro Exitoso");
+          $route.reload();
+        })
+        .error(function (error) {
+          Message.Error("Ops! Algo salio mal, intenta nuevamente");
+        });
+        }
+      else{
+        Message.Error("Ingresar fecha de nacimiento");
+      }
     };    
 
     $scope.displayVote = function() {
@@ -325,13 +348,28 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
     function DialogControllerVote($scope,$mdDialog,vote,Message) {
-      
+
+      var FN = new Date();
+
+      $scope.minfec = new Date(
+        FN.getFullYear()-50,
+        FN.getMonth(),
+        FN.getDate()+1
+      );
+
+      $scope.maxfec = new Date(
+        FN.getFullYear() - 5,
+        FN.getMonth(),
+        FN.getDate()+1 
+      );
+
       $scope.Boleta = vote.personalData.Boleta;
       $scope.Telefono = vote.personalData.Telephone;
       $scope.Nombre = vote.personalData.Name;
       $scope.Apellidos = vote.personalData.lastName;
       $scope.Sexo = vote.personalData.Sex;
       $scope.Email = vote.personalData.Email;
+      $scope.FNCalendar = new Date(vote.personalData.Birthday);
       $scope.Id = vote._id;
       $scope.Status = vote.isActive;
 
@@ -342,6 +380,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       $scope.updateVote = function() {
         $http.patch('http://'+Server.Ip+'/api/vote/update/'+ $scope.Id, {
         boleta: $scope.Boleta,
+        birth: $scope.FNCalendar,
         telephone : $scope. Telefono,
         name: $scope.Nombre,
         lastname: $scope.Apellidos, 
@@ -894,7 +933,6 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
           console.log(error);
         });
       };
-
 
     };
 

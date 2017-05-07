@@ -63,11 +63,23 @@
                       <div ng-message="required">Este campo es requerido</div>
                     </div>
                 </div>
+
+                <div layout="row">
+                  <div flex="50">
                
-                <span>Status</span>
-                <md-switch ng-model="Status" aria-label="Switch 6">
-                {{Status}}
-                </md-switch>
+                    <span>Status</span>
+                    <md-switch ng-model="Status" aria-label="Switch 6">
+                    {{Status}}
+                    </md-switch>
+                  </div>
+
+                  <div flex="50">
+                    <h4>Fecha de Nacimiento</h4>
+                    <md-datepicker ng-model="FNCalendar" md-placeholder="Introducir Fecha" md-current-view="year" md-min-date="minfec" md-max-date="maxfec"></md-datepicker>
+                  </div>
+                </div>
+
+
               </md-dialog-content>
               <md-dialog-actions>
                 <md-button class="md-raised md-warn" ng-click="cancelVote()">
