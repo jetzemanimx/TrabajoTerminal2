@@ -290,7 +290,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
 
 
     $scope.registerVote = function(){
-      
+      //console.log("Registro: " + $scope.FNCalendar);
       if($scope.FNCalendar){
         $http.post('http://'+Server.Ip+'/api/vote/register',{
           'boleta': $scope.Boleta,
@@ -378,6 +378,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       };
 
       $scope.updateVote = function() {
+        //console.log("Update: " + $scope.FNCalendar);
         $http.patch('http://'+Server.Ip+'/api/vote/update/'+ $scope.Id, {
         boleta: $scope.Boleta,
         birth: $scope.FNCalendar,
@@ -886,8 +887,6 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
 
-
-
     $scope.goToVB2 = function(vb2) {
         $mdDialog.show({
         templateUrl: 'views/editVB2.tmpl.html',
@@ -918,15 +917,13 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         $http.get('http://'+ Server.Ip +'/api/votingBallots/Voting/' + idvb)
         .success(function(data){
           var CandidatesData = [];
-          //console.log(data.candidates);
           angular.forEach(data.candidates, function(value, key) {
-                //console.log(value._id);
                  CandidatesData.push({
                     id : value._id._id,
                     name : value._id.personalData.Name + " " + value._id.personalData.lastName,
                     image : value._id.personalData.profileImageUrl
                 });
-              });
+          });
           $scope.avatarData = CandidatesData;
         })
         .error(function(error){

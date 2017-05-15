@@ -2,6 +2,7 @@ var Candidate = require('./models/Candidate');
 var Votante = require('./models/Votante');
 var User = require('./models/User');
 var votingBallot = require('./models/votingBallot');
+var votingBallotCounter = require('./models/votingBallotCounter');
 var nodemailer = require('nodemailer');
 var xoauth2 = require('xoauth2');
 var smtpTransport = require("nodemailer-smtp-transport");
@@ -13,7 +14,7 @@ var transporter = nodemailer.createTransport({
     auth: {
         type: 'OAuth2',
         user: 'protocolovoto@gmail.com',
-        accessToken: 'ya29.GltABO9zVwcSzVpEJtgY8rO1kA8SFN0N00HUPKY6neVYPH0Cfup3BqKsxow4hdz3vrPX43rj67lJ-wbK7ltgxKklPsB_HjCfF5o-c2sd9HdXE11ukmZ6jUNE7YuZ'
+        accessToken: 'ya29.GltHBPB7yS850ccz_tpgn3Msg73N6Al8zf8mhQPcq2O7fckTz7_9s65HLfVlaFc42l7Uy2vcd9-b9agWKRKa3mev_zfEuI3iOuJ_2BJHGY-kS4G83-wOlE_NwtFy'
     }
 });
 //Date format
@@ -461,7 +462,17 @@ module.exports = function(app) {
             res.status(500).json(error);
           }
           else{
-            res.status(200).json(data);
+          var vbCounter = new votingBallotCounter();
+            vbCounter.id = data._id;
+            //console.log("Guardare: " + vbCounter );
+            //res.status(200).send();
+            vbCounter.save(function (error,data,callback) {
+              if (error) {
+                res.status(500).json(error);
+              } else {
+                res.status(200).json(data);
+              }
+            });
           }
         });
       });
@@ -584,17 +595,36 @@ module.exports = function(app) {
       });
 
       //To Emit Vote
-      app.get('/api/vote/toEmit/:idvb',function (req, res) {
-        votingBallot.findById(req.params.idvb, function (error, vb, callback) {
+      app.get('/api/vote/toEmit/:idvb/:idcandidate',function (req, res) {
+       votingBallotCounter.findOneAndUpdate({id : req.params.idvb},{
+                            '$push':{
+                                Candidate : req.params.idcandidate
+                            }
+                        },function (error,data) {
+           if(error){
+                res.status(500).json(error);
+            }
+            if(!data){
+              res.status(500).send({msg:"No VB"});
+            }
+            else{
+                res.status(200).json(data);
+            }
+       });
+      });
+
+       //To Results
+      app.get('/api/getResults/:idvb/:idcandidate',function (req, res) {
+        votingBallotCounter.find({id: req.params.idvb},{Candidate: { $elemMatch: {'id': req.params.idcandidate}}},function (error, data) {
           if(error){
-            res.status(500).json(error);
-          }
-          if(!data){
-            res.status(500).send({msg: "No VB"});
-          }
-          else{
-            console.log(votingBallot.candidates);
-          }
+                res.status(500).json(error);
+            }
+            if(!data){
+              res.status(500).send({msg:"No VB"});
+            }
+            else{
+                res.status(200).json(data);
+            }
         });
       });
 

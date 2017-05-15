@@ -6,20 +6,17 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 	};
 
 	$scope.IdentifyVote=function(){
-		//$scope.Boleta = "2010630457";
         $http.get('http://' + Server.Ip + '/api/vote/findBoleta/' + $scope.Boleta)
 		.success(function(data){
 			$timeout(function(){
 				$scope.IdentificarVote = false;
-				$scope.Vote = data;
 				$scope.ViewVote = true;
+				$scope.Vote = data;
 			},1000);
 			Message.Success("Bienvenido " + data.Name);
 		})
 		.error(function(error){
 			$timeout(function(){
-				//$window.location.reload();
-				//$location.path('/Autentica');
 			},2000);
 			Message.Error("Boleta Incorrecta");
 		});	
@@ -55,23 +52,18 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 						var NewBirthay = birthday.concat("T06:00:00.000Z");
 						$http.get('http://'+Server.Ip+'/api/vote/verifyBirthday/'+ $scope.Vote.id + '/' +  NewBirthay)
 						.success(function(data){
-							
 							$timeout(function(){
-							$mdDialog.cancel();
-							$route.reload();
-							},1000);
-							Message.Success("Verificación exitosa");
-							
-
+								$mdDialog.cancel();
+								$route.reload();
+								},1000);
+								Message.Success("Verificación exitosa");
 						})
 						.error(function(error){
-							
 							$timeout(function(){
-							$mdDialog.cancel();
-							$route.reload();
-							},1000);
-							Message.Success("Codigo erroneo. Comience de nuevo!.");
-
+								$mdDialog.cancel();
+								$route.reload();
+								},1000);
+								Message.Success("Ops! Algo salio mal, intenta nuevamente");
 						});
 						}, function() {
 					});
@@ -94,6 +86,4 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 			Message.Error("Ops! Algo salio mal, intenta nuevamente");
 		});
 	};
-
-
 });
