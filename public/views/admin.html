@@ -820,5 +820,34 @@
     </div>
 </div>
 
+<!--Results..........................................................................................................-->
 
+<div ng-show="ResultsVotingBallots">
+    <div layout="row" flex layout-align="center center" layout-margin>
+      <div flex>
+        <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
+          <h2>Resultados Finales</h2>
+        </md-toolbar>
+      </div>
+    </div>
 
+    <div layout="row" flex layout-align="center center" layout-margin>
+      <md-card flex="80"> 
+        <md-card-content>
+          <div layout="row">
+            <div layout="column" flex="50" layout-align="center center" layout-margin>
+              <md-input-container class="md-block" flex>
+                <label>Planillas de Votación</label>
+                <md-select ng-model="VB">
+                  <md-option ng-repeat="VB in VotingBallots" value="{{VB}}">{{VB}}</md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+            <div layout="column" flex="50" layout-align="center center" layout-margin>
+              
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+</div>

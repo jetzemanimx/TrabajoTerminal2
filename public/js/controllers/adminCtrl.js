@@ -86,7 +86,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectVote = false;
             $scope.Profile = false;
             $scope.SelectVotingB=false;
-            Message.Success("En Construcción");
+            $scope.ResultsVotingBallots=true;
             break;
       };
     };
