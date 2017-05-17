@@ -775,8 +775,11 @@
                 <span flex="20">Nombre de la Votación</span>
                 <span flex="20">Fecha de Votación</span>
                 <span flex="20">Duración de la Votación</span>
-                <span flex="25">Descripción</span>
-                <span flex="15"></span>
+                <span flex="20">Descripción</span>
+                <span flex="5"></span>
+                <span flex="5"></span>
+                <span flex="5"></span>
+                <span flex="5"></span>
               </md-list-item>
 
               <md-list-item ng-repeat="vb in VB | filter : findVB" class="md-2-line" style="font-size: medium;">
@@ -784,7 +787,7 @@
                   <span flex="20">{{ vb.Name }}</span>
                   <span flex="20">{{ vb.dateInit | date:'dd-MM-yyyy'}} </span>
                   <span flex="20">{{ vb.dateInit | date:'HH:mm' }} - {{ vb.dateEnd | date:'HH:mm'}} </span>
-                  <span flex="25">{{ vb.Description }}</span>
+                  <span flex="20">{{ vb.Description }}</span>
                   <span flex="5">
                     <button type="button" style = "background: #75d572" class="btn btn-default btn-sm" ng-click="goToVB(vb)">
                       <span class="icon-user-add"></span>
@@ -799,8 +802,14 @@
                   </span>
                   <span flex="5">
                      <button type="button" style = "background: #4FC3F7" class="btn btn-default btn-sm" ng-click="goToVB2(vb)">
-                      <span class="icon-eye"></span> 
+                      <span class="icon-minus-circle-1"></span> 
                       <md-tooltip md-direction="top">Visualizar Planilla</md-tooltip>
+                    </button>
+                  </span>
+                  <span flex="5">
+                     <button type="button" style = "background: rgb(236,64,122)" class="btn btn-default btn-sm" ng-click="eraseVote()">
+                      <span class="icon-circ"></span> 
+                      <md-tooltip md-direction="top">Depurar Votantes</md-tooltip>
                     </button>
                   </span>
                 </div>

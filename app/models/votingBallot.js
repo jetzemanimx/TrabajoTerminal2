@@ -36,7 +36,11 @@ var votingBallotSchema = new mongoose.Schema({
         Created : {
             type: Boolean,
             default: true
-        }
+        },
+        DateConfirm:{
+            type: String
+        },
+
         //candidates: [{type: Schema.Types.ObjectId, ref: 'Candidate' }]
 });
 module.exports = mongoose.model('votingBallot',votingBallotSchema);

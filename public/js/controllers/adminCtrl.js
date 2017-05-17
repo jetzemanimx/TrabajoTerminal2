@@ -289,7 +289,8 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
           'lastname': $scope.Apellidos,
           'sex': $scope.Sexo,
           'email': $scope.Email,
-          'isactive': true
+          'isactive': true,
+          'emitVote' : false
         })
         .success(function (data) {
           Message.Success("Registro Exitoso");
@@ -653,6 +654,14 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
 
             return myDate1;      }
 
+      $scope.setFecha = function (myDate1) {
+          
+            myDate1.setHours(00);
+            myDate1.setMinutes(00);
+            myDate1.setSeconds(00);
+
+            return myDate1;      }
+
 
       $scope.CrearPlantilla = function(){
 
@@ -672,16 +681,16 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             Message.Error('La fecha de votación tiene que ser el mismo día');
           }
           else{
+            //var TEMPDATE = $scope.myDate;
             Dateini = $scope.CalculaInicio($scope.myDate);
             DateCalendar1 = $scope.CalculaFinal($scope.myDate1);
-
+            //DateConfirm = $scope.setFecha(TEMPDATE);
 
             $http.post('http://'+Server.Ip+'/api/votingBallot/register',{
                 'name' :$scope.nombre,
                 'init' : Dateini.toISOString(),
                 'end' : DateCalendar1.toISOString(),
                 'desc' :$scope.descrip
-
               })
             .success(function (data) {
               Message.Success("Plantilla creada exitosamente");
@@ -725,6 +734,16 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       });
     };
 
+    $scope.eraseVote = function () {
+      $http.get('http://'+ Server.Ip +'/api/votingBallot/eraseVotes')
+        .success(function(data){
+          Message.Success("Se limpiarón los registros de la votación");
+          $route.reload();
+        })
+        .error(function(error){
+          Message.Error("Ops! Algo salio mal, intenta nuevamente");
+        });
+    };
 
     $scope.goToVB = function(vb) {
       if(vb.Created){

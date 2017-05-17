@@ -242,6 +242,7 @@ module.exports = function(app) {
         votante.personalData.Sex = req.body.sex;
         votante.personalData.Email = req.body.email;
         votante.isActive = req.body.isactive;
+        votante.emitVote = req.body.emitVote;
         votante.save(function (error, data, callback) {
           if(error){
             res.status(500).json(error);
@@ -286,7 +287,7 @@ module.exports = function(app) {
       //Find Votes by No. Boleta
       app.route('/api/vote/findBoleta/:boleta')
       .get(function(req, res) {
-        Votante.findOne({'personalData.Boleta': req.params.boleta},function(error,data){
+        Votante.findOne({'personalData.Boleta': req.params.boleta , emitVote : false},function(error,data){
               if(!data){
                   res.status(500).json(error);
               }else{
@@ -452,12 +453,14 @@ module.exports = function(app) {
 
       // Route for create voting ballot
       app.post('/api/votingBallot/register', function(req,res){
-        //console.log(req.body);
+        //console.log(req.body.init.slice(0,10).replace(/-/g,'/'));
+
         var vB = new votingBallot();
         vB.Name = req.body.name;
         vB.Description = req.body.desc;
         vB.dateInit = req.body.init;
         vB.dateEnd = req.body.end;
+        vB.DateConfirm = req.body.init.slice(0,10).replace(/-/g,'/');
         vB.save(function (error, data, callback) {
           if(error){
             res.status(500).json(error);
@@ -533,7 +536,7 @@ module.exports = function(app) {
             else{
                 vote.authToken = vote.generateJWT(2);
                 vote.verifiedToken = false;
-                vote.resetTokenExpires = Date.now() + 180000; //1 Minutes
+                vote.resetTokenExpires = Date.now() + 300000; //1 Minutes
                 vote.save(function (error, data, callback) {
                   if(error){
                     res.status(500).json(error);
@@ -594,27 +597,39 @@ module.exports = function(app) {
           }
         });
       });
-      
+       //Find one user by email
+      app.get('/api/votingBallot/eraseVotes',function(req,res){
+          Votante.update({} ,{emitVote: false}, {multi: true},function(error,data){
+              if(error){
+                  res.status(500).json(error);
+              }else{
+                  res.status(200).json(data);
+              }
+          });
+      });
+
       //Get Voting Ballots for day
-      app.get('/api/votingBallot/getVotingBallot/:date',function (req, res) {
-        votingBallot.findOne({dateInit: { $lte: req.params.date}},function (error, VB) {
+      app.get('/api/votingBallot/getVotingBallot/:year/:month/:day',function (req, res) {
+        var DateTEMP = req.params.year + '/' + req.params.month + '/' + req.params.day
+        votingBallot.find({DateConfirm: DateTEMP},function (error, data) {
+          //console.log("Data: " + data);
           if(error){
             res.status(500).json(error);
           }
-          if(!VB){
-            res.status(500).send();
+          if(!data || data == ''){
+            res.status(500).send({msg:"NO VB"});
           }
           else{
-           res.status(200).json(VB);
+           res.status(200).json(data[0]._id);
           }
         });
       });
 
       //To Emit Vote
-      app.get('/api/vote/toEmit/:idvb/:idcandidate',function (req, res) {
-       votingBallotCounter.findOneAndUpdate({id : req.params.idvb},{
+      app.post('/api/vote/toEmit',function (req, res) {
+       votingBallotCounter.findOneAndUpdate({id : req.body.idvb},{
                             '$push':{
-                                Candidate : req.params.idcandidate
+                                Candidate : req.body.idcandidate
                             }
                         },function (error,data) {
            if(error){
@@ -624,7 +639,29 @@ module.exports = function(app) {
               res.status(500).send({msg:"No VB"});
             }
             else{
-                res.status(200).json(data);
+              Votante.findByIdAndUpdate(req.body.idvote,{
+                        '$set':{
+                            'emitVote' : true
+                            } 
+                        },function (error,data) {
+                          if(error){
+                                 res.status(500).json(error);
+                            }
+                            else{
+                              //res.status(200).json(data);
+                              clientSMS.messages.create({
+                                  body: data.personalData.Name + ', tu voto fue registrado. Gracias!',
+                                  to: '+52' + data.personalData.Telephone,  // Text this number
+                                  from: '+19172670676 ' // From a valid Twilio number
+                              }, function(error, message) {
+                                  if(error){
+                                    res.status(500).json(error);
+                                  }else{
+                                    res.status(200).send({msg: "SMS Delivered"});
+                                  }
+                              });
+                            }
+               });
             }
        });
       });

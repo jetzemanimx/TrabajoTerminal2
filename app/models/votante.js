@@ -49,6 +49,9 @@ var votanteSchema = new mongoose.Schema({
             type: Boolean,
             default: true
         },
+        emitVote: {
+            type: Boolean
+        },
         authToken: String,
         resetTokenExpires: Date,
         verifiedToken: Boolean
