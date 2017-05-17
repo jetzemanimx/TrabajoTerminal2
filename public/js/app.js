@@ -82,7 +82,7 @@ angular
         })
         .factory("Server",function($mdDialog,$mdToast) { 
           return {
-                Ip : "192.168.0.119:8080"
+                Ip : "192.168.1.113:8080"
             }
         })
         .directive('ngEnter', function () {
