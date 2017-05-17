@@ -44,6 +44,41 @@
 	</div>
 </div>
 
+<div ng-show="Loading" layout="row" flex layout-align="center center" layout-margin>
+		<img ng-click="AuthVote()" class="img-responsive img-circle" src="img/loading.gif" style="width: 150px;" />
+</div>
 
+<!--Voting Ballot-->
+
+<div ng-show="ViewVB">
+	<div layout="row" flex layout-align="center center" layout-margin>
+		<div flex>
+		  <md-toolbar class="md-primarymu md-hue-3" style="min-height: 48px; text-align: center">
+		  	<h3>{{Name}}</h3>
+		  </md-toolbar>
+		</div>
+	</div>
+
+	<div layout="row" flex layout-align="center center" layout-margin>
+		<md-card flex="40" layout-align="center center" layout-margin> 
+			<md-card-content>
+			<form name="EmitVoteForm" ng-submit="EmitVote(Candidate)">
+					<!-- <h3>{{Candidate}}</h3> -->
+				<md-radio-group ng-model="Candidate" align="center" required>
+					<md-radio-button ng-repeat="it in avatarData"
+					ng-value="it.id"
+					aria-label="{{it.id}}">
+					<a href="" data-toggle="modal" data-target="#myModal"><img src="{{it.image}}" class="img-responsive img-square"></a>
+					</md-radio-button>
+				</md-radio-group> 
+				<section layout="row"  layout-align="space-around center">
+					<md-button  ng-disabled="!EmitVoteForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Emitir Voto</md-button>
+				</section>
+			</md-card-content>
+			</form>
+		</md-card> 
+		</div>
+	</div>
+</div>
 
 

@@ -731,6 +731,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
           Message.Error("Ops! Algo salio mal, intenta nuevamente");
         });
       }, function() {
+        //No
       });
     };
 
@@ -940,13 +941,4 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       };
 
     };
-
-
-
-
-
-
-
-
-
 });
