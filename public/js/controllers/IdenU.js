@@ -17,7 +17,8 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 		})
 		.error(function(error){
 			$timeout(function(){
-			},2000);
+				$window.location.reload();
+			},1000);
 			Message.Error("Boleta Incorrecta");
 		});	
 	};
@@ -27,7 +28,7 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 		.success(function(data){
 
 			var confirm = $mdDialog.prompt()
-			.title('Se envio un SMS al telefono registrado en iVoto.')
+			.title('Se envió un SMS al teléfono registrado en iVoto.')
 			.textContent('Ingresalo')
 			.ariaLabel('Lucky day')
 			.initialValue('')
@@ -54,14 +55,14 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 						.success(function(data){
 							$timeout(function(){
 								$mdDialog.cancel();
-								$route.reload();
+								$window.location.reload();
 								},1000);
 								Message.Success("Verificación exitosa");
 						})
 						.error(function(error){
 							$timeout(function(){
 								$mdDialog.cancel();
-								$route.reload();
+								$window.location.reload();
 								},1000);
 								Message.Success("Ops! Algo salio mal, intenta nuevamente");
 						});
@@ -70,10 +71,9 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 
 				})
 				.error(function(error){
-					
 					$timeout(function(){
 					$mdDialog.cancel();
-					$route.reload();
+					$window.location.reload();
 					},1000);
 					Message.Success("Codigo erroneo. Comience de nuevo!.");
 

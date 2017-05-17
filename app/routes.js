@@ -8,13 +8,14 @@ var xoauth2 = require('xoauth2');
 var smtpTransport = require("nodemailer-smtp-transport");
 var passport = require('passport');
 var async = require('async');
+var arraySort = require('array-sort');
 //Configuration NodeMailer SMTP
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
         type: 'OAuth2',
         user: 'protocolovoto@gmail.com',
-        accessToken: 'ya29.GltHBPB7yS850ccz_tpgn3Msg73N6Al8zf8mhQPcq2O7fckTz7_9s65HLfVlaFc42l7Uy2vcd9-b9agWKRKa3mev_zfEuI3iOuJ_2BJHGY-kS4G83-wOlE_NwtFy'
+        accessToken: 'ya29.GltMBLa49CRgkW5CfTSC4Xr6AQ2jf2yFDxv9hDI1JYwP5uff11jEenBwyLLXlvvrMEOW-pOjfMA1SfmjgWJ-iHtPG2zB0_UJ0pfhZnBLJAqpRKzOla2K4dcK2zcR'
     }
 });
 //Date format
@@ -593,6 +594,21 @@ module.exports = function(app) {
           }
         });
       });
+      
+      //Get Voting Ballots for day
+      app.get('/api/votingBallot/getVotingBallot/:date',function (req, res) {
+        votingBallot.findOne({dateInit: { $lte: req.params.date}},function (error, VB) {
+          if(error){
+            res.status(500).json(error);
+          }
+          if(!VB){
+            res.status(500).send();
+          }
+          else{
+           res.status(200).json(VB);
+          }
+        });
+      });
 
       //To Emit Vote
       app.get('/api/vote/toEmit/:idvb/:idcandidate',function (req, res) {
@@ -614,16 +630,40 @@ module.exports = function(app) {
       });
 
        //To Results
-      app.get('/api/getResults/:idvb/:idcandidate',function (req, res) {
-        votingBallotCounter.find({id: req.params.idvb},{Candidate: { $elemMatch: {'id': req.params.idcandidate}}},function (error, data) {
+      app.get('/api/getResults/:idvb',function (req, res) {
+        votingBallotCounter.findOne({id: req.params.idvb},function (error, VB) {
           if(error){
                 res.status(500).json(error);
             }
-            if(!data){
+            if(!VB){
               res.status(500).send({msg:"No VB"});
             }
             else{
-                res.status(200).json(data);
+              var arr_sort = arraySort(VB.Candidate);
+              var current = null;
+              var cnt = 0;
+              var ArrayCounters = [];
+
+              for (var i = 0; i < VB.Candidate.length; i++) {
+                  
+                  if (arr_sort[i] != current) {
+                    if (cnt > 0) {
+                    //console.log(current + ' comes --> ' + cnt + ' times<br>');
+                    ArrayCounters.push(current + ":" + cnt);
+                    }
+                    current = arr_sort[i];
+                    cnt = 1;
+                    } 
+                  else {
+                    cnt++;
+                  }
+                }
+
+                if (cnt > 0) {
+                //console.log(current + ' comes --> ' + cnt + ' times');
+                ArrayCounters.push(current + ":" + cnt);
+                }
+              res.status(200).json(ArrayCounters);
             }
         });
       });

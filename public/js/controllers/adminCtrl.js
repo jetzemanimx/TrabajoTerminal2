@@ -9,8 +9,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
           'Candidatos',
           'Votantes',
           'Plantillas',
-          'Resultados Finales',
-          'Resultados Preliminares'
+          'Resultados Finales'
         ];
       }else{
           $scope.Menu = [
@@ -18,8 +17,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             'Candidatos',
             'Votantes',
             'Plantillas',
-            'Resultados Finales',
-            'Resultados Preliminares'
+            'Resultados Finales'
         ]; 
       }
 
@@ -82,15 +80,6 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectVotingB=true;
             break;
         case 'Resultados Finales':
-            //alert("Plantillas");
-            $scope.SelectUserMaster = false ;
-            $scope.SelectCandidate = false;
-            $scope.SelectVote = false;
-            $scope.Profile = false;
-            $scope.SelectVotingB=false;
-            Message.Success("En Construcción");
-            break;
-        case 'Resultados Preliminares':
             //alert("Plantillas");
             $scope.SelectUserMaster = false ;
             $scope.SelectCandidate = false;

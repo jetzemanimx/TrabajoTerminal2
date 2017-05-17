@@ -9,6 +9,7 @@
   "author": "ESCOM",
   "license": "MIT",
   "dependencies": {
+    "array-sort": "^0.1.2",
     "async": "^2.3.0",
     "biguint-format": "^1.0.0",
     "body-parser": "^1.16.0",
