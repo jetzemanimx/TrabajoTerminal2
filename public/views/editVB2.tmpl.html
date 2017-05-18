@@ -18,10 +18,14 @@
                     <md-radio-group ng-model="Candidate" align="center">
                     <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="2" md-row-height-gt-md="5:5" md-row-height="5:5" md-gutter="12px" md-gutter-gt-sm="8px"  layout-margin>
                         <md-grid-tile ng-repeat="data in avatarData">
+                        <md-card style="background: #ECF0F1;"> 
+                        <md-card-content>
                         <md-radio-button  ng-value="data.name" aria-label="data.id">
                          <img src="{{data.image}}" class="img-responsive img-square"/>
                         </md-radio-button>
                     </md-radio-group> 
+                    </md-card-content>
+                    </md-card>
                     </md-grid-tile>
                     </md-grid-list>
                 </md-card-content>
