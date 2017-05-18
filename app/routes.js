@@ -680,14 +680,26 @@ module.exports = function(app) {
               var arr_sort = arraySort(VB.Candidate);
               var current = null;
               var cnt = 0;
+              var ArrayNames = [];
               var ArrayCounters = [];
 
               for (var i = 0; i < VB.Candidate.length; i++) {
                   
                   if (arr_sort[i] != current) {
                     if (cnt > 0) {
-                    //console.log(current + ' comes --> ' + cnt + ' times<br>');
-                    ArrayCounters.push(current + ":" + cnt);
+                    //console.log(current + ' comes --> ' + cnt + ' times');
+                    ArrayCounters.push(cnt);
+
+                    Candidate.findById(current,function(error,data){
+                      if(error){
+                          res.status(500).json(error);
+                      }else{
+                          //console.log(data.personalData.Name + " "+ data.personalData.lastName);
+                          ArrayNames.push(data.personalData.Name + " "+ data.personalData.lastName);
+                          //console.log(ArrayNames);
+                      }
+                    });
+                    //ArrayCounters.push(current + ":" + cnt);
                     }
                     current = arr_sort[i];
                     cnt = 1;
@@ -698,10 +710,21 @@ module.exports = function(app) {
                 }
 
                 if (cnt > 0) {
-                //console.log(current + ' comes --> ' + cnt + ' times');
-                ArrayCounters.push(current + ":" + cnt);
-                }
-              res.status(200).json(ArrayCounters);
+                  //console.log(current + ' comes --> ' + cnt + ' times');
+                  ArrayCounters.push(cnt);
+                  Candidate.findById(current,function(error,data){
+                      if(error){
+                          res.status(500).json(error);
+                      }else{
+                          //console.log(data.personalData.Name + " "+ data.personalData.lastName);
+                          ArrayNames.push(data.personalData.Name + " "+ data.personalData.lastName);
+                          //console.log(ArrayCounters);
+                          //res.status(200).json(ArrayNames + "-" + ArrayCounters); 
+                          res.status(200).json({Names: ArrayNames, Counters: ArrayCounters});
+                          //res.send(200, ArrayCounters);
+                      }
+                  });
+                }           
             }
         });
       });

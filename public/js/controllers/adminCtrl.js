@@ -284,11 +284,11 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
 
 
     $scope.registerVote = function(){
-      //console.log("Registro: " + $scope.FNCalendar);
+
       if($scope.FNCalendar){
         $http.post('http://'+Server.Ip+'/api/vote/register',{
           'boleta': $scope.Boleta,
-          'birth' : $scope.FNCalendar,
+          'birth' : $scope.FNCalendar.toISOString().slice(0,10).replace(/-/g,'-'),
           'telephone' : $scope.Telefono,
           'name': $scope.Nombre,
           'lastname': $scope.Apellidos,
@@ -376,7 +376,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         //console.log("Update: " + $scope.FNCalendar);
         $http.patch('http://'+Server.Ip+'/api/vote/update/'+ $scope.Id, {
         boleta: $scope.Boleta,
-        birth: $scope.FNCalendar,
+        birth: $scope.FNCalendar.toISOString().slice(0,10).replace(/-/g,'-'),
         telephone : $scope. Telefono,
         name: $scope.Nombre,
         lastname: $scope.Apellidos, 
@@ -546,8 +546,8 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
     $scope.GenerateResults = function (Voting) {
-
-      $scope.myTest = {
+      var mySeries = [];
+      var myJson = {
         globals: {
             shadow: false,
             fontFamily: "Verdana",
@@ -573,24 +573,17 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       if(Voting){
         $http.get('http://'+ Server.Ip +'/api/getResults/' + Voting._id)
         .success(function(data){
-          for (var i = 0; i < data.length; i++){
-            //console.log("id: " + data[i].split(':')[0]);
-            //console.log("Contador: " + data[i].substring(data[i].lastIndexOf(":") + 1));
-            //var Counter = data[i].substring(data[i].lastIndexOf(":") + 1);
-            //console.log($scope.Counter);
-            $http.get('http://'+ Server.Ip +'/api/candidate/find/' + data[i].split(':')[0])
-            .success(function(response){
-              console.log(response.personalData.Name + " " + response.personalData.lastName);
-              /*$scope.myTest.series.push({
-              name : response.personalData.Name + " " + response.personalData.lastName,
-              values : "[" + data[i].substring(data[i].lastIndexOf(":") + 1) + "]"
-              });*/
-              console.log(Counter);    
-              Counter = "";          
-            })
-            .error(function(error){
-              console.log(error);
-            });
+          //Validar si aun no hay votos
+          if(data.Names.length + data.Counters.length){
+            //console.log(data);
+            for (var i = 0; i < data.Names.length; i++) {
+              //console.log("text: '" + data.Names[i] + "'," + "values: [" + data.Counters[i] + "]");
+              myJson.series.push("text: " + data.Names[i] + "," + "values: [" + data.Counters[i] + "]");
+            }
+            console.log(myJson);
+            $scope.myJson = myJson;
+          }else{
+            Message.Error("No existen registros de votos, intenta mas tarde!.");
           }
         })
         .error(function(error){

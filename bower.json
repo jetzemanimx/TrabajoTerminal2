@@ -25,7 +25,8 @@
     "angular-chips": "^1.0.11",
     "angular-nvd3": "^1.0.9",
     "d3": "^4.9.1",
-    "ZingChart-AngularJS": "zingchart-angularjs#^1.2.0"
+    "ZingChart-AngularJS": "zingchart-angularjs#^1.2.0",
+    "angular-chart.js": "^1.1.1"
   },
   "resolutions": {
     "angular": "1.5.5"
