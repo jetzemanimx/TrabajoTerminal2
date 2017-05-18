@@ -64,14 +64,10 @@
 	  <md-content layout-margin>
 	      <md-card flex="100"> 
 	          <md-card-content>
-	          	<form name="EmitVoteForm" ng-submit="EmitVote(Candidate)">
-	              <p style="margin-top: 0;" align="center">
-	                <span align="center" class="radioValue">{{Candidate}}</span>
-	              </p>
 	              <md-radio-group ng-model="Candidate" align="center">
-	              <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="2" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px" md-gutter-gt-sm="8px"  layout-margin>
+	              <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="2" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="6px" md-gutter-gt-sm="4px"  layout-margin>
 	                  <md-grid-tile ng-repeat="data in avatarData">
-	                  <md-radio-button  ng-value="data.name" aria-label="data.id">
+	                  <md-radio-button  ng-value="data.id" aria-label="data.id">
 	                   <img src="{{data.image}}" class="img-responsive img-square"/>
 	                  </md-radio-button>
 	              </md-radio-group> 
