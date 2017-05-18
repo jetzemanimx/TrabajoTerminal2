@@ -56,8 +56,7 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 
 					$mdDialog.show(confirm).then(function(birthday) {
 
-						var NewBirthay = birthday.concat("T06:00:00.000Z");
-						$http.get('http://'+Server.Ip+'/api/vote/verifyBirthday/'+ $scope.Vote.id + '/' +  NewBirthay)
+						$http.get('http://'+Server.Ip+'/api/vote/verifyBirthday/'+ $scope.Vote.id + '/' +  birthday)
 						.success(function(data){
 							$timeout(function(){
 								$mdDialog.cancel();
@@ -100,8 +99,20 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 	};
 
 	$scope.getIdVotingBallot = function(){
-		var Now = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-		$http.get('http://'+Server.Ip+'/api/votingBallot/getVotingBallot/' + Now)
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if(dd<10){
+		    dd='0'+dd;
+		} 
+		if(mm<10){
+		    mm='0'+mm;
+		} 
+		var today = yyyy+'/'+mm+'/'+dd;
+		console.log(today);
+		$http.get('http://'+Server.Ip+'/api/votingBallot/getVotingBallot/' + today)
 			.success(function(data){
 				$scope.IDVB = data;
 			  $scope.getVotingBallot(data);

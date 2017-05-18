@@ -59,25 +59,36 @@
 		</div>
 	</div>
 
-	<div layout="row" flex layout-align="center center" layout-margin>
-		<md-card flex="40" layout-align="center center" layout-margin> 
-			<md-card-content>
-			<form name="EmitVoteForm" ng-submit="EmitVote(Candidate)">
-					<!-- <h3>{{Candidate}}</h3> -->
-				<md-radio-group ng-model="Candidate" align="center" required>
-					<md-radio-button ng-repeat="it in avatarData"
-					ng-value="it.id"
-					aria-label="{{it.id}}">
-					<a href="" data-toggle="modal" data-target="#myModal"><img src="{{it.image}}" class="img-responsive img-square"></a>
-					</md-radio-button>
-				</md-radio-group> 
-				<section layout="row"  layout-align="space-around center">
+	<div layout="row" flex layout-margin>
+	<div flex class="gridListdemoBasicUsage">
+	  <md-content layout-margin>
+	      <md-card flex="100"> 
+	          <md-card-content>
+	          	<form name="EmitVoteForm" ng-submit="EmitVote(Candidate)">
+	              <p style="margin-top: 0;" align="center">
+	                <span align="center" class="radioValue">{{Candidate}}</span>
+	              </p>
+	              <md-radio-group ng-model="Candidate" align="center">
+	              <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="2" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px" md-gutter-gt-sm="8px"  layout-margin>
+	                  <md-grid-tile ng-repeat="data in avatarData">
+	                  <md-radio-button  ng-value="data.name" aria-label="data.id">
+	                   <img src="{{data.image}}" class="img-responsive img-square"/>
+	                  </md-radio-button>
+	              </md-radio-group> 
+	              </md-grid-tile>
+	              </md-grid-list>
+	              <section layout="row"  layout-align="space-around center">
 					<md-button  ng-disabled="!EmitVoteForm.$valid" type="submit" class="md-raised md-accent md-hue-3">Emitir Voto</md-button>
 				</section>
-			</md-card-content>
-			</form>
-		</md-card> 
-		</div>
+	          </md-card-content>
+	      </md-card> 
+	  </md-content>
+	</div>
+	</div>
+</form>
+
+
+
 	</div>
 </div>
 

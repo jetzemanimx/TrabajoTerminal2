@@ -8,7 +8,7 @@
       </div>
     </md-toolbar>
     <div layout="row" flex layout-margin>
-      <div flex>
+      <div flex class="gridListdemoBasicUsage">
         <md-content layout-margin>
             <md-card flex="100"> 
                 <md-card-content>
@@ -16,10 +16,14 @@
                       <span align="center" class="radioValue">{{Candidate}}</span>
                     </p>
                     <md-radio-group ng-model="Candidate" align="center">
-                        <md-radio-button ng-repeat="data in avatarData" ng-value="data.name" aria-label="data.id">
+                    <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="2" md-row-height-gt-md="5:5" md-row-height="5:5" md-gutter="12px" md-gutter-gt-sm="8px"  layout-margin>
+                        <md-grid-tile ng-repeat="data in avatarData">
+                        <md-radio-button  ng-value="data.name" aria-label="data.id">
                          <img src="{{data.image}}" class="img-responsive img-square"/>
                         </md-radio-button>
                     </md-radio-group> 
+                    </md-grid-tile>
+                    </md-grid-list>
                 </md-card-content>
             </md-card> 
         </md-content>

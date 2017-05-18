@@ -279,11 +279,11 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
 
 
     $scope.registerVote = function(){
-      //console.log("Registro: " + $scope.FNCalendar);
+
       if($scope.FNCalendar){
         $http.post('http://'+Server.Ip+'/api/vote/register',{
           'boleta': $scope.Boleta,
-          'birth' : $scope.FNCalendar,
+          'birth' : $scope.FNCalendar.toISOString().slice(0,10).replace(/-/g,'-'),
           'telephone' : $scope.Telefono,
           'name': $scope.Nombre,
           'lastname': $scope.Apellidos,
@@ -371,7 +371,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         //console.log("Update: " + $scope.FNCalendar);
         $http.patch('http://'+Server.Ip+'/api/vote/update/'+ $scope.Id, {
         boleta: $scope.Boleta,
-        birth: $scope.FNCalendar,
+        birth: $scope.FNCalendar.toISOString().slice(0,10).replace(/-/g,'-'),
         telephone : $scope. Telefono,
         name: $scope.Nombre,
         lastname: $scope.Apellidos, 
