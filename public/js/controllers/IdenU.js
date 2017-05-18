@@ -47,7 +47,7 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 
 				var confirm = $mdDialog.prompt()
 					.title('Introduce tu fecha de nacimiento')
-					.textContent('El formato debe ser igual a como se indica \n Ej. YYYY')
+					.textContent('El formato debe ser igual a como se indica \n Ej. YYYY-MM-DD')
 					.ariaLabel('Lucky day')
 					.initialValue('')
 					.placeholder('YYYY-MM-DD')
@@ -114,7 +114,7 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 		console.log(today);
 		$http.get('http://'+Server.Ip+'/api/votingBallot/getVotingBallot/' + today)
 			.success(function(data){
-				$scope.IDVB = data;
+			  $scope.IDVB = data;
 			  $scope.getVotingBallot(data);
 			})
 			.error(function(error){
@@ -144,29 +144,30 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 		};
 
 		$scope.EmitVote = function(Candidate){
-			var confirm = $mdDialog.confirm()
+		var confirm = $mdDialog.confirm()
 	    .title('¿Estás seguro de tu voto?')
 	    .ariaLabel('Lucky day')
-	    .ok('Si!')
-	    .cancel('No!');
+	    .ok('Estoy seguro!.')
+	    .cancel('No estoy seguro!.');
 
 	    $mdDialog.show(confirm).then(function() {
-				$http.post('http://'+Server.Ip+'/api/vote/toEmit',{
-        'idvb' :$scope.IDVB,
-        'idcandidate' :Candidate,
-        'idvote' :$scope.Vote.id
-        })
-        .success(function (data) {
-        	$timeout(function(){
-						$window.location.reload();
-					},800);
-        })
-        .error(function (error) {
-        Message.Error("Ops! Algo salio mal, intenta nuevamente");
-        });
-
+			$http.post('http://'+Server.Ip+'/api/vote/toEmit',{
+	        'idvb' :$scope.IDVB,
+	        'idcandidate' :Candidate,
+	        'idvote' :$scope.Vote.id
+	        })
+	        .success(function (data) {					
+	        	$timeout(function(){
+	        		$mdDialog.cancel();
+					$window.location.reload();
+				},1500);
+				Message.Success("Tu voto fue registrado, Gracias!");
+	        })
+	        .error(function (error) {
+	        Message.Error("Ops! Algo salio mal, intenta nuevamente");
+	        });
 	      }, function() {
-	        $window.location.reload();
+	        //$window.location.reload();
 	      });
 			//console.log($scope.IDVB +"\tCandidato "+ Candidate +"\tVotante " + $scope.Vote.id);
 		};

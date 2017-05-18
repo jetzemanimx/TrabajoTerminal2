@@ -23,8 +23,8 @@ angular
         'angularUtils.directives.dirPagination',
         'ngStorage',
         'ngMessages',
-        'IdenU'
-
+        'IdenU',
+        'zingchart-angularjs'
         ])
         .config(function($logProvider,$mdThemingProvider){
             $logProvider.debugEnabled(false);
