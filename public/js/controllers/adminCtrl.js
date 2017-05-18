@@ -46,6 +46,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
             $scope.SelectVotingB=false;
+            $scope.ResultsVotingBallots = false;
             break;
         case 'Usuarios':
             //alert("Usuarios");
@@ -53,6 +54,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectCandidate = false;
             $scope.SelectVote = false;
             $scope.Profile = false;
+            $scope.ResultsVotingBallots = false;
 
             break;
         case 'Candidatos':
@@ -62,6 +64,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectVote = false;
             $scope.Profile = false;
             $scope.SelectVotingB=false;
+            $scope.ResultsVotingBallots = false;
             break;
         case 'Votantes':
             //alert("Votantes");
@@ -70,6 +73,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectVote = true ;
             $scope.Profile = false;
             $scope.SelectVotingB=false;
+            $scope.ResultsVotingBallots = false;
             break;
         case 'Plantillas':
             //alert("Plantillas");
@@ -78,6 +82,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
             $scope.SelectVote = false;
             $scope.Profile = false;
             $scope.SelectVotingB=true;
+            $scope.ResultsVotingBallots = false;
             break;
         case 'Resultados Finales':
             //alert("Plantillas");
@@ -527,6 +532,76 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
     /*Planilla*/
 
+    $scope.loadVotingBallots = function() {
+      // Use timeout to simulate a 650ms request.
+      return $timeout(function() {
+      $http.get('http://'+ Server.Ip +'/api/votingBallots')
+      .success(function(data){
+        $scope.users = data;
+      })
+      .error(function(error){
+        console.log(error);
+      });
+      }, 650);
+    };
+
+    $scope.GenerateResults = function (Voting) {
+
+      $scope.myTest = {
+        globals: {
+            shadow: false,
+            fontFamily: "Verdana",
+            fontWeight: "100"
+        },
+        type: "pie",
+        backgroundColor: "#ffffff",
+        legend: {
+            layout: "x5",
+            position: "100%",
+            borderColor: "transparent",
+            marker: {
+                borderRadius: 10,
+                borderColor: "transparent"
+            }
+        },
+        tooltip: {
+            text: "%v votos"
+        },
+        series: []
+      };
+
+      if(Voting){
+        $http.get('http://'+ Server.Ip +'/api/getResults/' + Voting._id)
+        .success(function(data){
+          for (var i = 0; i < data.length; i++){
+            //console.log("id: " + data[i].split(':')[0]);
+            //console.log("Contador: " + data[i].substring(data[i].lastIndexOf(":") + 1));
+            //var Counter = data[i].substring(data[i].lastIndexOf(":") + 1);
+            //console.log($scope.Counter);
+            $http.get('http://'+ Server.Ip +'/api/candidate/find/' + data[i].split(':')[0])
+            .success(function(response){
+              console.log(response.personalData.Name + " " + response.personalData.lastName);
+              /*$scope.myTest.series.push({
+              name : response.personalData.Name + " " + response.personalData.lastName,
+              values : "[" + data[i].substring(data[i].lastIndexOf(":") + 1) + "]"
+              });*/
+              console.log(Counter);    
+              Counter = "";          
+            })
+            .error(function(error){
+              console.log(error);
+            });
+          }
+        })
+        .error(function(error){
+          console.log(error);
+        });
+      }
+      else{
+        Message.Error("Debes seleccionar una plantilla");
+      }
+    };
+
     $scope.AddVotingVB = function() {
       $scope.FormRegisterVB =  true;
       $scope.FormEditVB = false;
@@ -706,6 +781,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
       $http.get('http://'+ Server.Ip +'/api/votingBallots')
       .success(function(data){
         $scope.VB = data;
+        //console.log(data);
       })
       .error(function(error){
         console.log(error);
@@ -894,7 +970,6 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     }
 
     };
-
 
     $scope.goToVB2 = function(vb2) {
         $mdDialog.show({

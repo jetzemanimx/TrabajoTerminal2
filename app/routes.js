@@ -610,7 +610,8 @@ module.exports = function(app) {
 
       //Get Voting Ballots for day
       app.get('/api/votingBallot/getVotingBallot/:year/:month/:day',function (req, res) {
-        var DateTEMP = req.params.year + '/' + req.params.month + '/' + req.params.day
+        var DateTEMP = req.params.year + '/' + req.params.month + '/' + req.params.day;
+        
         votingBallot.find({DateConfirm: DateTEMP},function (error, data) {
           //console.log("Data: " + data);
           if(error){

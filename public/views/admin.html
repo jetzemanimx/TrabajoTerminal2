@@ -834,17 +834,18 @@
     <div layout="row" flex layout-align="center center" layout-margin>
       <md-card flex="80"> 
         <md-card-content>
-          <div layout="row">
-            <div layout="column" flex="50" layout-align="center center" layout-margin>
-              <md-input-container class="md-block" flex>
-                <label>Planillas de Votación</label>
-                <md-select ng-model="VB">
-                  <md-option ng-repeat="VB in VotingBallots" value="{{VB}}">{{VB}}</md-option>
-                </md-select>
-              </md-input-container>
+          <div>
+            <div layout="row" flex="100" layout-align="center center" layout-margin>
+              <p>Selecciona una plantilla</p>
+              <md-select placeholder="Plantillas de votación" ng-model="user" md-on-open="loadVotingBallots()" style="min-width: 200px;">
+                <md-option ng-value="user" ng-repeat="user in users">{{user.Name}}</md-option>
+              </md-select>
             </div>
-            <div layout="column" flex="50" layout-align="center center" layout-margin>
-              
+            <div layout="row" flex="100" layout-align="center center">
+              <md-button class="md-raised md-primary" ng-click="GenerateResults(user)">Generar Resultados</md-button>
+            </div>
+            <div layout="row" flex="100" layout-align="center center">
+              <zingchart id="chart-1" zc-json="myJson" zc-height="700px" zc-width="800px"></zingchart>
             </div>
           </div>
         </md-card-content>
