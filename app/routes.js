@@ -696,7 +696,7 @@ module.exports = function(app) {
                       if(error){
                           res.status(500).json(error);
                       }else{
-                          console.log(data.personalData.Name + " "+ data.personalData.lastName);
+                          //console.log(data.personalData.Name + " "+ data.personalData.lastName);
                           ArrayNames.push(data.personalData.Name + " "+ data.personalData.lastName);
                           //console.log(ArrayNames);
                       }
@@ -718,7 +718,7 @@ module.exports = function(app) {
                       if(error){
                           res.status(500).json(error);
                       }else{
-                          console.log(data.personalData.Name + " "+ data.personalData.lastName);
+                          //console.log(data.personalData.Name + " "+ data.personalData.lastName);
                           ArrayNames.push(data.personalData.Name + " "+ data.personalData.lastName);
                           //console.log(ArrayCounters);
                           //res.status(200).json(ArrayNames + "-" + ArrayCounters); 

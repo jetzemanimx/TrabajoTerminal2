@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function() {
 		var barcode = "";
 		$(document).keydown(function(e) {
@@ -13,8 +13,18 @@
 			}
 		});
 	});
-</script>
-<div ng-show="IdentificarVote" ng-init="Load()">
+</script> -->
+
+<!--Welcome Vote-->
+
+<div ng-show="Welcome" ng-init="Load()" style="margin: auto;">
+	<div layout="row" layout-align="center end"  class="fondo-imag-1">
+		<md-button ng-click="Start()" class="md-raised md-accent md-hue-2" style="height: 15%; width: 50%">COMENZAR</md-button>
+	</div>
+</div>
+
+<!--Identify Vote-->
+<div ng-show="IdentificarVote">
 	<div layout="row" flex layout-align="center center" layout-margin>
 		<div flex>
 		  <md-toolbar class="md-accent md-hue-3" style="min-height: 48px; text-align: center">
@@ -30,6 +40,7 @@
     </div>
 </div>
 
+<!--Auth Vote-->
 <div ng-show="ViewVote">
 	<div layout="row" flex layout-align="center center" layout-margin>
 		<div flex>

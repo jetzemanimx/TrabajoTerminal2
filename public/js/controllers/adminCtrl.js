@@ -582,7 +582,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
               myCandidate.values = [data.Counters[i]];
               myJson.series.push(myCandidate);
             }
-            console.log(myJson);
+            //console.log(myJson);
             $scope.myJson = myJson;
           }else{
             Message.Error("No existen registros de votos, intenta mas tarde!.");

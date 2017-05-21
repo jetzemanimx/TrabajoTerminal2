@@ -1,27 +1,35 @@
 angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope, Server, $timeout, $mdDialog, $http, $rootScope, $location, $timeout, $window, $route, $interval){
 	
 	$scope.Load = function(){
+		$scope.Welcome = true;
+		$scope.IdentificarVote = false;
+		$scope.ViewVote = false;
+		$scope.ViewVB = false;
+	};
+	$scope.Start = function () {
+		$scope.Welcome = false;
 		$scope.IdentificarVote = true;
 		$scope.ViewVote = false;
 		$scope.ViewVB = false;
 	};
 
 	$scope.IdentifyVote=function(){
+		//$scope.Boleta = "2010630457";
         $http.get('http://' + Server.Ip + '/api/vote/findBoleta/' + $scope.Boleta)
 		.success(function(data){
 			$timeout(function(){
+				$scope.Welcome = false;
 				$scope.IdentificarVote = false;
 				$scope.ViewVote = true;
-				$scope.Vote = data;
 				$scope.ViewVB = false;
+				$scope.Vote = data;
 			},1000);
 			Message.Success("Bienvenido " + data.Name);
 		})
 		.error(function(error){
 			$timeout(function(){
 				$window.location.reload();
-				//$location.path('/Autentica');
-			},2000);
+			},1500);
 			Message.Error("El alumno ya ha emitido su voto o la boleta es incorrecta");
 		});	
 	};
@@ -104,14 +112,15 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 		var mm = today.getMonth()+1; //January is 0!
 
 		var yyyy = today.getFullYear();
-		if(dd<10){
-		    dd='0'+dd;
-		} 
-		if(mm<10){
-		    mm='0'+mm;
-		} 
+			if(dd<10){
+			    dd='0'+dd;
+			} 
+			if(mm<10){
+			    mm='0'+mm;
+			} 
+
 		var today = yyyy+'/'+mm+'/'+dd;
-		console.log(today);
+
 		$http.get('http://'+Server.Ip+'/api/votingBallot/getVotingBallot/' + today)
 			.success(function(data){
 			  $scope.IDVB = data;
@@ -124,51 +133,52 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 
 		$scope.getVotingBallot = function(id){
 			$http.get('http://'+ Server.Ip +'/api/votingBallots/Voting/' + id)
-        .success(function(data){
-        	$scope.Name = data.Name;
-          var CandidatesData = [];
-          //console.log(data.candidates);
-          angular.forEach(data.candidates, function(value, key) {
-                //console.log(value._id);
-                 CandidatesData.push({
-                    id : value._id._id,
-                    name : value._id.personalData.Name + " " + value._id.personalData.lastName,
-                    image : value._id.personalData.profileImageUrl
-                });
-              });
-          $scope.avatarData = CandidatesData;
-        })
-        .error(function(error){
-          console.log(error);
-        });
+		        .success(function(data){
+			        $scope.Name = data.Name;
+			          var CandidatesData = [];
+			          //console.log(data.candidates);
+			          angular.forEach(data.candidates, function(value, key) {
+			                //console.log(value._id);
+			                 CandidatesData.push({
+			                    id : value._id._id,
+			                    name : value._id.personalData.Name + " " + value._id.personalData.lastName,
+			                    image : value._id.personalData.profileImageUrl
+			                });
+			              });
+			          $scope.avatarData = CandidatesData;
+		        })
+		        .error(function(error){
+		          	console.log(error);
+	        });
 		};
 
 		$scope.EmitVote = function(Candidate){
-		var confirm = $mdDialog.confirm()
-	    .title('¿Estás seguro de tu voto?')
-	    .ariaLabel('Lucky day')
-	    .ok('Estoy seguro!.')
-	    .cancel('No estoy seguro!.');
+			var confirm = $mdDialog.confirm()
+		    .title('¿Estás seguro de tu voto?')
+		    .ariaLabel('Lucky day')
+		    .ok('Estoy seguro!.')
+		    .cancel('No estoy seguro!.');
 
-	    $mdDialog.show(confirm).then(function() {
-			$http.post('http://'+Server.Ip+'/api/vote/toEmit',{
-	        'idvb' :$scope.IDVB,
-	        'idcandidate' : Candidate,
-	        'idvote' :$scope.Vote.id
-	        })
-	        .success(function (data) {					
-	        	$timeout(function(){
-	        		$mdDialog.cancel();
-					$window.location.reload();
-				},1500);
-				Message.Success("Tu voto fue registrado, Gracias!");
-	        })
-	        .error(function (error) {
-	        Message.Error("Ops! Algo salio mal, intenta nuevamente");
-	        });
-	      }, function() {
-	        //$window.location.reload();
-	      });
-			//console.log($scope.IDVB +"\tCandidato "+ Candidate +"\tVotante " + $scope.Vote.id);
+		    $mdDialog.show(confirm).then(function() {
+				$http.post('http://'+Server.Ip+'/api/vote/toEmit',{
+				        'idvb' :$scope.IDVB,
+				        'idcandidate' : Candidate,
+				        'idvote' :$scope.Vote.id
+			        })
+			        .success(function (data) {					
+			        	$timeout(function(){
+			        		$mdDialog.cancel();
+							$window.location.reload();
+						},1000);
+						$scope.ViewVB = false;
+						Message.Success("Tu voto fue registrado, Gracias!");
+			        })
+			        .error(function (error) {
+			        	Message.Error("Ops! Algo salio mal, intenta nuevamente");
+		        });
+		    }, function() {
+		        //$window.location.reload();
+		    });
+				//console.log($scope.IDVB +"\tCandidato "+ Candidate +"\tVotante " + $scope.Vote.id);
 		};
 });

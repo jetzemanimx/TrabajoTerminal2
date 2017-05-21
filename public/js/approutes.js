@@ -20,6 +20,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 	.when('/Admin', {
 		templateUrl: 'views/admin.html',
 		controller: 'AdminController'
+	})	
+	.when('/Vote',{
+		templateUrl: 'views/IdenUser.html',
+		controller: 'IdentificarUser'
 	})
 	/*.when('/User',{
 		templateUrl: 'views/registerUser.html',
@@ -32,10 +36,6 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 	.when('/Candidate',{
 		templateUrl: 'views/Candidate.html',
 		controller: 'candidateController'
-	})*/
-	.when('/IdenUser',{
-		templateUrl: 'views/IdenUser.html',
-		controller: 'IdentificarUser'
 	})
 	.when('/VotingBallots',{
 		templateUrl: 'views/votingBallots.html',
@@ -44,7 +44,7 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider','$locationProv
 	.when('/AutenticarU',{
 		templateUrl: 'views/AutenticarU.html',
 		controller: 'AutenticarU'
-	})
+	})*/
  	.otherwise({
  		redirectTo: '/'
 	});
