@@ -169,7 +169,7 @@ angular.module('IdenU', []).controller('IdentificarUser',function(Message,$scope
 			        	$timeout(function(){
 			        		$mdDialog.cancel();
 							$window.location.reload();
-						},1000);
+						},700);
 						$scope.ViewVB = false;
 						Message.Success("Tu voto fue registrado, Gracias!");
 			        })
