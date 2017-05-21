@@ -546,7 +546,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
     };
 
     $scope.GenerateResults = function (Voting) {
-      var mySeries = [];
+      
       var myJson = {
         globals: {
             shadow: false,
@@ -557,7 +557,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         backgroundColor: "#ffffff",
         legend: {
             layout: "x5",
-            position: "100%",
+            position: "1%",
             borderColor: "transparent",
             marker: {
                 borderRadius: 10,
@@ -577,8 +577,10 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
           if(data.Names.length + data.Counters.length){
             //console.log(data);
             for (var i = 0; i < data.Names.length; i++) {
-              //console.log("text: '" + data.Names[i] + "'," + "values: [" + data.Counters[i] + "]");
-              myJson.series.push("text: " + data.Names[i] + "," + "values: [" + data.Counters[i] + "]");
+              var myCandidate = new Object();
+              myCandidate.text = data.Names[i];
+              myCandidate.values = [data.Counters[i]];
+              myJson.series.push(myCandidate);
             }
             console.log(myJson);
             $scope.myJson = myJson;

@@ -611,8 +611,10 @@ module.exports = function(app) {
       //Get Voting Ballots for day
       app.get('/api/votingBallot/getVotingBallot/:year/:month/:day',function (req, res) {
         var DateTEMP = req.params.year + '/' + req.params.month + '/' + req.params.day;
+
+        console.log("Date.now: " + Date.now());
         
-        votingBallot.find({DateConfirm: DateTEMP},function (error, data) {
+        votingBallot.find({DateConfirm: DateTEMP,  dateInit: { $lte: Date.now() }, dateEnd: { $gte: Date.now() }},function (error, data) {
           //console.log("Data: " + data);
           if(error){
             res.status(500).json(error);
@@ -694,7 +696,7 @@ module.exports = function(app) {
                       if(error){
                           res.status(500).json(error);
                       }else{
-                          //console.log(data.personalData.Name + " "+ data.personalData.lastName);
+                          console.log(data.personalData.Name + " "+ data.personalData.lastName);
                           ArrayNames.push(data.personalData.Name + " "+ data.personalData.lastName);
                           //console.log(ArrayNames);
                       }
@@ -716,7 +718,7 @@ module.exports = function(app) {
                       if(error){
                           res.status(500).json(error);
                       }else{
-                          //console.log(data.personalData.Name + " "+ data.personalData.lastName);
+                          console.log(data.personalData.Name + " "+ data.personalData.lastName);
                           ArrayNames.push(data.personalData.Name + " "+ data.personalData.lastName);
                           //console.log(ArrayCounters);
                           //res.status(200).json(ArrayNames + "-" + ArrayCounters); 
