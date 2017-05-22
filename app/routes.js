@@ -15,7 +15,7 @@ var transporter = nodemailer.createTransport({
     auth: {
         type: 'OAuth2',
         user: 'protocolovoto@gmail.com',
-        accessToken: 'ya29.GltMBLa49CRgkW5CfTSC4Xr6AQ2jf2yFDxv9hDI1JYwP5uff11jEenBwyLLXlvvrMEOW-pOjfMA1SfmjgWJ-iHtPG2zB0_UJ0pfhZnBLJAqpRKzOla2K4dcK2zcR'
+        accessToken: 'ya29.GltSBI6i-sfgwD-oCXF0vqgoONn7FeieijW3pFVPpX-QG9Zea6MfpELsS0WicvbxlXaFe5qwrhLFltxiheBr-iZ67uW3zdQrcTvng9UfADTcJAsgk7RMrUi97tw0'
     }
 });
 //Date format
@@ -825,7 +825,7 @@ module.exports = function(app) {
               'http://' + req.headers.host + '/api/reset/' + token + '\n\n' +
               'Si no lo solicitó, ignore este correo electrónico y su contraseña permanecerá sin cambios. \n'
             };
-            console.log("Mail a enviarse: " + mailOptions.to + '\n\n' + mailOptions.text);
+            //console.log("Mail a enviarse: " + mailOptions.to + '\n\n' + mailOptions.text);
             //Send mail with defined transport object
             transporter.sendMail(mailOptions, function(error, info){
               if(error){

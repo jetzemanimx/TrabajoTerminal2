@@ -574,6 +574,7 @@ angular.module('adminCtrl', []).controller('AdminController', function($scope, $
         $http.get('http://'+ Server.Ip +'/api/getResults/' + Voting._id)
         .success(function(data){
           //Validar si aun no hay votos
+          //console.log(data);
           if(data.Names.length + data.Counters.length){
             //console.log(data);
             for (var i = 0; i < data.Names.length; i++) {
